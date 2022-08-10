@@ -7,23 +7,14 @@ const Details = styled.div`
   grid-template-columns: repeat(7, auto);
 `;
 
-type HourMin = {hour: number, min: number};
-type StartTimeT = HourMin | "misc" | "error";
+type StartTimeT = string | null; // null -> More than one start time is listed
 
 function unpackStartTime(times: string) : StartTimeT {
   if(times.includes(",")) {
-    return "misc";
+    return null;
   }
 
-  const parts = times.split(":");
-  if(parts.length !== 2) {
-    return "error";
-  }
-
-  return {
-    hour: parseInt(parts[0]), 
-    min: parseInt(parts[1])
-  };
+  return times;
 }
 
 type DatesT = number[] | null;
@@ -60,12 +51,7 @@ function ShowLink({showInfo}: {showInfo: ShowInfo}) {
 }
 
 function StartTime({startTime}: {startTime: StartTimeT}) {
-  if(typeof startTime === "string") {
-    return <span>{startTime}</span>
-  }
-
-  const {hour, min} = startTime;
-  return <span>{`${hour}:${min}`}</span>;
+  return <span>{startTime || "misc"}</span>;
 }
  
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
@@ -83,18 +69,15 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
   }
 
   const compareTimes = (t1: StartTimeT, t2: StartTimeT) => {
-    const isString = (t1: StartTimeT) => typeof t1 === "string";
-    
-    if (isString(t1) && isString(t2)) {
+
+    if (t1 === null && t2 === null) {
       return 0;
-    } else if (isString(t1)) {
+    } else if (t1 === null) {
       return 1;
-    } else if (isString(t2)) {
+    } else if (t2 === null) {
       return -1;
     } else {
-      const hm1 = t1 as HourMin;
-      const hm2 = t2 as HourMin;
-      return (hm1.hour - hm2.hour) || (hm1.min - hm2.min);
+      return t1.localeCompare(t2);
     }
   }
 
