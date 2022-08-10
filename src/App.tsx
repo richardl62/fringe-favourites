@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { favourites } from './favourites';
 
-const Details = styled.div`
+const ShowList = styled.div`
   display: inline-grid;
+  column-gap: 2px;
   grid-template-columns: repeat(7, auto);
 `;
 
@@ -39,8 +40,12 @@ function unpackShowInfo(line: string[]) {
   }
 }
 
+const Date = styled.span`
+    text-align: center;
+`;
+
 function Dates({dates}: {dates: DatesT}) {
-  return <span>{dates ? dates[0] : ""}</span>;
+  return <Date>{dates ? dates[0] : "-"}</Date>;
 }
 
 type ShowInfo = ReturnType<typeof unpackShowInfo>;
@@ -55,7 +60,7 @@ function StartTime({startTime}: {startTime: StartTimeT}) {
 }
  
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
-  
+
   const compareDates = (d1: DatesT, d2: DatesT) => {
     if (d1 === null && d2 === null) {
       return 0;
@@ -86,6 +91,9 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
 }
 
 function App() {
+  useEffect(() => {
+    document.title = 'Fringe Favourites';
+  });
 
   const gridElems: JSX.Element [] = [];
   
@@ -102,7 +110,7 @@ function App() {
     gridElems.push(<span>{info.kRating}</span>);
   }
   
-  return <Details>{gridElems}</Details>;
+  return <ShowList>{gridElems}</ShowList>;
 }
 
 export default App;
