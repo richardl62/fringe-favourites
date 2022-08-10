@@ -3,12 +3,21 @@ import styled from "styled-components";
 import { favourites } from './favourites';
 
 const ShowList = styled.div`
+  * {
+    overflow: hidden;
+    white-space: nowrap;
+  }
   display: inline-grid;
   column-gap: 2px;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: minmax(auto, 1fr) repeat(3, auto) minmax(auto, 10em) auto auto
 `;
 
 type StartTimeT = string | null; // null -> More than one start time is listed
+
+function unpackVenue(venue: string) {
+  // To do consider proper implemenation of camel case 
+  return venue.replace("ROUNDABOUT", "Roundabout");
+}
 
 function unpackStartTime(times: string) : StartTimeT {
   if(times.includes(",")) {
@@ -30,7 +39,7 @@ function unpackDates(dates: string) : DatesT  {
 function unpackShowInfo(line: string[]) {
   return {
     title: line[0],
-    venue: line[1],
+    venue: unpackVenue(line[1]),
     duration: line[2],
     startTime: unpackStartTime(line[3]),
     dates: unpackDates(line[4]),
