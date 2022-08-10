@@ -7,7 +7,8 @@ const Details = styled.div`
   grid-template-columns: repeat(7, auto);
 `;
 
-type StartTimeT = {hour: number, min: number} | "misc" | "error";
+type HourMin = {hour: number, min: number};
+type StartTimeT = HourMin | "misc" | "error";
 
 function unpackStartTime(times: string) : StartTimeT {
   if(times.includes(",")) {
@@ -64,26 +65,60 @@ function StartTime({startTime}: {startTime: StartTimeT}) {
   }
 
   const {hour, min} = startTime;
-  return <span>{`${hour}:${min}`}</span>
+  return <span>{`${hour}:${min}`}</span>;
+}
+ 
+function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
+  
+  const compareDates = (d1: DatesT, d2: DatesT) => {
+    if (d1 === null && d2 === null) {
+      return 0;
+    } else if (d1 === null) {
+      return 1;
+    } else if (d2 === null) {
+      return -1;
+    } else {
+      return d1[0] - d2[0];
+    }
+  }
+
+  const compareTimes = (t1: StartTimeT, t2: StartTimeT) => {
+    const isString = (t1: StartTimeT) => typeof t1 === "string";
+    
+    if (isString(t1) && isString(t2)) {
+      return 0;
+    } else if (isString(t1)) {
+      return 1;
+    } else if (isString(t2)) {
+      return -1;
+    } else {
+      const hm1 = t1 as HourMin;
+      const hm2 = t2 as HourMin;
+      return (hm1.hour - hm2.hour) || (hm1.min - hm2.min);
+    }
+  }
+
+  return compareDates(info1.dates, info2.dates) || 
+    compareTimes(info1.startTime, info2.startTime);
 }
 
 function App() {
 
   const gridElems: JSX.Element [] = [];
   
-  for(const line of favourites) {
-    const info = unpackShowInfo(line);
-    gridElems.push(<ShowLink showInfo={info} />);
+  const showInfo = favourites.map(unpackShowInfo).sort(compareShowInfo);
+
+  let key = 0 
+  for(const info of showInfo) {
+    gridElems.push(<ShowLink key={++key} showInfo={info} />);
     gridElems.push(<StartTime startTime={info.startTime} />);
+    gridElems.push(<Dates dates={info.dates} />);
     gridElems.push(<span>{info.duration}</span>);
     gridElems.push(<span>{info.venue}</span>);
-    gridElems.push(<Dates dates={info.dates} />);
     gridElems.push(<span>{info.rRating}</span>);
     gridElems.push(<span>{info.kRating}</span>);
   }
-
-  gridElems.push(<span>End</span>);
-
+  
   return <Details>{gridElems}</Details>;
 }
 
