@@ -4,9 +4,14 @@ import glob
 import sys
 
 start_date = 16
-end_date = 22
 
-def get_exported_favourites():
+
+def remove_non_ascii(text):
+    return ''.join(i for i in text if ord(i) > 0)
+
+# Find and read the exported favourites. Return the result as an array line.
+# The header line and non-ascii characters are removed.
+def read_exported_favourites():
     filenames = glob.glob('fringe_search_results*')
 
     if len(filenames) == 0 :
@@ -17,13 +22,16 @@ def get_exported_favourites():
         print("Error: More  than one file called \'fringe_search_results*\' was found")
         sys.exit()
 
-    return filenames[0]
+    favourites = []
+    with open(filenames[0],encoding='windows-1252') as exported_favourites:
+        exported_favourites.readline() # skip the header line
+        for raw_line in exported_favourites:
+            line = remove_non_ascii(raw_line).strip()
+            if(len(line) > 0):
+                favourites.append(line)
+    
+    return favourites
 
-def remove_non_ascii(text):
-    return ''.join(i for i in text if ord(i) > 0)
-
-def convert_raw_line(text):
-    return remove_non_ascii(text).strip().replace("'","\\'")
 
 def make_js_string(text):
     if text != "" and text[0] == '"':
@@ -43,7 +51,7 @@ def process_dates(raw_dates):
     for date in raw_dates.replace("\"","").split(",") :
         if "Aug" in date: 
             num = date.replace("Aug","")
-            if float(num) >= start_date and float(num) <= end_date:
+            if float(num) >= start_date:
                 out_dates += num.strip() + " "
     return make_js_string(out_dates.rstrip())
 
@@ -81,34 +89,24 @@ def make_output_line(line):
     data = (title,venue,duration,times,dates,link,R,K)
     return "["+ ", ".join(data) + "]"
 
-# /*, encoding='utf-8'*/
-with open(get_exported_favourites(),encoding='windows-1252') as exported_favourites,\
-    open("favourites.ts",  mode='w') as favourites:   
 
-    favourites.write("export const favourites = [\n")
+def doit():
+    lines = read_exported_favourites()
+    with open("favourites.ts",  mode='w') as favourites:   
 
-    lineno = 0
-    for raw_line in exported_favourites:
-
-        if not raw_line:
-            break
-
-
-        line = convert_raw_line(raw_line).strip()
-        if(len(line) > 0):
+        favourites.write("export const favourites = [\n")
+        for line in lines:
             try:
-                lineno += 1
-                if (lineno > 1):
-                    favourites.write("%s,\n" % make_output_line(line))
-
+                favourites.write("%s,\n" % make_output_line(line))
             except Exception as e:
-                print("WARNING: Cannot process line ", lineno, ":", raw_line, "\n", 
-                "Report error: ", e, "\n")
-                
-    favourites.write("];\n")
+                print("WARNING: Cannot process line:\"", line, "\"\n",
+                        "Report error: ", e, "\n")
 
-print("Done")
+        favourites.write("];\n")
 
+        print("Done")
+
+doit()
 
 
 
