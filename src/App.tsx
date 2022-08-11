@@ -9,7 +9,7 @@ const ShowList = styled.div`
   }
   display: inline-grid;
   column-gap: 2px;
-  grid-template-columns: minmax(auto, 1fr) repeat(3, auto) minmax(auto, 10em) auto auto
+  grid-template-columns: minmax(auto, 24em) repeat(3, auto) auto minmax(auto, 1fr)
 `;
 
 type StartTimeT = string | null; // null -> More than one start time is listed
@@ -44,8 +44,7 @@ function unpackShowInfo(line: string[]) {
     startTime: unpackStartTime(line[3]),
     dates: unpackDates(line[4]),
     href: line[5],
-    rRating: line[6],
-    kRating: line[7],
+    note: line[6],
   }
 }
 
@@ -111,12 +110,11 @@ function App() {
   let key = 0 
   for(const info of showInfo) {
     gridElems.push(<ShowLink key={++key} showInfo={info} />);
-    gridElems.push(<StartTime startTime={info.startTime} />);
-    gridElems.push(<Dates dates={info.dates} />);
-    gridElems.push(<span>{info.duration}</span>);
-    gridElems.push(<span>{info.venue}</span>);
-    gridElems.push(<span>{info.rRating}</span>);
-    gridElems.push(<span>{info.kRating}</span>);
+    gridElems.push(<StartTime key={++key} startTime={info.startTime} />);
+    gridElems.push(<Dates key={++key} dates={info.dates} />);
+    gridElems.push(<span key={++key}>{info.duration}</span>);
+    gridElems.push(<span key={++key}>{info.note}</span>);
+    gridElems.push(<span key={++key}>{info.venue}</span>);
   }
   
   return <ShowList>{gridElems}</ShowList>;

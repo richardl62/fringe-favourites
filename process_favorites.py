@@ -29,7 +29,7 @@ def read_exported_favourites():
         for raw_line in exported_favourites:
             line = remove_non_ascii(raw_line).strip()
             if len(line) > 0:
-                favourites.append(line)
+                favourites.append(line.split("	"))
 
     return favourites
 
@@ -75,20 +75,17 @@ def make_href(exported_ref):
     """Make href to edfringe"""
     return make_js_string("https://tickets.edfringe.com" + exported_ref)
 
-def make_output_line(line):
+def make_output_line(elems):
     """Make a line for favourites.js"""
-    elems = line.split("	")
-
     title = make_js_string(elems[0])
     venue = make_js_string(elems[2])
     duration = process_duration(elems[3])
     times = make_js_string(elems[4])
     dates = process_dates(elems[5])
     link = make_href(elems[6])
-    rnote=make_js_string("-")
-    knote=make_js_string("-")
+    note=make_js_string("-")
 
-    data = (title,venue,duration,times,dates,link,rnote,knote)
+    data = (title,venue,duration,times,dates,link,note)
     return "["+ ", ".join(data) + "]"
 
 
@@ -101,7 +98,7 @@ def doit():
         for line in lines:
             try:
                 outline = make_output_line(line)
-                favourites.write(f"{outline}\n")
+                favourites.write(f"{outline},\n")
 
             except Exception as err:   # pylint: disable=broad-except
                 print(f'WARNING: Cannot process line: {line}\n')
