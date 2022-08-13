@@ -4,6 +4,8 @@ import sys
 import re
 
 from write_favourites_ts import write_favourites_ts
+from write_csv import write_csv
+
 START_DATE = 16
 
 def remove_non_ascii(text):
@@ -86,5 +88,6 @@ def doit():
     """Put the whole thing together"""
     unpacked = read_exported_favourites()
     write_favourites_ts(unpacked)
+    write_csv(unpacked)
 
 doit()
