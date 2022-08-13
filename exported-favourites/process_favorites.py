@@ -1,19 +1,62 @@
 """Process a CSV exported from edfringe"""
-import re
 import glob
 import sys
+import re
 
+from write_favourites_ts import write_favourites_ts
 START_DATE = 16
-
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
     return ''.join(i for i in text if ord(i) > 0)
 
+def process_duration(raw_duration):
+    """Process duration read from exported favourites"""
+    hours = "0"
+    match_hours = re.search(r"([0-9]+) hour", raw_duration)
+    if match_hours:
+        hours = match_hours.group(1)
+
+    mins = "00"
+    match_mins = re.search(r"([0-9]+) minutes", raw_duration)
+    if match_mins:
+        mins = match_mins.group(1)
+        if len(mins) == 1:
+            mins = "0" + mins
+
+    return f"{hours}:{mins}"
+
+def process_dates(raw_dates):
+    """dates are in a string line "9 Aug, 13 Aug, 21 Aug" (with the quotes)
+    and can sometimes include in July"""
+    out_dates=""
+    #for date in date_array:
+    #    if date_in_range(date):
+    #        out_dates += date + " "
+    for date in raw_dates.replace("\"","").split(","):
+        if "Aug" in date:
+            num = date.replace("Aug","")
+            if float(num) >= START_DATE:
+                out_dates += num.strip() + " "
+    return out_dates.rstrip()
+
+def make_link(exported_ref):
+    """Make href to edfringe"""
+    return "https://tickets.edfringe.com" + exported_ref
+
 def convert_favourite_line(line):
     """Convert line from exported favourites"""
     split = line.split("	")
-    return split
+
+    return {
+        "title": split[0],
+        "venue": split[2],
+        "duration": process_duration(split[3]),
+        "times": split[4],
+        "dates": process_dates(split[5]),
+        "link": make_link(split[6]),
+        "note": "-"
+    }
 
 def read_exported_favourites():
     """ Find and read the exported favourites. Return the result as an array line.
@@ -38,79 +81,6 @@ def read_exported_favourites():
 
     return favourites
 
-
-def make_js_string(text):
-    """Make a JS string"""
-    if text != "" and text[0] == '"':
-        return text
-    else:
-        return f'"{text}"'
-
-def process_dates(raw_dates):
-    """dates are in a string line "9 Aug, 13 Aug, 21 Aug" (with the quotes)
-    and can sometimes include in July"""
-    out_dates=""
-    #for date in date_array:
-    #    if date_in_range(date):
-    #        out_dates += date + " "
-    for date in raw_dates.replace("\"","").split(","):
-        if "Aug" in date:
-            num = date.replace("Aug","")
-            if float(num) >= START_DATE:
-                out_dates += num.strip() + " "
-    return make_js_string(out_dates.rstrip())
-
-def process_duration(raw_duration):
-    """Process duration read from exported favourites"""
-    hours = "0"
-    match_hours = re.search(r"([0-9]+) hour", raw_duration)
-    if match_hours:
-        hours = match_hours.group(1)
-
-    mins = "00"
-    match_mins = re.search(r"([0-9]+) minutes", raw_duration)
-    if match_mins:
-        mins = match_mins.group(1)
-        if len(mins) == 1:
-            mins = "0" + mins
-
-    return make_js_string(f"{hours}:{mins}")
-
-def make_href(exported_ref):
-    """Make href to edfringe"""
-    return make_js_string("https://tickets.edfringe.com" + exported_ref)
-
-def make_output_line(elems):
-    """Make a line for favourites.js"""
-    title = make_js_string(elems[0])
-    venue = make_js_string(elems[2])
-    duration = process_duration(elems[3])
-    times = make_js_string(elems[4])
-    dates = process_dates(elems[5])
-    link = make_href(elems[6])
-    note=make_js_string("-")
-
-    data = (title,venue,duration,times,dates,link,note)
-    return "["+ ", ".join(data) + "]"
-
-def write_favourites_ts(unpacked):
-    """Write favourites.ts"""
-    with open("favourites.ts", encoding="windows-1252", mode='w') as favourites_ts:
-
-        favourites_ts.write("export const favourites = [\n")
-        for fav in unpacked:
-            try:
-                outline = make_output_line(fav)
-                favourites_ts.write(f"{outline},\n")
-
-            except Exception as err:   # pylint: disable=broad-except
-                print(f'WARNING: Cannot process line: {fav}\n')
-                print(f"Reported error {err}\n")
-
-
-        favourites_ts.write("];\n")
-
-        print("Done")
 
 def doit():
     """Put the whole thing together"""
