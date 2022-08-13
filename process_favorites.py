@@ -10,7 +10,7 @@ def remove_non_ascii(text):
     """Remove no-ascii characters"""
     return ''.join(i for i in text if ord(i) > 0)
 
-def read_exported_favourites():
+def unpack_exported_favourites():
     """ Find and read the exported favourites. Return the result as an array line.
     The header line and non-ascii characters are removed."""
     filenames = glob.glob('fringe_search_results*')
@@ -88,25 +88,28 @@ def make_output_line(elems):
     data = (title,venue,duration,times,dates,link,note)
     return "["+ ", ".join(data) + "]"
 
+def write_favourites_ts(unpacked):
+    """Write favourites.ts"""
+    with open("favourites.ts", encoding="windows-1252", mode='w') as favourites_ts:
 
-def doit():
-    """Put the whole thing together"""
-    lines = read_exported_favourites()
-    with open("favourites.ts", encoding="windows-1252", mode='w') as favourites:
-
-        favourites.write("export const favourites = [\n")
-        for line in lines:
+        favourites_ts.write("export const favourites = [\n")
+        for fav in unpacked:
             try:
-                outline = make_output_line(line)
-                favourites.write(f"{outline},\n")
+                outline = make_output_line(fav)
+                favourites_ts.write(f"{outline},\n")
 
             except Exception as err:   # pylint: disable=broad-except
-                print(f'WARNING: Cannot process line: {line}\n')
+                print(f'WARNING: Cannot process line: {fav}\n')
                 print(f"Reported error {err}\n")
 
 
-        favourites.write("];\n")
+        favourites_ts.write("];\n")
 
         print("Done")
+
+def doit():
+    """Put the whole thing together"""
+    unpacked = unpack_exported_favourites()
+    write_favourites_ts(unpacked)
 
 doit()
