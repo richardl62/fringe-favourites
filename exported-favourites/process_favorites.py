@@ -3,8 +3,8 @@ import glob
 import sys
 import re
 
-from write_favourites_ts import write_favourites_ts
-from write_csv import write_csv
+from ts_utils import write_favourites_ts
+from csv_utils import write_csv
 
 START_DATE = 16
 
