@@ -10,7 +10,12 @@ def remove_non_ascii(text):
     """Remove no-ascii characters"""
     return ''.join(i for i in text if ord(i) > 0)
 
-def unpack_exported_favourites():
+def convert_favourite_line(line):
+    """Convert line from exported favourites"""
+    split = line.split("	")
+    return split
+
+def read_exported_favourites():
     """ Find and read the exported favourites. Return the result as an array line.
     The header line and non-ascii characters are removed."""
     filenames = glob.glob('fringe_search_results*')
@@ -29,7 +34,7 @@ def unpack_exported_favourites():
         for raw_line in exported_favourites:
             line = remove_non_ascii(raw_line).strip()
             if len(line) > 0:
-                favourites.append(line.split("	"))
+                favourites.append(convert_favourite_line(line))
 
     return favourites
 
@@ -109,7 +114,7 @@ def write_favourites_ts(unpacked):
 
 def doit():
     """Put the whole thing together"""
-    unpacked = unpack_exported_favourites()
+    unpacked = read_exported_favourites()
     write_favourites_ts(unpacked)
 
 doit()
