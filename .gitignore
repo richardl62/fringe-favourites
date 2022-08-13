@@ -1,6 +1,4 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-fringe_search_results_*
-/favourites.ts
 .vscode
 
 # dependencies
