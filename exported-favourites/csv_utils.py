@@ -9,8 +9,8 @@ def get_link_ratings():
         for line in csv:
             split = line.split(" ")
 
-            link = split[0]
-            rating = split[1]
+            link = split[0].strip()
+            rating = split[1].strip()
 
             ratings[link] = rating
 
