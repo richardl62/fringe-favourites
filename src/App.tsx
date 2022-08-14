@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { favourites } from './favourites';
 
 const ShowList = styled.div`
-  * {
-    overflow: hidden;
-    white-space: nowrap;
-  }
   display: inline-grid;
-  column-gap: 2px;
+  
+  background-color: lightgrey;
+  border: lightgrey solid 1px;
+  gap: 1px;
   grid-template-columns: minmax(auto, 24em) repeat(3, auto) auto minmax(auto, 1fr)
 `;
 
@@ -98,25 +97,35 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
     compareTimes(info1.startTime, info2.startTime);
 }
 
+const Wrapper = styled.div`
+  background-color: white;
+  
+  overflow: hidden;
+  white-space: nowrap;
+
+  padding-right: 4px;
+`
 function App() {
   useEffect(() => {
     document.title = 'Fringe Favourites';
   });
 
-  const gridElems: JSX.Element [] = [];
-  
   const showInfo = favourites.map(unpackShowInfo).sort(compareShowInfo);
 
-  let key = 0 
-  for(const info of showInfo) {
-    gridElems.push(<ShowLink key={++key} showInfo={info} />);
-    gridElems.push(<StartTime key={++key} startTime={info.startTime} />);
-    gridElems.push(<Dates key={++key} dates={info.dates} />);
-    gridElems.push(<span key={++key}>{info.duration}</span>);
-    gridElems.push(<span key={++key}>{info.note}</span>);
-    gridElems.push(<span key={++key}>{info.venue}</span>);
-  }
+  const gridElems: JSX.Element [] = [];
   
+  const addElem = (elem: JSX.Element | string) =>
+      gridElems.push(<Wrapper key={gridElems.length}>{elem}</Wrapper>);
+
+  for(const info of showInfo) {
+    addElem(<ShowLink showInfo={info} />);
+    addElem(<StartTime startTime={info.startTime} />);
+    addElem(<Dates dates={info.dates} />);
+    addElem(info.duration);
+    addElem(info.note);
+    addElem(info.venue);
+  }
+
   return <ShowList>{gridElems}</ShowList>;
 }
 
