@@ -4,7 +4,7 @@ import sys
 import re
 
 from ts_utils import write_favourites_ts
-from csv_utils import get_notes, check_notes, write_csv
+from csv_utils import get_link_ratings, check_link_ratings, write_csv
 
 START_DATE = 16
 
@@ -71,12 +71,12 @@ def basic_convert_favourite_line(line):
         "link": make_link(split[6]),
     }
 
-def add_note(converted, notes):
-    """And note element to show info"""
-    note = notes.get(converted["title"], "-")
-    converted["note"] = note
+def add_rating(converted, link_ratings):
+    """And rating element to show info"""
+    rating = link_ratings.get(converted["link"], "-")
+    converted["rating"] = rating
 
-def read_exported_favourites(notes):
+def read_exported_favourites(link_ratings):
     """ Find and read the exported favourites. Return the result as an array line.
     The header line and non-ascii characters are removed."""
     filenames = glob.glob('fringe_search_results*')
@@ -96,7 +96,7 @@ def read_exported_favourites(notes):
             line = remove_non_ascii(raw_line).strip()
             if len(line) > 0:
                 converted = basic_convert_favourite_line(line)
-                add_note(converted, notes)
+                add_rating(converted, link_ratings)
                 favourites.append(converted)
 
     return favourites
@@ -104,9 +104,9 @@ def read_exported_favourites(notes):
 
 def doit():
     """Put the whole thing together"""
-    notes = get_notes()
-    unpacked = read_exported_favourites(notes)
-    check_notes(unpacked, notes)
+    link_ratings = get_link_ratings()
+    unpacked = read_exported_favourites(link_ratings)
+    check_link_ratings(unpacked, link_ratings)
     write_favourites_ts(unpacked)
     write_csv(unpacked)
 

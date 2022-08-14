@@ -15,9 +15,9 @@ def make_output_line(fav):
     times = make_js_string(fav["times"])
     dates = make_js_string(fav["dates"])
     link = make_js_string(fav["link"])
-    note=make_js_string(fav["note"])
+    rating=make_js_string(fav["rating"])
 
-    data = (title,venue,duration,times,dates,link,note)
+    data = (title,venue,duration,times,dates,link,rating)
     return "["+ ", ".join(data) + "]"
 
 def write_favourites_ts(favourites):
