@@ -20,7 +20,7 @@ function unpackVenue(venue: string) {
 }
 
 function unpackStartTime(times: string) : StartTimeT {
-  if(times.includes(",")) {
+  if(times.includes(" ")) {
     return null;
   }
 
