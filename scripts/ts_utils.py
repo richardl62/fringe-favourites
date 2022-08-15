@@ -1,4 +1,5 @@
 """Make favourites.ts"""
+FAVOURITE_TS = "../src/favourites.ts"
 
 def make_js_string(text):
     """Make a JS string"""
@@ -22,7 +23,7 @@ def make_output_line(fav):
 
 def write_favourites_ts(favourites):
     """Write favourites.ts"""
-    with open("favourites.ts", encoding="windows-1252", mode='w') as favourites_ts:
+    with open(FAVOURITE_TS, encoding="windows-1252", mode='w') as favourites_ts:
 
         favourites_ts.write("export const favourites = [\n")
         for fav in favourites:

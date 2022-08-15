@@ -1,6 +1,6 @@
 """Write favourites in a Richard-friendly csv format"""
 RATINGS = "ratings.txt"
-CSV = "csv.csv"
+CSV = "../src/favourites.csv"
 
 def get_link_ratings():
     """Get show ratings"""
