@@ -6,13 +6,21 @@ def get_link_ratings():
     """Get show ratings"""
     ratings = {}
     with open(RATINGS,  mode='r', encoding='windows-1252') as csv:
+        lineno = 0
         for line in csv:
-            split = line.split(" ")
+            lineno += 1
+            if line.strip() == "":
+                continue
+            try:
+                split = line.split(" ")
 
-            link = split[0].strip()
-            rating = split[1].strip()
+                link = split[0].strip()
+                rating = split[1].strip()
 
-            ratings[link] = rating
+                ratings[link] = rating
+            except Exception as err:   # pylint: disable=broad-except
+                print(f'WARNING: Cannot process line {lineno}: {line}')
+                print(f"Reported error {err}\n")          
 
     return ratings
 
