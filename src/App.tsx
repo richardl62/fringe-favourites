@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { favourites } from './favourites';
 
+const OuterDiv = styled.div`
+  display: inline-block;
+`
+
 const ShowList = styled.div`
   display: inline-grid;
   
@@ -9,6 +13,11 @@ const ShowList = styled.div`
   border: lightgrey solid 1px;
   gap: 1px;
   grid-template-columns: minmax(auto, 24em) repeat(3, auto) auto minmax(auto, 1fr)
+`;
+
+const SortOptionDiv = styled.div`
+  display: flex;
+  justify-content: end; 
 `;
 
 type StartTimeT = string | null; // null -> More than one start time is listed
@@ -43,7 +52,7 @@ function unpackShowInfo(line: string[]) {
     startTime: unpackStartTime(line[3]),
     dates: unpackDates(line[4]),
     href: line[5],
-    note: line[6],
+    rating: line[6],
   }
 }
 
@@ -66,7 +75,11 @@ function StartTime({startTime}: {startTime: StartTimeT}) {
   return <span>{startTime || "misc"}</span>;
 }
  
-function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
+  function compareShowInfo(info1: ShowInfo, info2: ShowInfo, compareRatingParam: boolean) {
+
+  const compareRatings = (rating1: string, rating2: string) => {
+    return -rating1.localeCompare(rating2);
+  }
 
   const compareDates = (d1: DatesT, d2: DatesT) => {
     if (d1 === null && d2 === null) {
@@ -93,7 +106,8 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo) {
     }
   }
 
-  return compareDates(info1.dates, info2.dates) || 
+  return (compareRatingParam && compareRatings(info1.rating, info2.rating)) || 
+    compareDates(info1.dates, info2.dates) || 
     compareTimes(info1.startTime, info2.startTime);
 }
 
@@ -109,8 +123,17 @@ function App() {
   useEffect(() => {
     document.title = 'Fringe Favourites';
   });
+  
+  const [sortByRating, setSortByRating] = React.useState(false);
 
-  const showInfo = favourites.map(unpackShowInfo).sort(compareShowInfo);
+  const onChangeSortByRating = () => {
+      return -setSortByRating(!sortByRating);
+  };
+
+  const compare = (info1: ShowInfo, info2: ShowInfo) =>
+    compareShowInfo(info1, info2, sortByRating);
+
+  const showInfo = favourites.map(unpackShowInfo).sort(compare);
 
   const gridElems: JSX.Element [] = [];
   
@@ -122,11 +145,23 @@ function App() {
     addElem(<StartTime startTime={info.startTime} />);
     addElem(<Dates dates={info.dates} />);
     addElem(info.duration);
-    addElem(info.note);
+    addElem(info.rating);
     addElem(info.venue);
   }
 
-  return <ShowList>{gridElems}</ShowList>;
+  return <OuterDiv>
+    <SortOptionDiv>
+      <label>
+        <input
+          type="checkbox"
+          checked={sortByRating}
+          onChange={onChangeSortByRating}
+        />
+        Sort by rating
+      </label>
+    </SortOptionDiv>
+    <ShowList>{gridElems}</ShowList>
+  </OuterDiv>;
 }
 
 export default App;
