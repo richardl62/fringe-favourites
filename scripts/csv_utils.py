@@ -7,10 +7,13 @@ def get_link_ratings():
     ratings = {}
     with open(RATINGS,  mode='r', encoding='windows-1252') as csv:
         lineno = 0
-        for line in csv:
+        for fullline in csv:
             lineno += 1
-            if line.strip() == "":
+
+            line = fullline.strip()
+            if line == "" or line[0] == "#":
                 continue
+            
             try:
                 split = line.split(" ")
 
