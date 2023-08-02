@@ -1,1 +1,2 @@
-START_DATE = 21
+"""Start date for fringe info."""
+START_DATE = 12
