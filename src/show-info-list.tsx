@@ -37,6 +37,9 @@ const Wrapper = styled.div`
   padding-right: 4px;
 `
 export function ShowInfoList({showInfo} : {showInfo: ShowInfo []}) {
+    if(!showInfo.length) {
+      return <div>No shows found</div>
+    }
     const gridElems: JSX.Element [] = [];
   
     const addElem = (elem: JSX.Element | string) =>

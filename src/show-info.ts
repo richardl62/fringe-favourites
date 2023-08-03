@@ -16,14 +16,19 @@ function unpackStartTime(times: string): StartTimeT {
 export type DatesT = number[];
 function unpackDates(dates: string): DatesT {
     const dateStr = dates.split(" ");
-    if (dateStr[0] === "") {
+    if (!dateStr[0]) {
         return [];
     }
-    return dateStr.map(parseInt);
+    // dateStr.map(parseInt) gived bad results because the index supplied by
+    // the map is treated as a radix.
+    return dateStr.map(d => parseInt(d));
 }
 
 /** Make a ShowInfo from raw info about one show */
 export function makeShowInfo(line: string[]) {
+    if(line.length !== 7) {
+        throw new Error("Favourite array has unexpected size");
+    }
     return {
         title: line[0],
         venue: unpackVenue(line[1]),

@@ -38,7 +38,6 @@ export function getSortedFavourites({sortByRating, startDate}
 ) {
     const unsortedFavourites = rawFavourites.map(makeShowInfo);
 
-    
     for(const fav of unsortedFavourites) {
         fav.dates = fav.dates?.filter(date => (date >= startDate))
     }
