@@ -8,15 +8,11 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo, compareRatingParam: b
     }
 
     const compareDates = (d1: DatesT, d2: DatesT) => {
-        if (d1 === null && d2 === null) {
-            return 0;
-        } else if (d1 === null) {
-            return 1;
-        } else if (d2 === null) {
-            return -1;
-        } else {
-            return d1[0] - d2[0];
+        if (d1.length === 0 || d2.length === 0) {
+            throw new Error("Date array is empty")
         }
+
+        return d1[0] - d2[0];
     }
 
     const compareTimes = (t1: StartTimeT, t2: StartTimeT) => {
@@ -37,8 +33,16 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo, compareRatingParam: b
         compareTimes(info1.startTime, info2.startTime);
 }
   
-export function getSortedFavourites({sortByRating}: {sortByRating: boolean}) {
+export function getSortedFavourites({sortByRating, startDate}
+    : {sortByRating: boolean, startDate: number}
+) {
     const unsortedFavourites = rawFavourites.map(makeShowInfo);
 
-    return unsortedFavourites.sort((f1, f2) => compareShowInfo(f1,f2, sortByRating));
+    
+    for(const fav of unsortedFavourites) {
+        fav.dates = fav.dates?.filter(date => (date >= startDate))
+    }
+    const filteredFavourites = unsortedFavourites.filter(fav => fav.dates.length > 0)
+    
+    return filteredFavourites.sort((f1, f2) => compareShowInfo(f1,f2, sortByRating));
 }

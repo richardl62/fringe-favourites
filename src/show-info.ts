@@ -13,11 +13,11 @@ function unpackStartTime(times: string): StartTimeT {
     return times;
 }
 
-export type DatesT = number[] | null;
+export type DatesT = number[];
 function unpackDates(dates: string): DatesT {
     const dateStr = dates.split(" ");
     if (dateStr[0] === "") {
-        return null;
+        return [];
     }
     return dateStr.map(parseInt);
 }

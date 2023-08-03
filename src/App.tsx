@@ -1,94 +1,56 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
-import { DatesT, ShowInfo, StartTimeT } from './show-info';
 import { getSortedFavourites } from './get-sorted-favourites';
+import { ShowInfoList } from './show-info-list';
 
 const OuterDiv = styled.div`
   display: inline-block;
 `
 
-const ShowList = styled.div`
-  display: inline-grid;
-  
-  background-color: lightgrey;
-  border: lightgrey solid 1px;
-  gap: 1px;
-  grid-template-columns: minmax(auto, 24em) repeat(3, auto) auto minmax(auto, 1fr)
-`;
-
-const SortOptionDiv = styled.div`
+const Inputs = styled.div`
   display: flex;
   justify-content: end; 
+
+  label {
+    margin-left: 1em;
+  }
 `;
 
-const Date = styled.span`
-    text-align: center;
-`;
 
-function Dates({dates}: {dates: DatesT}) {
-  return <Date>{dates ? dates[0] : "-"}</Date>;
-}
-
-
-
-function ShowLink({showInfo}: {showInfo: ShowInfo}) {
-  const {title, href} = showInfo;
-  return <a href={href} target="_blank" rel="noreferrer">{title}</a>;
-}
-
-function StartTime({startTime}: {startTime: StartTimeT}) {
-  return <span>{startTime || "misc"}</span>;
-}
- 
-  
-
-const Wrapper = styled.div`
-  background-color: white;
-  
-  overflow: hidden;
-  white-space: nowrap;
-
-  padding-right: 4px;
-`
 function App() {
+  const [sortByRating, setSortByRating] = React.useState(false);
+  const [startDate, setStartDate] = React.useState(0);
+
   useEffect(() => {
     document.title = 'Fringe Favourites';
   });
   
-  const [sortByRating, setSortByRating] = React.useState(false);
+  useEffect(() => {
+    document.title = 'Fringe Favourites';
+    const today = new Date();
+    setStartDate(today.getDate())
+  },[]);
 
-  const onChangeSortByRating = () => {
-      setSortByRating(!sortByRating);
-  };
-
-  const favourites = getSortedFavourites({sortByRating});
-
-  const gridElems: JSX.Element [] = [];
-  
-  const addElem = (elem: JSX.Element | string) =>
-      gridElems.push(<Wrapper key={gridElems.length}>{elem}</Wrapper>);
-
-  for(const info of favourites) {
-    addElem(<ShowLink showInfo={info} />);
-    addElem(<StartTime startTime={info.startTime} />);
-    addElem(<Dates dates={info.dates} />);
-    addElem(info.duration);
-    addElem(info.rating);
-    addElem(info.venue);
-  }
+  const favourites = getSortedFavourites({sortByRating, startDate});
 
   return <OuterDiv>
-    <SortOptionDiv>
+    <Inputs>
       <label>
-        <input
-          type="checkbox"
-          checked={sortByRating}
-          onChange={onChangeSortByRating}
+        Start date
+        <input type="number" value={startDate} min={1} max={31}
+          onChange={(event) => setStartDate(parseInt(event.target.value))}
         />
-        Sort by rating
       </label>
-    </SortOptionDiv>
-    <ShowList>{gridElems}</ShowList>
+
+      <label>
+        Sort by rating
+        <input type="checkbox" checked={sortByRating}
+          onChange={() => setSortByRating(!sortByRating)}
+        />
+      </label>
+
+    </Inputs>
+    <ShowInfoList showInfo={favourites} />
   </OuterDiv>;
 }
 
