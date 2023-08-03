@@ -1,5 +1,5 @@
 """Make favourites.ts"""
-FAVOURITE_TS = "../src/favourites.ts"
+from consts import FAVOURITE_TS
 
 def make_js_string(text):
     """Make a JS string"""

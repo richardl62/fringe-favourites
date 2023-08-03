@@ -1,6 +1,5 @@
 """Write favourites in a Richard-friendly csv format"""
-RATINGS = "ratings.txt"
-CSV = "../src/favourites.csv"
+from consts import RATINGS, CSV
 
 def get_link_ratings():
     """Get show ratings"""
@@ -13,7 +12,7 @@ def get_link_ratings():
             line = fullline.strip()
             if line == "" or line[0] == "#":
                 continue
-            
+
             try:
                 split = line.split(" ")
 
@@ -23,7 +22,7 @@ def get_link_ratings():
                 ratings[link] = rating
             except Exception as err:   # pylint: disable=broad-except
                 print(f'WARNING: Cannot process line {lineno}: {line}')
-                print(f"Reported error {err}\n")          
+                print(f"Reported error {err}\n")
 
     return ratings
 

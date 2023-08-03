@@ -5,7 +5,7 @@ import re
 
 from ts_utils import write_favourites_ts
 from csv_utils import get_link_ratings, check_link_ratings, write_csv
-from start_date import START_DATE
+from consts import START_DATE
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
