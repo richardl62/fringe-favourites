@@ -5,7 +5,7 @@ START_DATE = 12
 RATINGS = "ratings.txt"
 
 """CSV formatted output"""
-CSV = "../src/favourites.csv"
+CSV = "../favourites.csv"
 
 """Output formatted for use in typescript"""
 FAVOURITE_TS = "../src/favourites.ts"
