@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
-import { favourites } from './favourites';
+import { favourites } from './raw-favourites';
 
 const OuterDiv = styled.div`
   display: inline-block;
@@ -127,7 +127,7 @@ function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
 
   const onChangeSortByRating = () => {
-      return -setSortByRating(!sortByRating);
+      setSortByRating(!sortByRating);
   };
 
   const compare = (info1: ShowInfo, info2: ShowInfo) =>
