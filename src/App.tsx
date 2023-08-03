@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { favourites } from './raw-favourites';
+import { DatesT, ShowInfo, StartTimeT, getShowInfo } from './get-show-info';
 
 const OuterDiv = styled.div`
   display: inline-block;
@@ -20,42 +21,6 @@ const SortOptionDiv = styled.div`
   justify-content: end; 
 `;
 
-type StartTimeT = string | null; // null -> More than one start time is listed
-
-function unpackVenue(venue: string) {
-  // To do consider proper implemenation of camel case 
-  return venue.replace("ROUNDABOUT", "Roundabout");
-}
-
-function unpackStartTime(times: string) : StartTimeT {
-  if(times.includes(" ")) {
-    return null;
-  }
-
-  return times;
-}
-
-type DatesT = number[] | null;
-function unpackDates(dates: string) : DatesT  {
-  const dateStr = dates.split(" ");
-  if(dateStr[0] === "") {
-    return null;
-  }
-  return dateStr.map(parseInt);
-}
-
-function unpackShowInfo(line: string[]) {
-  return {
-    title: line[0],
-    venue: unpackVenue(line[1]),
-    duration: line[2],
-    startTime: unpackStartTime(line[3]),
-    dates: unpackDates(line[4]),
-    href: line[5],
-    rating: line[6],
-  }
-}
-
 const Date = styled.span`
     text-align: center;
 `;
@@ -64,7 +29,7 @@ function Dates({dates}: {dates: DatesT}) {
   return <Date>{dates ? dates[0] : "-"}</Date>;
 }
 
-type ShowInfo = ReturnType<typeof unpackShowInfo>;
+
 
 function ShowLink({showInfo}: {showInfo: ShowInfo}) {
   const {title, href} = showInfo;
@@ -133,7 +98,7 @@ function App() {
   const compare = (info1: ShowInfo, info2: ShowInfo) =>
     compareShowInfo(info1, info2, sortByRating);
 
-  const showInfo = favourites.map(unpackShowInfo).sort(compare);
+  const showInfo = favourites.map(getShowInfo).sort(compare);
 
   const gridElems: JSX.Element [] = [];
   
