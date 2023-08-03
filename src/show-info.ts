@@ -22,8 +22,8 @@ function unpackDates(dates: string): DatesT {
     return dateStr.map(parseInt);
 }
 
-/** Get show info from a raw favourite */
-export function getShowInfo(line: string[]) {
+/** Make a ShowInfo from raw info about one show */
+export function makeShowInfo(line: string[]) {
     return {
         title: line[0],
         venue: unpackVenue(line[1]),
@@ -35,4 +35,4 @@ export function getShowInfo(line: string[]) {
     }
 }
 
-export type ShowInfo = ReturnType<typeof getShowInfo>;
+export type ShowInfo = ReturnType<typeof makeShowInfo>;
