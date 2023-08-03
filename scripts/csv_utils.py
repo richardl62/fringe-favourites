@@ -1,10 +1,10 @@
 """Write favourites in a Richard-friendly csv format"""
-from consts import RATINGS, CSV
+from consts import RATINGS_FILE, UNRATED, UNRATED_FILE, FAVOURITES_CSV
 
 def get_link_ratings():
     """Get show ratings"""
     ratings = {}
-    with open(RATINGS,  mode='r', encoding='windows-1252') as csv:
+    with open(RATINGS_FILE,  mode='r', encoding='windows-1252') as csv:
         lineno = 0
         for fullline in csv:
             lineno += 1
@@ -18,8 +18,9 @@ def get_link_ratings():
 
                 link = split[0].strip()
                 rating = split[1].strip()
-
                 ratings[link] = rating
+                if not rating.isdigit():
+                    print(f'WARNING: rating: "{rating}" for {link} is not a digit')
             except Exception as err:   # pylint: disable=broad-except
                 print(f'WARNING: Cannot process line {lineno}: {line}')
                 print(f"Reported error {err}\n")
@@ -41,9 +42,14 @@ def check_link_ratings(unpacked, ratings):
             if from_ratings != from_unpacked:
                 print(f"WARNING: Rated for {rated_link} is inconsisted")
 
+    with open(UNRATED_FILE,  mode='w', encoding='windows-1252') as unrated:
+        for show, rating in unpacked_ratings.items():
+            if rating == UNRATED:
+                unrated.write(show+"\n")
+
 def write_csv(favourites):
     """Write favourites in a Richard-friendly csv format"""
-    with open(CSV,  mode='w', encoding='windows-1252') as csv:
+    with open(FAVOURITES_CSV,  mode='w', encoding='windows-1252') as csv:
         for fav in favourites:
             title = fav["title"]
             venue = fav["venue"]

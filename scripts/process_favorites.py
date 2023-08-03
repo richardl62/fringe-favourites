@@ -5,7 +5,7 @@ import re
 
 from ts_utils import write_favourites_ts
 from csv_utils import get_link_ratings, check_link_ratings, write_csv
-from consts import START_DATE
+from consts import START_DATE, UNRATED
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
@@ -72,7 +72,7 @@ def basic_convert_favourite_line(line):
 
 def add_rating(converted, link_ratings):
     """And rating element to show info"""
-    rating = link_ratings.get(converted["link"], "-")
+    rating = link_ratings.get(converted["link"], UNRATED)
     converted["rating"] = rating
 
 def read_exported_favourites(link_ratings):
