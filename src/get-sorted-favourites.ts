@@ -4,7 +4,13 @@ import { DatesT, ShowInfo, StartTimeT, makeShowInfo } from "./show-info";
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo, compareRatingParam: boolean) {
 
     const compareRatings = (rating1: string, rating2: string) => {
-        return -rating1.localeCompare(rating2);
+        const ratingValue = (str:string) => {
+            if(str === "-") {
+                return 1;
+            }
+            return parseInt(str);
+        }
+        return ratingValue(rating2) - ratingValue(rating1);
     }
 
     const compareDates = (d1: DatesT, d2: DatesT) => {
