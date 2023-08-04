@@ -18,7 +18,7 @@ const Inputs = styled.div`
 
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
-  const [startDate, setStartDate] = React.useState<number|undefined>();
+  const [startDate, setStartDate] = React.useState("");
 
   useEffect(() => {
     document.title = 'Fringe Favourites';
@@ -27,21 +27,21 @@ function App() {
   useEffect(() => {
     document.title = 'Fringe Favourites';
     const today = new Date();
-    setStartDate(today.getDate())
+    setStartDate(today.getDate().toString())
   },[]);
 
-  const favourites = getSortedFavourites({sortByRating, startDate: startDate || 1});
-
-  const onStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const parsed = parseInt(event.target.value)
-      setStartDate(isNaN(parsed)? undefined : parsed )
+  const parsedStartDate = () => {
+      const parsed = parseInt(startDate);
+      return isNaN(parsed) ? 1 : parsed;
   }
+  const favourites = getSortedFavourites({sortByRating, startDate: parsedStartDate()});
+
   return <OuterDiv>
     <Inputs>
       <label>
         Start date
-        <input type="text" pattern="[0-9]*" value={startDate} min={1} max={31}
-          onChange={onStartDateChange}
+        <input type="number" value={startDate} min={1} max={31}
+          onChange={(event) => setStartDate(event.target.value)}
         />
       </label>
 
