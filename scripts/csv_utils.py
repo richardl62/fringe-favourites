@@ -1,4 +1,5 @@
 """Write favourites in a Richard-friendly csv format"""
+import re
 from consts import RATINGS_FILE, UNRATED, UNRATED_FILE, FAVOURITES_CSV
 
 def get_link_ratings():
@@ -19,8 +20,8 @@ def get_link_ratings():
                 link = split[0].strip()
                 rating = split[1].strip()
                 ratings[link] = rating
-                if not rating.isdigit():
-                    print(f'WARNING: rating: "{rating}" for {link} is not a digit')
+                if not re.fullmatch("[1-3]k?", rating):
+                    print(f'WARNING: rating: "{rating}" for {link} is not recognised')
             except Exception as err:   # pylint: disable=broad-except
                 print(f'WARNING: Cannot process line {lineno}: {line}')
                 print(f"Reported error {err}\n")
@@ -45,7 +46,7 @@ def check_link_ratings(unpacked, ratings):
     with open(UNRATED_FILE,  mode='w', encoding='windows-1252') as unrated:
         for show, rating in unpacked_ratings.items():
             if rating == UNRATED:
-                unrated.write(show+"\n")
+                unrated.write(show+" \n")
 
 def write_csv(favourites):
     """Write favourites in a Richard-friendly csv format"""
