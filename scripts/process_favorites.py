@@ -5,7 +5,7 @@ import re
 
 from ts_utils import write_favourites_ts
 from csv_utils import get_link_ratings, check_link_ratings, write_csv
-from consts import START_DATE, UNRATED
+from consts import UNRATED
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
@@ -49,8 +49,7 @@ def process_dates(raw_dates):
     for date in raw_dates.replace("\"","").split(","):
         if "Aug" in date:
             num = date.replace("Aug","")
-            if float(num) >= START_DATE:
-                out_dates += num.strip() + " "
+            out_dates += num.strip() + " "
     return out_dates.rstrip()
 
 def make_link(exported_ref):

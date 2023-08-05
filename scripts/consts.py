@@ -1,6 +1,3 @@
-"""Start date for fringe info."""
-START_DATE = 12
-
 """Ratings file"""
 RATINGS_FILE = "ratings.txt"
 
