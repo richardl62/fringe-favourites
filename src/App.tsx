@@ -53,7 +53,7 @@ function App() {
       </label>
 
     </Inputs>
-    <ShowInfoList showInfo={favourites} />
+    <ShowInfoList showInfo={favourites} startDate={parsedStartDate()} />
   </OuterDiv>;
 }
 

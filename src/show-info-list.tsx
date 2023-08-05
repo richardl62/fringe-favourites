@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { DatesT, ShowInfo, StartTimeT } from "./show-info";
 
-const Date = styled.span`
+const DateSpan = styled.span`
     text-align: center;
 `;
 
-function Dates({dates}: {dates: DatesT}) {
-  return <Date>{dates ? dates[0] : "-"}</Date>;
+function Date({dates, startDate}: {dates: DatesT, startDate: number | null}) {
+  if(dates[0] === startDate) {
+    return null;
+  }
+  return <DateSpan>{dates[0]}</DateSpan>;
 }
 
 function ShowLink({showInfo}: {showInfo: ShowInfo}) {
@@ -36,7 +39,9 @@ const Wrapper = styled.div`
 
   padding-right: 4px;
 `
-export function ShowInfoList({showInfo} : {showInfo: ShowInfo []}) {
+export function ShowInfoList({showInfo, startDate} : 
+    {showInfo: ShowInfo [], startDate: number | null}
+  ) {
     if(!showInfo.length) {
       return <div>No shows found</div>
     }
@@ -48,7 +53,7 @@ export function ShowInfoList({showInfo} : {showInfo: ShowInfo []}) {
     for(const info of showInfo) {
       addElem(<ShowLink showInfo={info} />);
       addElem(<StartTime startTime={info.startTime} />);
-      addElem(<Dates dates={info.dates} />);
+      addElem(<Date dates={info.dates} startDate={startDate} />);
       addElem(info.duration);
       addElem(info.rating);
       addElem(info.venue);
