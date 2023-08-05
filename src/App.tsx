@@ -21,11 +21,10 @@ function App() {
   const [startDate, setStartDate] = React.useState("");
 
   useEffect(() => {
-    document.title = 'Fringe Favourites';
+    document.title = 'Fringe Shows';
   });
   
   useEffect(() => {
-    document.title = 'Fringe Favourites';
     const today = new Date();
     setStartDate(today.getDate().toString())
   },[]);
@@ -39,14 +38,14 @@ function App() {
   return <OuterDiv>
     <Inputs>
       <label>
-        Start date
+        {"Date "}
         <input type="number" value={startDate} min={1} max={31}
           onChange={(event) => setStartDate(event.target.value)}
         />
       </label>
 
       <label>
-        Sort by rating
+        {"Sort by rating "}
         <input type="checkbox" checked={sortByRating}
           onChange={() => setSortByRating(!sortByRating)}
         />

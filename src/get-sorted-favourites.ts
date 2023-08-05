@@ -38,9 +38,11 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo,
         }
     }
 
-    return (sortByRating && compareRatings(info1.rating, info2.rating)) ||
+    return (
         (sortByDate && compareDates(info1.dates, info2.dates)) ||
-        compareTimes(info1.startTime, info2.startTime);
+        (sortByRating && compareRatings(info1.rating, info2.rating)) ||
+        compareTimes(info1.startTime, info2.startTime)
+    );
 }
   
 export function getSortedFavourites({sortByRating, startDate}
