@@ -32,7 +32,7 @@ function App() {
 
   const parsedStartDate = () => {
       const parsed = parseInt(startDate);
-      return isNaN(parsed) ? 1 : parsed;
+      return isNaN(parsed) ? null : parsed;
   }
   const favourites = getSortedFavourites({sortByRating, startDate: parsedStartDate()});
 

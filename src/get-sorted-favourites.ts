@@ -1,7 +1,11 @@
 import { favourites as rawFavourites } from "./raw-favourites";
 import { DatesT, ShowInfo, StartTimeT, makeShowInfo } from "./show-info";
 
-function compareShowInfo(info1: ShowInfo, info2: ShowInfo, compareRatingParam: boolean) {
+function compareShowInfo(info1: ShowInfo, info2: ShowInfo, 
+    {sortByRating, sortByDate}:
+        {sortByRating: boolean, sortByDate: boolean}
+)
+     {
 
     const compareRatings = (rating1: string, rating2: string) => {
         const ratingValue = (str:string) => {
@@ -34,20 +38,24 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo, compareRatingParam: b
         }
     }
 
-    return (compareRatingParam && compareRatings(info1.rating, info2.rating)) ||
-        compareDates(info1.dates, info2.dates) ||
+    return (sortByRating && compareRatings(info1.rating, info2.rating)) ||
+        (sortByDate && compareDates(info1.dates, info2.dates)) ||
         compareTimes(info1.startTime, info2.startTime);
 }
   
 export function getSortedFavourites({sortByRating, startDate}
-    : {sortByRating: boolean, startDate: number}
+    : {sortByRating: boolean, startDate: number | null}
 ) {
     const unsortedFavourites = rawFavourites.map(makeShowInfo);
 
-    for(const fav of unsortedFavourites) {
-        fav.dates = fav.dates?.filter(date => (date >= startDate))
+    if (startDate) {
+        for (const fav of unsortedFavourites) {
+            fav.dates = fav.dates?.filter(date => (date >= startDate))
+        }
     }
     const filteredFavourites = unsortedFavourites.filter(fav => fav.dates.length > 0)
     
-    return filteredFavourites.sort((f1, f2) => compareShowInfo(f1,f2, sortByRating));
+    return filteredFavourites.sort((f1, f2) => compareShowInfo(f1,f2, 
+        {sortByRating, sortByDate: startDate !== null}
+    ));
 }
