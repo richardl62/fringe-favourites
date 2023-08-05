@@ -14,6 +14,7 @@ https://tickets.edfringe.com/whats-on/big-bite-size-breakfast-show 1
 https://tickets.edfringe.com/whats-on/birth-of-frankenstein 1
 https://tickets.edfringe.com/whats-on/black-is-the-color-of-my-voice 1
 https://tickets.edfringe.com/whats-on/bowjangles-dracula-in-space 2k
+https://tickets.edfringe.com/whats-on/brief-candle 1k
 https://tickets.edfringe.com/whats-on/bubble-show-for-adults-only-2 2
 https://tickets.edfringe.com/whats-on/can-t-stop-carrying-on 1k
 https://tickets.edfringe.com/whats-on/chorus-line 1
@@ -48,7 +49,7 @@ https://tickets.edfringe.com/whats-on/importance-of-being-earnest-1 1
 https://tickets.edfringe.com/whats-on/man-who-thought-he-knew-too-much 2
 https://tickets.edfringe.com/whats-on/manifest-destiny-s-child 1
 https://tickets.edfringe.com/whats-on/mariner-s-song 1
-https://tickets.edfringe.com/whats-on/maureen 1
+https://tickets.edfringe.com/whats-on/maureen 1k
 https://tickets.edfringe.com/whats-on/meet-me-by-the-stranger 1k
 https://tickets.edfringe.com/whats-on/mrs-president 1
 https://tickets.edfringe.com/whats-on/mythos-ragnarok 1
@@ -59,12 +60,12 @@ https://tickets.edfringe.com/whats-on/portrait-of-ludmilla-as-nina-simone 1
 https://tickets.edfringe.com/whats-on/psychic-tests 2
 https://tickets.edfringe.com/whats-on/screwtape-letters-by-cs-lewis 1
 https://tickets.edfringe.com/whats-on/seance-live 1
-https://tickets.edfringe.com/whats-on/sherlock-holmes-the-last-act 2
+https://tickets.edfringe.com/whats-on/sherlock-holmes-the-last-act 2k
 https://tickets.edfringe.com/whats-on/spring-awakening 1
 https://tickets.edfringe.com/whats-on/sunday-in-the-park-with-george 1
 https://tickets.edfringe.com/whats-on/sunshine-on-leith 2
-https://tickets.edfringe.com/whats-on/titanic-the-last-hero-and-the-last-coward 1
-https://tickets.edfringe.com/whats-on/tom-crosbie-actions-speak-louder-than-nerds 1
+https://tickets.edfringe.com/whats-on/titanic-the-last-hero-and-the-last-coward 1k
+https://tickets.edfringe.com/whats-on/tom-crosbie-actions-speak-louder-than-nerds 1k
 https://tickets.edfringe.com/whats-on/tomatoes-tried-to-kill-me-but-banjos-saved-my-life 2
 https://tickets.edfringe.com/whats-on/tomatoes-tried-to-kill-me-but-banjos-saved-my-life-1 2
 https://tickets.edfringe.com/whats-on/trainspotting-live 1
