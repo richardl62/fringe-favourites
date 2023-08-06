@@ -74,3 +74,6 @@ https://tickets.edfringe.com/whats-on/vocal-vengeance-a-murder-on-the-stage-floo
 https://tickets.edfringe.com/whats-on/watson-the-final-problem 1
 https://tickets.edfringe.com/whats-on/wonder-drug-a-comedy-about-cystic-fibrosis 1
 https://tickets.edfringe.com/whats-on/yippee-ki-yay-the-die-hard-parody 1
+https://tickets.edfringe.com/whats-on/adults 1 
+https://tickets.edfringe.com/whats-on/grand-old-opera-house-hotel 2
+https://tickets.edfringe.com/whats-on/sean-and-daro-flake-it-til-they-make-it 1

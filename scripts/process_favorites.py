@@ -103,8 +103,10 @@ def read_exported_favourites(link_ratings):
 def doit():
     """Put the whole thing together"""
     link_ratings = get_link_ratings()
+
     unpacked = read_exported_favourites(link_ratings)
     check_link_ratings(unpacked, link_ratings)
+    
     write_favourites_ts(unpacked)
     write_csv(unpacked)
 
