@@ -1,5 +1,5 @@
-import { favourites as rawFavourites } from "./raw-favourites";
-import { DatesT, ShowInfo, StartTimeT, makeShowInfo } from "./show-info";
+
+import { DatesT, ShowInfo, StartTimeT, favourites as unsortedFavourites } from "./favourites";
 
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo, 
     {sortByRating, sortByDate}:
@@ -48,8 +48,6 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo,
 export function getSortedFavourites({sortByRating, startDate}
     : {sortByRating: boolean, startDate: number | null}
 ) {
-    const unsortedFavourites = rawFavourites.map(makeShowInfo);
-
     if (startDate) {
         for (const fav of unsortedFavourites) {
             fav.dates = fav.dates?.filter(date => (date >= startDate))
