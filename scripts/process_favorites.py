@@ -4,8 +4,7 @@ import sys
 import re
 
 from ts_utils import write_favourites_ts
-from csv_utils import get_link_ratings, check_link_ratings, write_csv
-from consts import UNRATED
+from csv_utils import get_link_ratings, process_link_ratings, write_csv
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
@@ -69,12 +68,7 @@ def basic_convert_favourite_line(line):
         "link": make_link(split[6]),
     }
 
-def add_rating(converted, link_ratings):
-    """And rating element to show info"""
-    rating = link_ratings.get(converted["link"], UNRATED)
-    converted["rating"] = rating
-
-def read_exported_favourites(link_ratings):
+def read_exported_favourites():
     """ Find and read the exported favourites. Return the result as an array line.
     The header line and non-ascii characters are removed."""
     filenames = glob.glob('fringe_search_results*')
@@ -94,20 +88,18 @@ def read_exported_favourites(link_ratings):
             line = remove_non_ascii(raw_line).strip()
             if len(line) > 0:
                 converted = basic_convert_favourite_line(line)
-                add_rating(converted, link_ratings)
                 favourites.append(converted)
 
     return favourites
 
-
 def doit():
     """Put the whole thing together"""
-    link_ratings = get_link_ratings()
+    favourites = read_exported_favourites()
+    ratings = get_link_ratings()
 
-    unpacked = read_exported_favourites(link_ratings)
-    check_link_ratings(unpacked, link_ratings)
-    
-    write_favourites_ts(unpacked)
-    write_csv(unpacked)
+    process_link_ratings(favourites, ratings)
+
+    write_favourites_ts(favourites)
+    write_csv(favourites)
 
 doit()

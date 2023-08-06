@@ -28,25 +28,31 @@ def get_link_ratings():
 
     return ratings
 
-def check_link_ratings(unpacked, ratings):
-    """Check for ratings that are not in 'unpacked'"""
-    unpacked_ratings = {}
-    for elem in unpacked:
-        unpacked_ratings[elem["link"]] = elem["rating"]
+
+def process_link_ratings(favourites, ratings):
+    """Add ratings to favourites and check for inconsistencies"""
+
+    # Add ratings to favourites, and record any unrated shows
+    num_unrated = 0
+    with open(UNRATED_FILE,  mode='w', encoding='windows-1252') as unrated:
+        for show in favourites:
+            link = show["link"]
+            rating = ratings.get(link, UNRATED)
+            show["rating"] = rating
+            if rating == UNRATED:
+                unrated.write(link+" \n")
+                num_unrated += 1
+
+    if num_unrated > 0:
+        print(f"{num_unrated} show(s) not rated")
+
+    show_links = set()
+    for show in favourites:
+        show_links.add(show["link"])
 
     for rated_link in ratings:
-        if rated_link not in unpacked_ratings:
-            print(f"WARNING: Rated show {rated_link} is not in converted data")
-        else:
-            from_unpacked = unpacked_ratings[rated_link]
-            from_ratings = ratings[rated_link]
-            if from_ratings != from_unpacked:
-                print(f"WARNING: Rated for {rated_link} is inconsisted")
-
-    with open(UNRATED_FILE,  mode='w', encoding='windows-1252') as unrated:
-        for show, rating in unpacked_ratings.items():
-            if rating == UNRATED:
-                unrated.write(show+" \n")
+        if rated_link not in show_links:
+            print(f"WARNING: Rated show {rated_link} is not in list of favourites")
 
 def write_csv(favourites):
     """Write favourites in a Richard-friendly csv format"""
