@@ -47,16 +47,18 @@ export function ShowInfoList({showInfo, startDate} :
     }
     const gridElems: JSX.Element [] = [];
   
-    const addElem = (elem: JSX.Element | string) =>
-        gridElems.push(<Wrapper key={gridElems.length}>{elem}</Wrapper>);
+    const addElem = (elem: JSX.Element | string, info: ShowInfo, item: string) => {
+        const key = info.href + item;
+        gridElems.push(<Wrapper key={key}>{elem}</Wrapper>);
+    }
   
     for(const info of showInfo) {
-      addElem(<ShowLink showInfo={info} />);
-      addElem(<StartTime startTime={info.startTime} />);
-      addElem(<Date dates={info.dates} startDate={startDate} />);
-      addElem(info.duration);
-      addElem(info.rating);
-      addElem(info.venue);
+      addElem(<ShowLink showInfo={info} />, info, "link");
+      addElem(<StartTime startTime={info.startTime} />, info, "start");
+      addElem(<Date dates={info.dates} startDate={startDate} />, info, "dates");
+      addElem(info.duration, info, "duration");
+      addElem(info.rating, info, "rating");
+      addElem(info.venue, info, "venue");
     }
 
     return <ShowList>{gridElems}</ShowList>
