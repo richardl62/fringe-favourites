@@ -81,14 +81,15 @@ def read_exported_favourites():
         print("Error: More  than one file called \'fringe_search_results*\' was found")
         sys.exit()
 
-    favourites = []
+    favourites = {}
     with open(filenames[0],encoding='windows-1252') as exported_favourites:
         exported_favourites.readline() # skip the header line
         for raw_line in exported_favourites:
             line = remove_non_ascii(raw_line).strip()
             if len(line) > 0:
                 converted = basic_convert_favourite_line(line)
-                favourites.append(converted)
+                link = converted.pop("link")
+                favourites[link] = converted
 
     return favourites
 

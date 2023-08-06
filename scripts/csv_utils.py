@@ -35,8 +35,7 @@ def process_link_ratings(favourites, ratings):
     # Add ratings to favourites, and record any unrated shows
     num_unrated = 0
     with open(UNRATED_FILE,  mode='w', encoding='windows-1252') as unrated:
-        for show in favourites:
-            link = show["link"]
+        for link, show in favourites.items():
             rating = ratings.get(link, UNRATED)
             show["rating"] = rating
             if rating == UNRATED:
@@ -46,25 +45,20 @@ def process_link_ratings(favourites, ratings):
     if num_unrated > 0:
         print(f"{num_unrated} show(s) not rated")
 
-    show_links = set()
-    for show in favourites:
-        show_links.add(show["link"])
-
     for rated_link in ratings:
-        if rated_link not in show_links:
+        if rated_link not in favourites:
             print(f"WARNING: Rated show {rated_link} is not in list of favourites")
 
 def write_csv(favourites):
     """Write favourites in a Richard-friendly csv format"""
     with open(FAVOURITES_CSV,  mode='w', encoding='windows-1252') as csv:
-        for fav in favourites:
+        for link, fav in favourites.items():
             title = fav["title"]
             venue = fav["venue"]
             duration = fav["duration"]
             times = fav["times"]
             dates = fav["dates"]
             rating = fav["rating"]
-            link = fav["link"]
 
             data = (title,times,venue,duration,dates,rating,link)
             line = ",".join(data)+"\n"
