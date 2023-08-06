@@ -1,6 +1,9 @@
 """Ratings file"""
 RATINGS_FILE = "ratings.txt"
 
+"""Booked shows file"""
+BOOKINGS_FILE = "booked.txt"
+
 """Unrated shows file"""
 UNRATED_FILE = "unrated.txt"
 

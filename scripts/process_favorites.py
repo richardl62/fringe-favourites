@@ -4,7 +4,8 @@ import sys
 import re
 
 from ts_utils import write_favourites_ts
-from csv_utils import get_link_ratings, process_link_ratings, write_csv
+from csv_utils import get_link_ratings, get_bookings, \
+    process_link_ratings, process_bookings, write_csv
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
@@ -97,8 +98,10 @@ def doit():
     """Put the whole thing together"""
     favourites = read_exported_favourites()
     ratings = get_link_ratings()
+    bookings = get_bookings()
 
     process_link_ratings(favourites, ratings)
+    process_bookings(favourites, bookings)
 
     write_favourites_ts(favourites)
     write_csv(favourites)
