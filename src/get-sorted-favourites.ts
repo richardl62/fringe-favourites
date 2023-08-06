@@ -1,5 +1,5 @@
 
-import { DatesT, ShowInfo, StartTimeT, favourites as unsortedFavourites } from "./favourites";
+import { DatesT, ShowInfo, StartTimeT, favourites as unprocessedFavourites } from "./favourites";
 
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo, 
     {sortByRating, sortByDate}:
@@ -44,16 +44,21 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo,
         compareTimes(info1.startTime, info2.startTime)
     );
 }
-  
+
+function JSONcopy<T>(item: T) : T {
+    return JSON.parse(JSON.stringify(item));
+}
 export function getSortedFavourites({sortByRating, startDate}
     : {sortByRating: boolean, startDate: number | null}
 ) {
+    const favourites = JSONcopy(unprocessedFavourites);
+    
     if (startDate) {
-        for (const fav of unsortedFavourites) {
+        for (const fav of favourites) {
             fav.dates = fav.dates?.filter(date => (date >= startDate))
         }
     }
-    const filteredFavourites = unsortedFavourites.filter(fav => fav.dates.length > 0)
+    const filteredFavourites = favourites.filter(fav => fav.dates.length > 0)
     
     return filteredFavourites.sort((f1, f2) => compareShowInfo(f1,f2, 
         {sortByRating, sortByDate: startDate !== null}
