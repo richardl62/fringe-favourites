@@ -27,10 +27,9 @@ function unpackDates(dates: string): DatesT {
 }
 
 /** Make a ShowInfo from raw info about one show */
-function makeShowInfo(line: string[]) {
-    if(line.length !== 7) {
-        throw new Error("Favourite array has unexpected size");
-    }
+type Line = [string, string, string, string, string, string, string, boolean]
+function makeShowInfo(line: Readonly<Line>) {
+
     const obj = {
         title: line[0],
         venue: unpackVenue(line[1]),
@@ -39,6 +38,7 @@ function makeShowInfo(line: string[]) {
         dates: unpackDates(line[4]),
         href: line[5],
         rating: line[6],
+        booked: line[7],
     }
     return obj;
 }

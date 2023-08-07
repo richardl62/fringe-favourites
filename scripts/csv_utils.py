@@ -87,14 +87,12 @@ def process_bookings(favourites, bookings):
             show = favourites[link]
             show["dates"] = f'"{date}"'
             show["booked"] = True
-            print(f"Date for {link} set to {show['dates']}")
         else:
             print(f"WARNING: Booked show {link} is not in list of favourites")
 
     for link in bookings.keys():
         if link in favourites:
             show = favourites[link]
-            print(f"{link} {show['booked']} {show['dates']}")
 
 def write_csv(favourites):
     """Write favourites in a Richard-friendly csv format"""

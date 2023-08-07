@@ -1,5 +1,5 @@
 
-import { DatesT, ShowInfo, StartTimeT, favourites as unprocessedFavourites } from "./favourites";
+import { ShowInfo, favourites as unprocessedFavourites } from "./favourites";
 
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo, 
     {sortByRating, sortByDate}:
@@ -7,25 +7,30 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo,
 )
      {
 
-    const compareRatings = (rating1: string, rating2: string) => {
-        const ratingValue = (str:string) => {
-            if(str === "-") {
+    const compareRatings = (info1: ShowInfo, info2: ShowInfo) => {
+        const ratingValue = (info:ShowInfo) => {
+            if(info.booked) {
+                return 100; // arbitrary large number
+            }
+            if(info.rating === "-") {
                 return 1;
             }
-            return parseInt(str);
+            return parseInt(info.rating);
         }
-        return ratingValue(rating2) - ratingValue(rating1);
+        return ratingValue(info2) - ratingValue(info1);
     }
 
-    const compareDates = (d1: DatesT, d2: DatesT) => {
-        if (d1.length === 0 || d2.length === 0) {
+    const compareDates = (info1: ShowInfo, info2: ShowInfo) => {
+        if (info1.dates.length === 0 || info2.dates.length === 0) {
             throw new Error("Date array is empty")
         }
 
-        return d1[0] - d2[0];
+        return info1.dates[0] - info2.dates[0];
     }
 
-    const compareTimes = (t1: StartTimeT, t2: StartTimeT) => {
+    const compareTimes = (info1: ShowInfo, info2: ShowInfo) => {
+        const t1 = info1.startTime;
+        const t2 = info2.startTime;
 
         if (t1 === null && t2 === null) {
             return 0;
@@ -39,9 +44,9 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo,
     }
 
     return (
-        (sortByDate && compareDates(info1.dates, info2.dates)) ||
-        (sortByRating && compareRatings(info1.rating, info2.rating)) ||
-        compareTimes(info1.startTime, info2.startTime)
+        (sortByDate && compareDates(info1, info2)) ||
+        (sortByRating && compareRatings(info1, info2)) ||
+        compareTimes(info1, info2)
     );
 }
 

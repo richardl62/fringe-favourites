@@ -52,12 +52,15 @@ export function ShowInfoList({showInfo, startDate} :
         gridElems.push(<Wrapper key={key}>{elem}</Wrapper>);
     }
   
+    const ratingString = (info: ShowInfo) =>
+      info.booked ? "*" : info.rating;
+
     for(const info of showInfo) {
       addElem(<ShowLink showInfo={info} />, info, "link");
       addElem(<StartTime startTime={info.startTime} />, info, "start");
       addElem(<Date dates={info.dates} startDate={startDate} />, info, "dates");
       addElem(info.duration, info, "duration");
-      addElem(info.rating, info, "rating");
+      addElem(ratingString(info), info, "rating");
       addElem(info.venue, info, "venue");
     }
 

@@ -8,6 +8,10 @@ def make_js_string(text):
     else:
         return f'"{text}"'
 
+def make_js_boolean(boolean):
+    """Make a JS boolean"""
+    return "true" if boolean else "false"
+
 def make_output_line(raw_link, fav):
     """Make a line for favourites.js"""
     title = make_js_string(fav["title"])
@@ -16,9 +20,11 @@ def make_output_line(raw_link, fav):
     times = make_js_string(fav["times"])
     dates = make_js_string(fav["dates"])
     rating=make_js_string(fav["rating"])
+    booked = make_js_boolean(fav["booked"])
     link=make_js_string(raw_link)
 
-    data = (title,venue,duration,times,dates,link,rating)
+
+    data = (title,venue,duration,times,dates,link,rating, booked)
     return "["+ ", ".join(data) + "]"
 
 def write_favourites_ts(favourites):
@@ -36,6 +42,6 @@ def write_favourites_ts(favourites):
                 print(f"Reported error {err}\n")
 
 
-        favourites_ts.write("];\n")
+        favourites_ts.write("] as const;\n")
 
         print("Done")
