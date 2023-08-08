@@ -19,7 +19,7 @@ export const favourites = [
 ["Brief Candle", "theSpace @ Surgeons Hall", "0:45", "21:20", "14 15 16 17 18 19 21 22 23 24 25 26", "https://tickets.edfringe.com/whats-on/brief-candle", "1k", false],
 ["Bubble Show for Adults Only 2", "theSpaceTriplex", "1:00", "20:40", "6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26", "https://tickets.edfringe.com/whats-on/bubble-show-for-adults-only-2", "2", false],
 ["Can't Stop Carrying On", "theSpace @ Surgeons Hall", "0:50", "14:15 15:15", "18 19 21 22 23", "https://tickets.edfringe.com/whats-on/can-t-stop-carrying-on", "1k", false],
-["Chorus Line", "Paradise in Augustines", "2:30", "16:50", "14 15 16 17 18 19", "https://tickets.edfringe.com/whats-on/chorus-line", "1", false],
+["Chorus Line", "Paradise in Augustines", "2:30", "16:50", "14", "https://tickets.edfringe.com/whats-on/chorus-line", "1", true],
 ["Constellations", "theSpace on the Mile", "1:20", "13:55", "6 8 10 12 14 16 18 20 22 24 26", "https://tickets.edfringe.com/whats-on/constellations", "1", false],
 ["DARLING BOY", "Assembly George Square Studios", "1:00", "19:45", "6 7 9 10 11 12 13 14 15 16", "https://tickets.edfringe.com/whats-on/darling-boy", "1", false],
 ["Devil's Passion", "Assembly George Square Studios", "1:30", "13:20", "12 13 14 15 16 17 18 19 20 22 23 24 25 26 27", "https://tickets.edfringe.com/whats-on/devil-s-passion", "2", false],
