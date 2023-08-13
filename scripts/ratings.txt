@@ -1,6 +1,5 @@
 https://tickets.edfringe.com/whats-on/trials-of-galileo 2
 https://tickets.edfringe.com/whats-on/adam-bromley-time-traveller 1k
-https://tickets.edfringe.com/whats-on/alan-bennett-s-cocktail-sticks 1
 https://tickets.edfringe.com/whats-on/alan-turing-a-musical-biography 2
 https://tickets.edfringe.com/whats-on/aloft-presents-sanctuary 2
 https://tickets.edfringe.com/whats-on/alone 1
@@ -36,7 +35,7 @@ https://tickets.edfringe.com/whats-on/jesus-jane-mother-me 2
 https://tickets.edfringe.com/whats-on/just-an-ordinary-lawyer-1 1
 https://tickets.edfringe.com/whats-on/kathy-and-stella-solve-a-murder 1
 https://tickets.edfringe.com/whats-on/kiki-deathbed-cabaret 1
-https://tickets.edfringe.com/whats-on/king 1
+https://tickets.edfringe.com/whats-on/king-by-pat-kinevane 2
 https://tickets.edfringe.com/whats-on/kravitz-cohen-bernstein-and-me 1
 https://tickets.edfringe.com/whats-on/last-flapper 1
 https://tickets.edfringe.com/whats-on/lena 1
@@ -77,3 +76,18 @@ https://tickets.edfringe.com/whats-on/yippee-ki-yay-the-die-hard-parody 1
 https://tickets.edfringe.com/whats-on/adults 1 
 https://tickets.edfringe.com/whats-on/grand-old-opera-house-hotel 2
 https://tickets.edfringe.com/whats-on/sean-and-daro-flake-it-til-they-make-it 1
+https://tickets.edfringe.com/whats-on/kieran-hodgson-big-in-scotland-1 1 
+https://tickets.edfringe.com/whats-on/kieran-hodgson-big-in-scotland 1
+https://tickets.edfringe.com/whats-on/17-minutes 1
+https://tickets.edfringe.com/whats-on/and-then-the-rodeo-burned-down-1 1
+https://tickets.edfringe.com/whats-on/blood-of-the-lamb 2
+https://tickets.edfringe.com/whats-on/brief-life-mysterious-death-of-boris-iii-king-of-bulgaria 1
+https://tickets.edfringe.com/whats-on/bullring-techno-makeout-jamz 1
+https://tickets.edfringe.com/whats-on/england-son 2
+https://tickets.edfringe.com/whats-on/frankie-thompson-and-liv-ello-body-show 2
+https://tickets.edfringe.com/whats-on/her-green-hell 1
+https://tickets.edfringe.com/whats-on/jm-coetzee-s-life-times-of-michael-k 1
+https://tickets.edfringe.com/whats-on/john-robins-howl 1
+https://tickets.edfringe.com/whats-on/luke-wright-s-silver-jubilee 2
+https://tickets.edfringe.com/whats-on/nuclear-children 1
+https://tickets.edfringe.com/whats-on/sunsets 1
