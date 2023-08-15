@@ -18,7 +18,6 @@ https://tickets.edfringe.com/whats-on/bubble-show-for-adults-only-2 2
 https://tickets.edfringe.com/whats-on/can-t-stop-carrying-on 1k
 https://tickets.edfringe.com/whats-on/chorus-line 1
 https://tickets.edfringe.com/whats-on/constellations 1
-https://tickets.edfringe.com/whats-on/darling-boy 1
 https://tickets.edfringe.com/whats-on/devil-s-passion 2
 https://tickets.edfringe.com/whats-on/dom-the-play 2
 https://tickets.edfringe.com/whats-on/enquiry-concerning-hereafter 1k
@@ -45,14 +44,12 @@ https://tickets.edfringe.com/whats-on/lie-low 1
 https://tickets.edfringe.com/whats-on/little-shop-of-horrors 1
 https://tickets.edfringe.com/whats-on/lost-soles 1
 https://tickets.edfringe.com/whats-on/importance-of-being-earnest-1 1
-https://tickets.edfringe.com/whats-on/man-who-thought-he-knew-too-much 2
 https://tickets.edfringe.com/whats-on/manifest-destiny-s-child 1
 https://tickets.edfringe.com/whats-on/mariner-s-song 1
 https://tickets.edfringe.com/whats-on/maureen 1k
 https://tickets.edfringe.com/whats-on/meet-me-by-the-stranger 1k
 https://tickets.edfringe.com/whats-on/mrs-president 1
 https://tickets.edfringe.com/whats-on/mythos-ragnarok 1
-https://tickets.edfringe.com/whats-on/no-way-to-treat-a-lady 1
 https://tickets.edfringe.com/whats-on/on-your-bike 1
 https://tickets.edfringe.com/whats-on/pleasure-little-treasure 1
 https://tickets.edfringe.com/whats-on/portrait-of-ludmilla-as-nina-simone 1
@@ -88,7 +85,7 @@ https://tickets.edfringe.com/whats-on/frankie-thompson-and-liv-ello-body-show 2
 https://tickets.edfringe.com/whats-on/her-green-hell 1
 https://tickets.edfringe.com/whats-on/jm-coetzee-s-life-times-of-michael-k 1
 https://tickets.edfringe.com/whats-on/john-robins-howl 1
-https://tickets.edfringe.com/whats-on/luke-wright-s-silver-jubilee 2
+https://tickets.edfringe.com/whats-on/luke-wright-s-silver-jubilee 1
 https://tickets.edfringe.com/whats-on/nuclear-children 1
 https://tickets.edfringe.com/whats-on/sunsets 1
 https://tickets.edfringe.com/whats-on/n-ormes 2
