@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/fringe-favourites/static/js/main.a9781336.js",
+    "main.js": "/fringe-favourites/static/js/main.fc3a5703.js",
     "index.html": "/fringe-favourites/index.html",
-    "main.a9781336.js.map": "/fringe-favourites/static/js/main.a9781336.js.map"
+    "main.fc3a5703.js.map": "/fringe-favourites/static/js/main.fc3a5703.js.map"
   },
   "entrypoints": [
-    "static/js/main.a9781336.js"
+    "static/js/main.fc3a5703.js"
   ]
 }
