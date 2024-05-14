@@ -1,9 +1,2 @@
-https://tickets.edfringe.com/whats-on/heaven-by-eugene-o-brien 13
-https://tickets.edfringe.com/whats-on/chorus-line 14
-https://tickets.edfringe.com/whats-on/adults 17
-https://tickets.edfringe.com/whats-on/highly-suspect-murder-mystery-murder-at-the-movies 18
-https://tickets.edfringe.com/whats-on/enquiry-concerning-hereafter 18
-https://tickets.edfringe.com/whats-on/manifest-destiny-s-child 13
-https://tickets.edfringe.com/whats-on/appraisal 13
-https://tickets.edfringe.com/whats-on/bacon 17
-https://tickets.edfringe.com/whats-on/england-son 17
+# Link than date e.g.
+# https://tickets.edfringe.com/whats-on/heaven-by-eugene-o-brien 13
