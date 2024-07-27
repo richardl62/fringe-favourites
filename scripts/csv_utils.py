@@ -37,7 +37,7 @@ def get_bookings():
             lineno += 1
 
             line = fullline.strip()
-            if line == "":
+            if line == "" or line[0] == "#":
                 continue
 
             try:
