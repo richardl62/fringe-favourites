@@ -13,7 +13,7 @@ def remove_non_ascii(text):
 
 def process_title(raw_title):
     """Process tile read from exported favourites"""
-    return raw_title.replace(",", "")
+    return raw_title.replace(",", "").replace("\"","") # Could do better
 
 def process_venue(raw_venue):
     """Process venue read from exported favourites"""
