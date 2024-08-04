@@ -38,7 +38,7 @@ def write_favourites_ts(favourites):
                 favourites_ts.write(f"{outline},\n")
 
             except Exception as err:   # pylint: disable=broad-except
-                print(f'WARNING: Cannot process line: {fav}\n')
+                print(f'WARNING: Cannot process line: {fav} while writing favourites.ts\n')
                 print(f"Reported error {err}\n")
 
 

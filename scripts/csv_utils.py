@@ -20,10 +20,10 @@ def get_link_ratings():
                 link = split[0].strip()
                 rating = split[1].strip()
                 ratings[link] = rating
-                if not re.fullmatch("[1-3]k?", rating):
+                if not re.fullmatch("[0-3][kx]?", rating, re.IGNORECASE):
                     print(f'WARNING: rating: "{rating}" for {link} is not recognised')
             except Exception as err:   # pylint: disable=broad-except
-                print(f'WARNING: Cannot process line {lineno}: {line}')
+                print(f'WARNING: Cannot process line {lineno}: {line} of link ratings')
                 print(f"Reported error {err}\n")
 
     return ratings
@@ -51,7 +51,7 @@ def get_bookings():
                     print(f'WARNING: booking date: "{date}" for {link} is not recognised')
 
             except Exception as err:   # pylint: disable=broad-except
-                print(f'WARNING: Cannot process line {lineno}: {line}')
+                print(f'WARNING: Cannot process line {lineno}: {line} of booked shows')
                 print(f"Reported error {err}\n")
 
     return ratings
