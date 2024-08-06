@@ -12,12 +12,24 @@ def make_js_boolean(boolean):
     """Make a JS boolean"""
     return "true" if boolean else "false"
 
+def make_js_times(times):
+    """Make JS representation of single time of dictionary giving time for various dates."""
+    if isinstance(times, str):
+        return make_js_string(times)
+    else:
+        js = "{"
+        for date in times:
+            time = times[date]
+            js += f'{date}:"{time}", '
+        js += "}"
+        return js
+
 def make_output_line(raw_link, fav):
     """Make a line for favourites.js"""
     title = make_js_string(fav["title"])
     venue = make_js_string(fav["venue"])
     duration = make_js_string(fav["duration"])
-    times = make_js_string(fav["times"])
+    times = make_js_times(fav["times"])
     dates = make_js_string(fav["dates"])
     rating=make_js_string(fav["rating"])
     booked = make_js_boolean(fav["booked"])

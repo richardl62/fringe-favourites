@@ -105,6 +105,13 @@ def get_start_times():
 
     return result
 
+def process_times(times):
+    """Handle case when times is a dictionary"""
+    if isinstance(times, str):
+        return times
+    else:
+        return "misc"
+
 def write_csv(favourites):
     """Write favourites in a Richard-friendly csv format"""
     with open(FAVOURITES_CSV,  mode='w', encoding='windows-1252') as csv:
@@ -112,7 +119,7 @@ def write_csv(favourites):
             title = fav["title"]
             venue = fav["venue"]
             duration = fav["duration"]
-            times = fav["times"]
+            times = process_times(fav["times"])
             dates = fav["dates"]
             rating = fav["rating"]
 

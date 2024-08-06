@@ -7,11 +7,15 @@ function unpackVenue(venue: string) {
 
 export type StartTimeT = string | null; // null -> More than one start time is listed
 
-function unpackStartTime(times: string): StartTimeT {
-    if (times.includes(" ")) {
-        return null;
+type NewStartTimeT = string | Record<number,string>
+function unpackStartTime(times: NewStartTimeT): StartTimeT {
+    if (typeof times !== "string") {
+        return null; // For now
     }
 
+    if (times.includes(" ")) {
+      return null;
+    }
     return times;
 }
 
@@ -27,7 +31,7 @@ function unpackDates(dates: string): DatesT {
 }
 
 /** Make a ShowInfo from raw info about one show */
-type Line = [string, string, string, string, string, string, string, boolean]
+type Line = [string, string, string, NewStartTimeT, string, string, string, boolean]
 function makeShowInfo(line: Readonly<Line>) {
 
     const obj = {

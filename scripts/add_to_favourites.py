@@ -57,6 +57,6 @@ def add_start_times(favourites, start_times):
         try:
             assert link in favourites, "link not in favourates"
             check_start_times(favourites[link]["times"], start_times[link])
-            #favourites[link]["times"] = start_times[link]
+            favourites[link]["times"] = start_times[link]
         except Exception as err:   # pylint: disable=broad-except
             print(f'Error {err} while processing start times for {link}')
