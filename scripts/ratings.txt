@@ -53,7 +53,6 @@ https://tickets.edfringe.com/whats-on/complete-works-of-william-shakespeare-abri
 https://tickets.edfringe.com/whats-on/crispr-the-musical 1
 https://tickets.edfringe.com/whats-on/cs-lewis-the-screwtape-letters 2
 https://tickets.edfringe.com/whats-on/cyrano 0
-https://tickets.edfringe.com/whats-on/dan-bastianelli-deception 1
 https://tickets.edfringe.com/whats-on/david-william-bryan-fragility-of-man 1
 https://tickets.edfringe.com/whats-on/dear-billy 0
 https://tickets.edfringe.com/whats-on/divas-of-jazz-from-fitzgerald-to-jones 1
@@ -62,7 +61,6 @@ https://tickets.edfringe.com/whats-on/doom-and-glitter-a-tribute-to-tom-waits 1
 https://tickets.edfringe.com/whats-on/drum 1
 https://tickets.edfringe.com/whats-on/duck 1
 https://tickets.edfringe.com/whats-on/dylan-thomas-return-journey-bob-kingdom-original-direction-by-anthony-hopkins 1
-https://tickets.edfringe.com/whats-on/emma-sidi-is-sue-gray-1 2
 https://tickets.edfringe.com/whats-on/flesh 1
 https://tickets.edfringe.com/whats-on/for-the-love-of-spam 1
 https://tickets.edfringe.com/whats-on/four-more-short-plays-loosely-linked-by-the-theme-of-crime 0
@@ -123,3 +121,11 @@ https://tickets.edfringe.com/whats-on/tom-crosbie-i-came-i-saw-i-conq-nerd 2k
 https://tickets.edfringe.com/whats-on/wyld-woman-the-legend-of-shy-girl 1
 https://tickets.edfringe.com/whats-on/yoga-with-jillian-the-guardian-top-50-shows-to-see 1
 https://tickets.edfringe.com/whats-on/yuck-circus 1
+
+https://tickets.edfringe.com/whats-on/alexander-bennett-emotional-daredevil 1
+https://tickets.edfringe.com/whats-on/hannah-gadsby-woof 2
+https://tickets.edfringe.com/whats-on/heartbreak-hotel 1
+https://tickets.edfringe.com/whats-on/hero-banlaoch 2
+https://tickets.edfringe.com/whats-on/juliette-burton-going-rogue 1
+https://tickets.edfringe.com/whats-on/nina-conti-whose-face-is-it-anyway 1
+https://tickets.edfringe.com/whats-on/vl 1
