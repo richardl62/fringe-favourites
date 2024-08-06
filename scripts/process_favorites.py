@@ -3,7 +3,7 @@ import glob
 import sys
 import re
 
-from add_to_favourites import add_bookings, add_link_ratings
+from add_to_favourites import add_bookings, add_link_ratings, add_start_times
 from ts_utils import write_favourites_ts
 from csv_utils import get_link_ratings, get_bookings, get_start_times, \
     write_csv
@@ -101,10 +101,10 @@ def doit():
     ratings = get_link_ratings()
     bookings = get_bookings()
     start_times = get_start_times()
-    print(start_times)
 
     add_link_ratings(favourites, ratings)
     add_bookings(favourites, bookings)
+    add_start_times(favourites, start_times)
 
     write_favourites_ts(favourites)
     write_csv(favourites)

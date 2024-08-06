@@ -1,4 +1,4 @@
-"""Tools to add to imported favourites"""
+"""Tools to update data from imported favourites """
 
 from consts import UNRATED, UNRATED_FILE
 
@@ -41,3 +41,15 @@ def add_bookings(favourites, bookings):
     for link in bookings.keys():
         if link in favourites:
             show = favourites[link]
+
+def check_start_times(old_times, new_times):
+    """Sanity check new (manually entered) start times"""
+    print(old_times.split(), new_times)
+
+def add_start_times(favourites, start_times):
+    """Add details of show times to favourites"""
+    for link in start_times:
+        if link in favourites:
+            check_start_times(favourites[link]["times"], start_times[link])
+        else:
+            print(f"Unknown link {link} in start times")

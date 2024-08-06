@@ -3,5 +3,5 @@
 # This is intended for use with shows with different start times of different days
 # rather than for shows with multiple start times on a given day.
 
-https://tickets.edfringe.com/whats-on/dummy1 10-17|14:00 18|17:30
-https://tickets.edfringe.com/whats-on/dummy2 19|12:00 11-14|11:00 18-19|20:30 
+https://tickets.edfringe.com/whats-on/25th-annual-putnam-county-spelling-bee 10-17|14:00 18|17:30
+https://tickets.edfringe.com/whats-on/1-hour-of-insane-magic 19|12:00 11-14|11:00 18-19|20:30 
