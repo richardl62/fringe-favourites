@@ -4,7 +4,7 @@ import sys
 import re
 
 from ts_utils import write_favourites_ts
-from csv_utils import get_link_ratings, get_bookings, \
+from csv_utils import get_link_ratings, get_bookings, get_start_times, \
     process_link_ratings, process_bookings, write_csv
 
 def remove_non_ascii(text):
@@ -99,6 +99,8 @@ def doit():
     favourites = read_exported_favourites()
     ratings = get_link_ratings()
     bookings = get_bookings()
+    start_times = get_start_times()
+    print(start_times)
 
     process_link_ratings(favourites, ratings)
     process_bookings(favourites, bookings)
