@@ -42,14 +42,21 @@ def add_bookings(favourites, bookings):
         if link in favourites:
             show = favourites[link]
 
-def check_start_times(old_times, new_times):
+def check_start_times(old_times_joined, new_times):
     """Sanity check new (manually entered) start times"""
-    print(old_times.split(), new_times)
+    old_times_list = old_times_joined.split()
+    assert len(old_times_list) > 1, "Unnecessary use of hand written start times"
+    for date in new_times:
+        time = new_times[date]
+        assert time in old_times_list, f'{new_times[date]} is not a valid start time'
+
 
 def add_start_times(favourites, start_times):
     """Add details of show times to favourites"""
     for link in start_times:
-        if link in favourites:
+        try:
+            assert link in favourites, "link not in favourates"
             check_start_times(favourites[link]["times"], start_times[link])
-        else:
-            print(f"Unknown link {link} in start times")
+            #favourites[link]["times"] = start_times[link]
+        except Exception as err:   # pylint: disable=broad-except
+            print(f'Error {err} while processing start times for {link}')

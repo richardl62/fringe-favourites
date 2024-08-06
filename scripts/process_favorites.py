@@ -38,7 +38,7 @@ def process_duration(raw_duration):
 
 def process_times(raw_times):
     """Process start times read from exported favourites"""
-    return raw_times.replace(", "," ")
+    return raw_times.replace(", "," ").replace('"','')
 
 def process_dates(raw_dates):
     """dates are in a string line "9 Aug, 13 Aug, 21 Aug" (with the quotes)
