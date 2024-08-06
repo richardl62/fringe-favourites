@@ -3,9 +3,10 @@ import glob
 import sys
 import re
 
+from add_to_favourites import add_bookings, add_link_ratings
 from ts_utils import write_favourites_ts
 from csv_utils import get_link_ratings, get_bookings, get_start_times, \
-    process_link_ratings, process_bookings, write_csv
+    write_csv
 
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
@@ -102,8 +103,8 @@ def doit():
     start_times = get_start_times()
     print(start_times)
 
-    process_link_ratings(favourites, ratings)
-    process_bookings(favourites, bookings)
+    add_link_ratings(favourites, ratings)
+    add_bookings(favourites, bookings)
 
     write_favourites_ts(favourites)
     write_csv(favourites)
