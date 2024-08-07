@@ -10,6 +10,9 @@ START_TIMES_FILE = "start-times.txt"
 """Unrated shows file"""
 UNRATED_FILE = "unrated.txt"
 
+"""Shows with variable start times that do not feature in START_TIMES_FILE"""
+VARIABLE_START_TIME_FILE = "variable_start.txt"
+
 """CSV formatted favourites"""
 FAVOURITES_CSV = "../favourites.csv"
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DatesT, ShowInfo, StartTimeT } from "./favourites";
+import { DatesT, ShowInfo } from "./processed-favourites";
 
 const DateSpan = styled.span`
     text-align: center;
@@ -17,8 +17,18 @@ function ShowLink({showInfo}: {showInfo: ShowInfo}) {
   return <a href={href} target="_blank" rel="noreferrer">{title}</a>;
 }
 
-function StartTime({startTime}: {startTime: StartTimeT}) {
-  return <span>{startTime || "misc"}</span>;
+function StartTime({showInfo}: {showInfo: ShowInfo}) {
+  const {startTime, startTimeVaries} = showInfo;
+  let time: string;
+  if (startTime === null) {
+     time = "misc";
+  } else {
+     time = startTime;
+     if(startTimeVaries) {
+        time += "+";
+     }
+  }
+  return <span>{time}</span>;
 }
  
 const ShowList = styled.div`
@@ -57,7 +67,7 @@ export function ShowInfoList({showInfo, startDate} :
 
     for(const info of showInfo) {
       addElem(<ShowLink showInfo={info} />, info, "link");
-      addElem(<StartTime startTime={info.startTime} />, info, "start");
+      addElem(<StartTime showInfo={info} />, info, "start");
       addElem(<Date dates={info.dates} startDate={startDate} />, info, "dates");
       addElem(info.duration, info, "duration");
       addElem(ratingString(info), info, "rating");
