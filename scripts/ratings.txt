@@ -4,7 +4,7 @@
 # e.g. 2K could mean 'my rating 2 and Ken might want to see it".
 # This is a long list of favourites made by looking through the program.  I intend to prune it.
 
-https://tickets.edfringe.com/whats-on/1-hour-of-insane-magic 0 
+https://tickets.edfringe.com/whats-on/300-paintings 2
 https://tickets.edfringe.com/whats-on/1-in-a-chameleon 1
 https://tickets.edfringe.com/whats-on/1-moment-in-time 0
 https://tickets.edfringe.com/whats-on/16-postcodes 0
@@ -82,6 +82,7 @@ https://tickets.edfringe.com/whats-on/invention-of-magic 2K
 https://tickets.edfringe.com/whats-on/it-s-the-economy-stupid 1
 https://tickets.edfringe.com/whats-on/joni-mitchell-take-me-as-i-am 1
 https://tickets.edfringe.com/whats-on/joyfully-grimm-reimagining-a-queer-adolescence 1x
+https://tickets.edfringe.com/whats-on/kev-campbell-was-he 2
 https://tickets.edfringe.com/whats-on/last-bantam 1
 https://tickets.edfringe.com/whats-on/leni-s-last-lament 2
 https://tickets.edfringe.com/whats-on/long-run 1
@@ -91,6 +92,7 @@ https://tickets.edfringe.com/whats-on/love-beyond 1
 https://tickets.edfringe.com/whats-on/man-with-the-golden-hands 1
 https://tickets.edfringe.com/whats-on/mark-thomas-gaffa-tapes 2
 https://tickets.edfringe.com/whats-on/mary-a-gig-theatre-show 1
+https://tickets.edfringe.com/whats-on/mountebank-comedy-walk-of-edinburgh 1
 https://tickets.edfringe.com/whats-on/mr-diagonal-join-the-dots 0
 https://tickets.edfringe.com/whats-on/my-english-persian-kitchen 1
 https://tickets.edfringe.com/whats-on/mythos-ragnarok 2
