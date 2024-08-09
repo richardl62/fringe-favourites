@@ -1,6 +1,6 @@
 """Tools to update data from imported favourites """
 
-from consts import START_TIMES_FILE, UNRATED, UNRATED_FILE, VARIABLE_START_TIME_FILE
+from consts import START_TIMES_FILE, UNRATED, UNRATED_FILE, UNSET_START_TIME_FILE
 
 
 def add_link_ratings(favourites, ratings):
@@ -61,10 +61,10 @@ def add_start_times(favourites, start_times):
         except Exception as err:   # pylint: disable=broad-except
             print(f'Error {err} while processing start times for {link}')
 
-    with open(VARIABLE_START_TIME_FILE,  mode='w', encoding='windows-1252') as variable_start_time:
-        variable_start_time.write('# Shows with variable start times that do not feature ')
-        variable_start_time.write(f'in {START_TIMES_FILE}\n')
+    with open(UNSET_START_TIME_FILE,  mode='w', encoding='windows-1252') as unset_start_time:
+        unset_start_time.write('# Shows with variable start times that do not feature ')
+        unset_start_time.write(f'in {START_TIMES_FILE}\n')
         for link in favourites:
             start = favourites[link]["times"]
             if isinstance(start, str) and " " in start:
-                variable_start_time.write(f'{link}\n')
+                unset_start_time.write(f'{link}\n')
