@@ -24,10 +24,12 @@ function StartTime({showInfo}: {showInfo: ShowInfo}) {
      time = "misc";
   } else {
      time = startTime;
-     if(startTimeVaries) {
-        time += "+";
-     }
   }
+  
+  if(startTimeVaries) {
+    time += "+";
+  }
+  
   return <span>{time}</span>;
 }
  
