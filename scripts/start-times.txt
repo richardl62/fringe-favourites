@@ -4,7 +4,6 @@
 # rather than for shows with multiple start times on a given day.
 
 https://tickets.edfringe.com/whats-on/25th-annual-putnam-county-spelling-bee 12-17|11:15 19-24|11:35
-https://tickets.edfringe.com/whats-on/1-moment-in-time 12-17|20:05 18-24|18:00
 https://tickets.edfringe.com/whats-on/another-unwasted-evening-the-genius-of-tom-lehrer 10|16:30 14|20:30 16-18|18:30
 https://tickets.edfringe.com/whats-on/attila-the-stockbroker-14-days-14-completely-different-shows 11-16|16:00 17|13:30 18|16:00
 https://tickets.edfringe.com/whats-on/blues-and-burlesque 13-25|21:10
