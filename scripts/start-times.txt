@@ -4,19 +4,13 @@
 # rather than for shows with multiple start times on a given day.
 
 https://tickets.edfringe.com/whats-on/25th-annual-putnam-county-spelling-bee 12-17|11:15 19-24|11:35
-https://tickets.edfringe.com/whats-on/another-unwasted-evening-the-genius-of-tom-lehrer 10|16:30 14|20:30 16-18|18:30
+https://tickets.edfringe.com/whats-on/another-unwasted-evening-the-genius-of-tom-lehrer 14|20:30 16-18|18:30
 https://tickets.edfringe.com/whats-on/attila-the-stockbroker-14-days-14-completely-different-shows 11-16|16:00 17|13:30 18|16:00
 https://tickets.edfringe.com/whats-on/blues-and-burlesque 13-25|21:10
 https://tickets.edfringe.com/whats-on/cs-lewis-the-screwtape-letters 14-16|19:15 17|14:15
-https://tickets.edfringe.com/whats-on/cyrano 10|19:00 11|10:00 13|13:00 14|16:00 17|13:00 18|16:00
 https://tickets.edfringe.com/whats-on/dylan-thomas-return-journey-bob-kingdom-original-direction-by-anthony-hopkins 10-20|12:20
 https://tickets.edfringe.com/whats-on/four-more-short-plays-loosely-linked-by-the-theme-of-crime 12-17|12:35
-https://tickets.edfringe.com/whats-on/in-two-minds 11|17:30 13|15:30 14|18:00 15|20:30 16|10:30 17|12:45 18|15:30
-https://tickets.edfringe.com/whats-on/love-beyond 12|14:00 13-21|12:15
 https://tickets.edfringe.com/whats-on/mark-thomas-gaffa-tapes 13-21|18:30
 https://tickets.edfringe.com/whats-on/shellshocked-an-explosive-new-play 12-21|10:50
 https://tickets.edfringe.com/whats-on/yoga-with-jillian-the-guardian-top-50-shows-to-see 10-17|10:15 18|14:25
-
-#These are shows I have booked
-https://tickets.edfringe.com/whats-on/sound-inside
-https://tickets.edfringe.com/whats-on/my-english-persian-kitchen
+https://tickets.edfringe.com/whats-on/letter-to-lyndon-b-johnson-or-god-whoever-reads-this-first 15-18|20:50

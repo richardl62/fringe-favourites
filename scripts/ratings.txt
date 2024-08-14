@@ -4,14 +4,10 @@
 # e.g. 2K could mean 'my rating 2 and Ken might want to see it".
 
 https://tickets.edfringe.com/whats-on/300-paintings 2
-https://tickets.edfringe.com/whats-on/1-in-a-chameleon 1
 https://tickets.edfringe.com/whats-on/16-postcodes 1
 https://tickets.edfringe.com/whats-on/25th-annual-putnam-county-spelling-bee 1
 https://tickets.edfringe.com/whats-on/360-allstars 2
-https://tickets.edfringe.com/whats-on/5-nights-in-harperspace 1
 https://tickets.edfringe.com/whats-on/act-of-grace 1
-https://tickets.edfringe.com/whats-on/alex-mason-and-freya-mcghee-comedians-in-stem 2K
-https://tickets.edfringe.com/whats-on/alice-faye 0
 https://tickets.edfringe.com/whats-on/almost-austen 0
 https://tickets.edfringe.com/whats-on/amy-s-view 0
 https://tickets.edfringe.com/whats-on/another-unwasted-evening-the-genius-of-tom-lehrer 1
@@ -46,9 +42,7 @@ https://tickets.edfringe.com/whats-on/chairs-revisited 0
 https://tickets.edfringe.com/whats-on/chris-cook-the-art-of-taking-part 1
 https://tickets.edfringe.com/whats-on/circa-humans-2-0 1
 https://tickets.edfringe.com/whats-on/comedy-for-the-curious 2K
-https://tickets.edfringe.com/whats-on/complete-works-of-william-shakespeare-abridged 1
 https://tickets.edfringe.com/whats-on/cs-lewis-the-screwtape-letters 2
-https://tickets.edfringe.com/whats-on/cyrano 0
 https://tickets.edfringe.com/whats-on/david-william-bryan-fragility-of-man 1
 https://tickets.edfringe.com/whats-on/dear-billy 0
 https://tickets.edfringe.com/whats-on/divas-of-jazz-from-fitzgerald-to-jones 1
@@ -71,14 +65,12 @@ https://tickets.edfringe.com/whats-on/i-wish-my-life-were-like-a-musical 1
 https://tickets.edfringe.com/whats-on/importance-of-being-earnest 1
 https://tickets.edfringe.com/whats-on/improv-musical 1
 https://tickets.edfringe.com/whats-on/in-defiance-of-gravity 0
-https://tickets.edfringe.com/whats-on/in-two-minds 1
 https://tickets.edfringe.com/whats-on/influenced 1
 https://tickets.edfringe.com/whats-on/into-the-woods-1 1
 https://tickets.edfringe.com/whats-on/invention-of-magic 2K
 https://tickets.edfringe.com/whats-on/it-s-the-economy-stupid 1
 https://tickets.edfringe.com/whats-on/joni-mitchell-take-me-as-i-am 1
 https://tickets.edfringe.com/whats-on/joyfully-grimm-reimagining-a-queer-adolescence 1x
-https://tickets.edfringe.com/whats-on/kev-campbell-was-he 2
 https://tickets.edfringe.com/whats-on/last-bantam 1
 https://tickets.edfringe.com/whats-on/leni-s-last-lament 2
 https://tickets.edfringe.com/whats-on/long-run 1
@@ -87,15 +79,11 @@ https://tickets.edfringe.com/whats-on/lorna-reid-band 1
 https://tickets.edfringe.com/whats-on/love-beyond 1
 https://tickets.edfringe.com/whats-on/man-with-the-golden-hands 1
 https://tickets.edfringe.com/whats-on/mark-thomas-gaffa-tapes 2
-https://tickets.edfringe.com/whats-on/mary-a-gig-theatre-show 1
-https://tickets.edfringe.com/whats-on/mountebank-comedy-walk-of-edinburgh 1
+https://tickets.edfringe.com/whats-on/mountebank-comedy-walk-of-edinburgh 0
 https://tickets.edfringe.com/whats-on/mr-diagonal-join-the-dots 0
-https://tickets.edfringe.com/whats-on/my-english-persian-kitchen 1
 https://tickets.edfringe.com/whats-on/mythos-ragnarok 2
 https://tickets.edfringe.com/whats-on/n-ormes 2
 https://tickets.edfringe.com/whats-on/no-one-is-coming 2
-https://tickets.edfringe.com/whats-on/only-human 0
-https://tickets.edfringe.com/whats-on/otway 1
 https://tickets.edfringe.com/whats-on/our-little-secret-the-23andme-musical 1
 https://tickets.edfringe.com/whats-on/planetarium-lates-pink-floyd-s-dark-side-of-the-moon 1k
 https://tickets.edfringe.com/whats-on/plotters 1
@@ -108,12 +96,10 @@ https://tickets.edfringe.com/whats-on/show-pony 0
 https://tickets.edfringe.com/whats-on/sinatra-raw 1
 https://tickets.edfringe.com/whats-on/skank-sinatra 0
 https://tickets.edfringe.com/whats-on/sonnets-from-suburbia 0
-https://tickets.edfringe.com/whats-on/sound-inside 2
 https://tickets.edfringe.com/whats-on/stand-up-science 1k
 https://tickets.edfringe.com/whats-on/strange-case-of-dr-jekyll-and-mr-hyde 1
 https://tickets.edfringe.com/whats-on/stuffed 1
 https://tickets.edfringe.com/whats-on/sunshine-on-leith 1
-https://tickets.edfringe.com/whats-on/time-traveller-s-life 2
 https://tickets.edfringe.com/whats-on/thunderstruck 1
 https://tickets.edfringe.com/whats-on/tom-crosbie-i-came-i-saw-i-conq-nerd 2k
 https://tickets.edfringe.com/whats-on/wyld-woman-the-legend-of-shy-girl 1
@@ -121,11 +107,9 @@ https://tickets.edfringe.com/whats-on/yoga-with-jillian-the-guardian-top-50-show
 https://tickets.edfringe.com/whats-on/yuck-circus 1
 
 https://tickets.edfringe.com/whats-on/alexander-bennett-emotional-daredevil 1
-https://tickets.edfringe.com/whats-on/hannah-gadsby-woof 2
 https://tickets.edfringe.com/whats-on/heartbreak-hotel 1
 https://tickets.edfringe.com/whats-on/hero-banlaoch 2
 https://tickets.edfringe.com/whats-on/juliette-burton-going-rogue 1
-https://tickets.edfringe.com/whats-on/nina-conti-whose-face-is-it-anyway 1
 https://tickets.edfringe.com/whats-on/vl 1
 https://tickets.edfringe.com/whats-on/rob-madge-my-son-s-a-queer-but-what-can-you-do 1
 https://tickets.edfringe.com/whats-on/ghost-of-white-hart-lane 2
@@ -135,8 +119,6 @@ https://tickets.edfringe.com/whats-on/plotters 1
 https://tickets.edfringe.com/whats-on/5-mistakes-that-changed-history 2
 https://tickets.edfringe.com/whats-on/milton-jones-ha-milton 1
 https://tickets.edfringe.com/whats-on/border 2
-https://tickets.edfringe.com/whats-on/so-young 2
-https://tickets.edfringe.com/whats-on/june-carter-cash-the-woman-her-music-and-me 2
 https://tickets.edfringe.com/whats-on/how-i-learned-to-swim 2
 https://tickets.edfringe.com/whats-on/my-mother-s-funeral-the-show 2
 https://tickets.edfringe.com/whats-on/fanboy 1
@@ -145,3 +127,8 @@ https://tickets.edfringe.com/whats-on/shakeitup-the-improvised-shakespeare-show 
 https://tickets.edfringe.com/whats-on/i-m-almost-there 2
 https://tickets.edfringe.com/whats-on/jordan-brookes-fontanelle 1
 https://tickets.edfringe.com/whats-on/do-this-one-thing-for-me 2
+https://tickets.edfringe.com/whats-on/red-room 0
+https://tickets.edfringe.com/whats-on/no-no-no-please-no-god-no-nevermind-i-m-fine 2
+https://tickets.edfringe.com/whats-on/son-of-a-bitch 1
+https://tickets.edfringe.com/whats-on/elf-lyons-horses 2
+https://tickets.edfringe.com/whats-on/letter-to-lyndon-b-johnson-or-god-whoever-reads-this-first 2
