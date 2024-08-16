@@ -4,10 +4,8 @@
 # rather than for shows with multiple start times on a given day.
 
 https://tickets.edfringe.com/whats-on/25th-annual-putnam-county-spelling-bee 12-17|11:15 19-24|11:35
-https://tickets.edfringe.com/whats-on/another-unwasted-evening-the-genius-of-tom-lehrer 14|20:30 16-18|18:30
 https://tickets.edfringe.com/whats-on/attila-the-stockbroker-14-days-14-completely-different-shows 11-16|16:00 17|13:30 18|16:00
 https://tickets.edfringe.com/whats-on/blues-and-burlesque 13-25|21:10
-https://tickets.edfringe.com/whats-on/cs-lewis-the-screwtape-letters 14-16|19:15 17|14:15
 https://tickets.edfringe.com/whats-on/dylan-thomas-return-journey-bob-kingdom-original-direction-by-anthony-hopkins 10-20|12:20
 https://tickets.edfringe.com/whats-on/four-more-short-plays-loosely-linked-by-the-theme-of-crime 12-17|12:35
 https://tickets.edfringe.com/whats-on/mark-thomas-gaffa-tapes 13-21|18:30
