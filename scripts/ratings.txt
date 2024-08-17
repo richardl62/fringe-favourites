@@ -67,7 +67,6 @@ https://tickets.edfringe.com/whats-on/influenced 1
 https://tickets.edfringe.com/whats-on/into-the-woods-1 1
 https://tickets.edfringe.com/whats-on/invention-of-magic 2K
 https://tickets.edfringe.com/whats-on/joni-mitchell-take-me-as-i-am 1
-https://tickets.edfringe.com/whats-on/joyfully-grimm-reimagining-a-queer-adolescence 1x
 https://tickets.edfringe.com/whats-on/last-bantam 1
 https://tickets.edfringe.com/whats-on/long-run 1
 https://tickets.edfringe.com/whats-on/look-what-we-ve-done 1
@@ -106,7 +105,6 @@ https://tickets.edfringe.com/whats-on/alexander-bennett-emotional-daredevil 1
 https://tickets.edfringe.com/whats-on/heartbreak-hotel 1
 https://tickets.edfringe.com/whats-on/hero-banlaoch 2
 https://tickets.edfringe.com/whats-on/juliette-burton-going-rogue 1
-https://tickets.edfringe.com/whats-on/vl 1
 https://tickets.edfringe.com/whats-on/rob-madge-my-son-s-a-queer-but-what-can-you-do 1
 https://tickets.edfringe.com/whats-on/alison-larkin-grief-a-comedy 2
 https://tickets.edfringe.com/whats-on/ten-thousand-hours 1
@@ -117,13 +115,13 @@ https://tickets.edfringe.com/whats-on/how-i-learned-to-swim 2
 https://tickets.edfringe.com/whats-on/fanboy 1
 https://tickets.edfringe.com/whats-on/david-william-bryan-fragility-of-man 1
 https://tickets.edfringe.com/whats-on/shakeitup-the-improvised-shakespeare-show 1
-https://tickets.edfringe.com/whats-on/i-m-almost-there 2
 https://tickets.edfringe.com/whats-on/jordan-brookes-fontanelle 1
 https://tickets.edfringe.com/whats-on/red-room 0
 https://tickets.edfringe.com/whats-on/no-no-no-please-no-god-no-nevermind-i-m-fine 2
 https://tickets.edfringe.com/whats-on/son-of-a-bitch 1
 https://tickets.edfringe.com/whats-on/elf-lyons-horses 2
-https://tickets.edfringe.com/whats-on/letter-to-lyndon-b-johnson-or-god-whoever-reads-this-first 2
 https://tickets.edfringe.com/whats-on/frankenstein-on-a-budget 1
 https://tickets.edfringe.com/whats-on/evening-without-kate-bush 1
 https://tickets.edfringe.com/whats-on/mairi-campbell-living-stone 1
+https://tickets.edfringe.com/whats-on/alex-kealy-the-fear 1 
+
