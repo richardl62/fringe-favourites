@@ -1,3 +1,3 @@
-# Shows with variable start times that do not feature in start-times.txt
+# Shows with variable start times that do not feature in input/start-times.txt
 https://tickets.edfringe.com/whats-on/another-unwasted-evening-the-genius-of-tom-lehrer
 https://tickets.edfringe.com/whats-on/planetarium-lates-pink-floyd-s-dark-side-of-the-moon

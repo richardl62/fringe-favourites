@@ -8,6 +8,8 @@ from ts_utils import write_favourites_ts
 from csv_utils import get_link_ratings, get_bookings, get_start_times, \
     write_csv
 
+from file_names import EDFRINGE_FAVOURITES_REGEX
+
 def remove_non_ascii(text):
     """Remove no-ascii characters"""
     return ''.join(i for i in text if ord(i) > 0)
@@ -73,14 +75,14 @@ def basic_convert_favourite_line(line):
 def read_exported_favourites():
     """ Find and read the exported favourites. Return the result as an array line.
     The header line and non-ascii characters are removed."""
-    filenames = glob.glob('fringe_search_results*')
+    filenames = glob.glob(EDFRINGE_FAVOURITES_REGEX)
 
     if len(filenames) == 0 :
-        print("Error: file called 'fringe_search_results*' not found")
+        print(f"Error: file called matching '{EDFRINGE_FAVOURITES_REGEX}' not found")
         sys.exit()
 
     if len(filenames) > 1 :
-        print("Error: More  than one file called \'fringe_search_results*\' was found")
+        print(f"Error: More than one file matching '{EDFRINGE_FAVOURITES_REGEX}' was found")
         sys.exit()
 
     favourites = {}
