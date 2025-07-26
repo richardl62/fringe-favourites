@@ -1,7 +1,7 @@
 """Tools to update data from imported favourites """
 
-from consts import START_TIMES_FILE, UNRATED, UNRATED_FILE, UNSET_START_TIME_FILE
-
+from file_names import START_TIMES_FILE, UNRATED_FILE, UNSET_START_TIME_FILE
+from consts import UNRATED
 
 def add_link_ratings(favourites, ratings):
     """Add ratings to favourites and check for inconsistencies"""

@@ -1,6 +1,6 @@
 """Write favourites in a Richard-friendly csv format"""
 import re
-from consts import BOOKINGS_FILE, RATINGS_FILE, START_TIMES_FILE, FAVOURITES_CSV
+from file_names import BOOKINGS_FILE, RATINGS_FILE, START_TIMES_FILE, FAVOURITES_CSV
 
 def get_link_ratings():
     """Get show ratings"""
