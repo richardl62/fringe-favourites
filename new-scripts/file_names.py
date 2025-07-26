@@ -5,4 +5,5 @@ CHROME_BOOKMARKS_REGEX = "input/bookmarks_*"
 UNPROCESSED_BOOKMARKS = "generated/unprocessed.txt"
 
 """Type formatted favourites in 'raw' format"""
-FAVOURITE_TS = "../src/raw-favourites.ts"
+FAVOURITE_TS = "generated/raw-favourites.ts"
+#FAVOURITE_TS = "../src/raw-favourites.ts"

@@ -1,9 +1,11 @@
-"""Process a CSV exported from edfringe"""
+"""Process information about shows from bookmarks and elsewhere"""
 import glob
 import sys
 import re
 
 from file_names import CHROME_BOOKMARKS_REGEX, UNPROCESSED_BOOKMARKS
+from write_favourites_ts import write_favourites_ts
+from add_non_bookmark_info import add_non_bookmark_info
 
 def check_start_time(start_time):
     """Check if the start time is in the correct format"""
@@ -15,7 +17,7 @@ def check_start_time(start_time):
     match = re.match(r'^\d{2}:\d{2}', start_time)
     if match:
         return start_time
-    
+
     raise ValueError(f"Unexpected start time '{start_time}'")
 
 def get_name_and_url(line):
@@ -28,7 +30,7 @@ def get_name_and_url(line):
             return name, url
     raise ValueError("Line format is incorrect or does not match expected pattern")
 
-def unpack_bookmark_name(bookmark_name):  
+def unpack_bookmark_name(bookmark_name):
     """Unpack a bookmark name"""
     match = re.search(r'^([0-9]) +([^ ]+) +- +([^|]+)', bookmark_name)
     if match:
@@ -37,9 +39,10 @@ def unpack_bookmark_name(bookmark_name):
         title = match.group(3).strip()
         if(rating and start_time and title):
             return {
+                'title': title,
                 'rating': rating,
-                'start_time': start_time,
-                'title': title
+                # Times can be a single time or 'misc' or, later, a list of times
+                'times': start_time
             }
 
     raise ValueError(f"Bookmark name '{bookmark_name}' does not match expected pattern")
@@ -58,7 +61,7 @@ def get_shows_from_bookmarks():
         print(f"Error: More than one file matching '{CHROME_BOOKMARKS_REGEX}' was found")
         sys.exit()
 
-    shows = {}
+    show_info = []
     unprocessed_count = 0
     with open(filenames[0],encoding='UTF-8') as bookmarks, \
         open(UNPROCESSED_BOOKMARKS, 'w', encoding='UTF-8') as unprocessed:
@@ -66,7 +69,9 @@ def get_shows_from_bookmarks():
             try:
                 if 'https://www.edfringe.com' in line:
                     bookmark_name, url = get_name_and_url(line)
-                    shows[url] = unpack_bookmark_name(bookmark_name)
+                    info = unpack_bookmark_name(bookmark_name)
+                    info['url'] = url
+                    show_info.append(info)
             except ValueError as e:
                 unprocessed.write(f"{line.strip()} {e}\n")
                 unprocessed_count += 1
@@ -75,14 +80,14 @@ def get_shows_from_bookmarks():
         print(f"Warning: {unprocessed_count} bookmarks were not processed successfully.",
               f"Check {UNPROCESSED_BOOKMARKS} for details.")
 
-    return shows
+    return show_info
 
 def main():
     """Main function to read and process bookmarks"""
-    shows = get_shows_from_bookmarks()
-    print(f"{len(shows)} shows details extracted from bookmarks.")
-    # for url, details in shows.items():
-    #     print(f"{url}: {details}")
+    show_info = get_shows_from_bookmarks()
+    print(f"{len(show_info)} shows details extracted from bookmarks.")
+    add_non_bookmark_info(show_info)
+    write_favourites_ts(show_info)
 
 if __name__ == "__main__":
     main()
