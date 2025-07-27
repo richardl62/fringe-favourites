@@ -4,6 +4,8 @@ CHROME_BOOKMARKS_REGEX = "input/bookmarks_*"
 """Bookmarks to edfringe.com that were not successfully processed"""
 UNPROCESSED_BOOKMARKS = "generated/unprocessed.txt"
 
+EXTRA_INFO_NEEDED = "generated/extra_info_needed.txt"
+
 """Type formatted favourites in 'raw' format"""
 FAVOURITE_TS = "generated/raw-favourites.ts"
 #FAVOURITE_TS = "../src/raw-favourites.ts"
