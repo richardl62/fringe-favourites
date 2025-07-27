@@ -32,7 +32,7 @@ def get_name_and_url(line):
 
 def unpack_bookmark_name(bookmark_name):
     """Unpack a bookmark name"""
-    match = re.search(r'^([0-9]) +([^ ]+) +- +([^|]+)', bookmark_name)
+    match = re.search(r'^([0-9]) +([^ ]+) *- *([^|]+)', bookmark_name)
     if match:
         rating = match.group(1)
         start_time = check_start_time(match.group(2))
