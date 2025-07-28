@@ -58,7 +58,11 @@ function processOneFavourite(line: Readonly<Line>, date: number | null) {
 
 export type ShowInfo = ReturnType<typeof processOneFavourite>;
 
-export function processedFavourites(date: number | null) {
+/*** Return a lightly processed version of favourites data generate by python scripts.
+ * No sorting or filtering is done at this stage, but required date (if any) is used
+ * to determine the start time of relevant shows.
+*/
+export function getFavourites(date: number | null) {
     return rawFavourites.map(fav => processOneFavourite(fav, date));
 }
 

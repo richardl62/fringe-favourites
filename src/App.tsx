@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
-import { getSortedFavourites } from './get-sorted-favourites';
+import { sortAndFilterFavourites } from './sort-and-filter-favourites';
 import { ShowInfoList } from './show-info-list';
+import { getFavourites } from './get-favourites';
 
 const OuterDiv = styled.div`
   display: inline-block;
@@ -29,11 +30,20 @@ function App() {
     setStartDate(today.getDate().toString())
   },[]);
 
-  const parsedStartDate = () => {
-      const parsed = parseInt(startDate);
-      return isNaN(parsed) ? null : parsed;
+
+
+  let parsedStartDate : number | null = parseInt(startDate);
+  if (isNaN(parsedStartDate)) {
+    parsedStartDate = null;
   }
-  const favourites = getSortedFavourites({sortByRating, startDate: parsedStartDate()});
+  
+  const allFavourites = getFavourites(parsedStartDate);
+  
+  const favourites = sortAndFilterFavourites({
+    allFavourites,
+    startDate: parsedStartDate,
+    sortByRating,
+  });
 
   return <OuterDiv>
     <Inputs>
@@ -52,7 +62,7 @@ function App() {
       </label>
 
     </Inputs>
-    <ShowInfoList showInfo={favourites} startDate={parsedStartDate()} />
+    <ShowInfoList showInfo={favourites} startDate={parsedStartDate} />
   </OuterDiv>;
 }
 

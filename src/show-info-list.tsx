@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DatesT, ShowInfo } from "./processed-favourites";
+import { DatesT, ShowInfo } from "./get-favourites";
 
 const DateSpan = styled.span`
     text-align: center;

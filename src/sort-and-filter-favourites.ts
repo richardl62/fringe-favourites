@@ -1,4 +1,4 @@
-import { processedFavourites, ShowInfo } from "./processed-favourites";
+import { ShowInfo } from "./get-favourites";
 
 function compareShowInfo(info1: ShowInfo, info2: ShowInfo, 
     {sortByRating, sortByDate}:
@@ -49,18 +49,16 @@ function compareShowInfo(info1: ShowInfo, info2: ShowInfo,
     );
 }
 
-export function getSortedFavourites({sortByRating, startDate}
-    : {sortByRating: boolean, startDate: number | null}
+export function sortAndFilterFavourites({allFavourites, sortByRating, startDate}
+    : {allFavourites: ShowInfo[], sortByRating: boolean, startDate: number | null}
 ) {
-    const favourites = processedFavourites(startDate);
-    
     if (startDate) {
         // Remove dates before the given start date
-        for (const fav of favourites) {
+        for (const fav of allFavourites) {
             fav.dates = fav.dates?.filter(date => (date >= startDate))
         }
     }
-    const filteredFavourites = favourites.filter(fav => fav.dates.length > 0)
+    const filteredFavourites = allFavourites.filter(fav => fav.dates.length > 0)
     
     return filteredFavourites.sort((f1, f2) => compareShowInfo(f1,f2, 
         {sortByRating, sortByDate: startDate !== null}
