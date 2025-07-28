@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
-import { sortAndFilterFavourites } from './sort-and-filter-favourites';
+import { filterByDate, sortFavourites } from './process-favourites';
 import { ShowInfoList } from './show-info-list';
 import { getFavourites } from './get-favourites';
 
@@ -19,7 +19,7 @@ const Inputs = styled.div`
 
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
-  const [startDate, setStartDate] = React.useState("");
+  const [rawStartDate, setRawStartDate] = React.useState("");
 
   useEffect(() => {
     document.title = 'Fringe Shows';
@@ -27,30 +27,32 @@ function App() {
   
   useEffect(() => {
     const today = new Date();
-    setStartDate(today.getDate().toString())
+    setRawStartDate(today.getDate().toString())
   },[]);
 
-
-
-  let parsedStartDate : number | null = parseInt(startDate);
-  if (isNaN(parsedStartDate)) {
-    parsedStartDate = null;
+  let startDate : number | null = parseInt(rawStartDate);
+  if (isNaN(startDate)) {
+    startDate = null;
   }
   
-  const allFavourites = getFavourites(parsedStartDate);
+  let favourites = getFavourites(startDate);
   
-  const favourites = sortAndFilterFavourites({
-    allFavourites,
-    startDate: parsedStartDate,
+  if (startDate) {
+    favourites = filterByDate(favourites, startDate);
+  }
+
+  sortFavourites({
+    favourites,
     sortByRating,
+    sortByDate: startDate !== null
   });
 
   return <OuterDiv>
     <Inputs>
       <label>
         {"Date "}
-        <input type="number" value={startDate} min={1} max={31}
-          onChange={(event) => setStartDate(event.target.value)}
+        <input type="number" value={rawStartDate} min={1} max={31}
+          onChange={(event) => setRawStartDate(event.target.value)}
         />
       </label>
 
@@ -62,7 +64,7 @@ function App() {
       </label>
 
     </Inputs>
-    <ShowInfoList showInfo={favourites} startDate={parsedStartDate} />
+    <ShowInfoList showInfo={favourites} startDate={startDate} />
   </OuterDiv>;
 }
 
