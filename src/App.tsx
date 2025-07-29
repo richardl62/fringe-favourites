@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
-import { filterByDate, sortFavourites } from './process-favourites';
+import { sortFavourites } from './sort-favourites';
 import { ShowInfoList } from './show-info-list';
 import { getFavourites } from './get-favourites';
+import { addNextPerformance } from './add-next-performance';
 
 const OuterDiv = styled.div`
   display: inline-block;
@@ -35,14 +36,11 @@ function App() {
     startDate = null;
   }
   
-  let favourites = getFavourites(startDate);
+  const importedFavourites = getFavourites(startDate);
+  const extendedFavourites = addNextPerformance(importedFavourites, startDate);
   
-  if (startDate) {
-    favourites = filterByDate(favourites, startDate);
-  }
-
   sortFavourites({
-    favourites,
+    favourites: extendedFavourites,
     sortByRating,
     sortByDate: startDate !== null
   });
@@ -64,7 +62,7 @@ function App() {
       </label>
 
     </Inputs>
-    <ShowInfoList showInfo={favourites} startDate={startDate} />
+    <ShowInfoList showInfo={extendedFavourites} startDate={startDate} />
   </OuterDiv>;
 }
 

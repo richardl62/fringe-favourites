@@ -11,9 +11,9 @@ def add_non_bookmark_info(show_info):
             ein.write(f"{info['url']}\n")
             ein_count += 1
 
-            info['venue'] = 'unknown'
-            info['duration'] = 'unknown'
-            info['dates'] = 'unknown'
+            info['venue'] = '?'
+            info['duration'] = '?'
+            info['dates'] = '?'
             info['booked'] = False
 
     print(f"{ein_count} shows need extra information.")

@@ -1,15 +1,16 @@
 import styled from "styled-components";
-import { DatesT, ShowInfo } from "./get-favourites";
+import { ShowInfo, unknownDate } from "./get-favourites";
+import { ExtendedShowInfo } from "./add-next-performance";
 
 const DateSpan = styled.span`
     text-align: center;
 `;
 
-function Date({dates, startDate}: {dates: DatesT, startDate: number | null}) {
-  if(dates[0] === startDate) {
+function Date({date, startDate}: {date: number | typeof unknownDate, startDate: number | null}) {
+  if(date === startDate) {
     return null;
   }
-  return <DateSpan>{dates[0]}</DateSpan>;
+  return <DateSpan>{date}</DateSpan>;
 }
 
 function ShowLink({showInfo}: {showInfo: ShowInfo}) {
@@ -52,7 +53,7 @@ const Wrapper = styled.div`
   padding-right: 4px;
 `
 export function ShowInfoList({showInfo, startDate} : 
-    {showInfo: ShowInfo [], startDate: number | null}
+    {showInfo: ExtendedShowInfo [], startDate: number | null}
   ) {
     if(!showInfo.length) {
       return <div>No shows found</div>
@@ -70,7 +71,7 @@ export function ShowInfoList({showInfo, startDate} :
     for(const info of showInfo) {
       addElem(<ShowLink showInfo={info} />, info, "link");
       addElem(<StartTime showInfo={info} />, info, "start");
-      addElem(<Date dates={info.dates} startDate={startDate} />, info, "dates");
+      addElem(<Date date={info.nextPerformance} startDate={startDate} />, info, "dates");
       addElem(info.duration, info, "duration");
       addElem(ratingString(info), info, "rating");
       addElem(info.venue, info, "venue");

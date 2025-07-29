@@ -27,14 +27,15 @@ function processStartTime(times: RawStartTimesT, date: number | null): ProcssedS
     return {startTime, startTimeVaries: true};
 }
 
+export const unknownDate = '?';
 export type DatesT = number[];
-function processDates(dates: string): DatesT {
-    const dateStr = dates.split(" ");
-    if (!dateStr[0]) {
-        return [];
+
+function processDates(dates: string): DatesT | typeof unknownDate {
+    if (dates === unknownDate) {
+        return unknownDate;
     }
-    // dateStr.map(parseInt) gived bad results because the index supplied by
-    // the map is treated as a radix.
+    
+    const dateStr = dates.split(" ");
     return dateStr.map(d => parseInt(d));
 }
 
