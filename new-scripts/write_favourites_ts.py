@@ -26,7 +26,6 @@ def make_js_times(times):
 
 def make_output_line(info):
     """Make a line for favourites.js"""
-
     title = make_js_string(info["title"])
     venue = make_js_string(info["venue"])
     duration = make_js_string(info["duration"])
