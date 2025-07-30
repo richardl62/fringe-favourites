@@ -3,9 +3,10 @@ import glob
 import sys
 import re
 
-from file_names import CHROME_BOOKMARKS_REGEX, UNPROCESSED_BOOKMARKS
+from get_extra_info import get_extra_info
 from write_favourites_ts import write_favourites_ts
-from add_non_bookmark_info import add_non_bookmark_info
+from add_extra_info import add_extra_info
+from file_names import CHROME_BOOKMARKS_REGEX, UNPROCESSED_BOOKMARKS
 
 def check_start_time(start_time):
     """Check if the start time is in the correct format"""
@@ -84,10 +85,14 @@ def get_shows_from_bookmarks():
 
 def main():
     """Main function to read and process bookmarks"""
-    show_info = get_shows_from_bookmarks()
-    print(f"{len(show_info)} shows details extracted from bookmarks.")
-    add_non_bookmark_info(show_info)
-    write_favourites_ts(show_info)
+    shows = get_shows_from_bookmarks()
+    print(f"{len(shows)} shows details extracted from bookmarks.")
+
+    extra_info = get_extra_info()
+
+    add_extra_info(shows, extra_info)
+
+    write_favourites_ts(shows)
 
 if __name__ == "__main__":
     main()
