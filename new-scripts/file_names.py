@@ -2,6 +2,8 @@
 
 CHROME_BOOKMARKS_REGEX = "input/bookmarks_*"
 
+BOOKED = "input/booked.txt"
+
 EXTRA_INFO = "input/extra_info.txt"
 
 EXTRA_INFO_NEEDED = "generated/extra_info_needed.txt"

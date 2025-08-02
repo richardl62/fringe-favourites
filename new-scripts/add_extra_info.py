@@ -1,14 +1,8 @@
 """Add non-bookmark info to show information"""
+from get_show_from_url import get_show_from_url
 from file_names import EXTRA_INFO_NEEDED
 
 DUMMY_EXTRA_INFO = "0:00 [9 10 11 12 13 14 15 16 17 18] venue"
-
-def get_show_from_url(shows, url):
-    """ Find the show with the given link"""
-    for show in shows:
-        if show['url'] == url:
-            return show
-    return False
 
 def add_extra_info(shows, extra_info):
     """Add extra (non-bookmark) information to shows"""
@@ -33,11 +27,6 @@ def add_extra_info(shows, extra_info):
             show['venue'] = '?'
             show['duration'] = '?'
             show['dates'] = '?'
-
-    # Set the 'booked' field of all show
-    for show in shows:
-        show['booked'] = False
-
 
     # Give information about shows that need extra info
     print(f"{len(extra_info_needed)} shows need extra information")

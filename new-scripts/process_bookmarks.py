@@ -6,6 +6,7 @@ import re
 from get_extra_info import get_extra_info
 from write_favourites_ts import write_favourites_ts
 from add_extra_info import add_extra_info
+from add_bookings import add_bookings
 from file_names import CHROME_BOOKMARKS_REGEX, UNPROCESSED_BOOKMARKS
 
 def check_start_time(start_time):
@@ -78,7 +79,7 @@ def get_shows_from_bookmarks():
                 unprocessed_count += 1
 
     if unprocessed_count > 0:
-        print(f"Warning: {unprocessed_count} bookmarks were not processed successfully.",
+        print(f"WARNING: {unprocessed_count} bookmarks were not processed successfully.",
               f"Check {UNPROCESSED_BOOKMARKS} for details.")
 
     return show_info
@@ -91,6 +92,8 @@ def main():
     extra_info = get_extra_info()
 
     add_extra_info(shows, extra_info)
+
+    add_bookings(shows)
 
     write_favourites_ts(shows)
 
