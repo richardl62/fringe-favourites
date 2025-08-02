@@ -1,3 +1,15 @@
-https://www.edfringe.com/tickets/whats-on/1-dazzling-cabaret 1:00 "10 11 12 13 14 15 16 17 18" venue1
-https://www.edfringe.com/tickets/whats-on/1-moment-in-time 2:00 "9 10 11 12 13 14" venue2
-https://www.edfringe.com/tickets/whats-on/1917-the-woodbine-poet-and-padre 3:00 "9 10 11 12 13 14 15 16 17 18" venue three
+https://www.edfringe.com/tickets/whats-on/1-dazzling-cabaret 1:00 "9 10 11 12 13 14 15 16 17 18" Laughing Horse
+https://www.edfringe.com/tickets/whats-on/a-letter-to-lyndon-b-johnson-or-god-whoever-reads-this-first 0:50 "12 13 15 16" theSpace @ Niddry St
+https://www.edfringe.com/tickets/whats-on/ali-affleck-s-queens-of-swing 1:00 "14" The Jazz Bar
+https://www.edfringe.com/tickets/whats-on/alright-sunshine 1:00 "9 10 12 13 15 16 17 18" Jack Dome at Pleasance Dome
+https://www.edfringe.com/tickets/whats-on/caspar-thomas-the-art-of-close-up-magic-volume-2 1:00 "9 10 11 12 13 14 15 16 17 18" C alto
+https://www.edfringe.com/tickets/whats-on/mairi-campbell-pulse-pendulum-trilogy 1:00 "12 15" Scottish Storytelling Centre
+https://www.edfringe.com/tickets/whats-on/ten-thousand-hours 1:00 "9 10 12 13 14 15 16 17 18" Main Hall at Assembly Hall
+https://www.edfringe.com/tickets/whats-on/the-big-bite-size-breakfast-show 1:10 "9 10 11 12 14 15 16 17 18" Pleasance One at Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/the-insider 1:05 "9 10 12 13 14 15 16 17 18" King Dome at Pleasance Dome
+https://www.edfringe.com/tickets/whats-on/the-nature-of-forgetting 1:15 "9 10 11 12 14 15 16 17 18" Grand at Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/the-truman-capote-talk-show-winner-scotsman-fringe-first-award 1:00 "9 10 11 12 13 14 16 17 18" Attic at Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/why-i-stuck-a-flare-up-my-arse-for-england 1:00 "9 10 12 13 14 15 16 17 18" Cowbarn at Underbelly, Bristo Square
+https://www.edfringe.com/tickets/whats-on/solve-along-a-murder-she-wrote 1:20 "9 11 12 13 14 15 16 17 18" Amphitheatre at theSpace @ Symposium Hall
+https://www.edfringe.com/tickets/whats-on/i-wish-my-life-were-like-a-musical 1:10 "9 10 11 12 14 15 16 17 18" Auditorium at Gilded Balloon at the Museum
+https://www.edfringe.com/tickets/whats-on/mrs-roosevelt-flies-to-london 1:15 "9 10 12 13 14 15 16 17 18" Drawing Room at Assembly Rooms
