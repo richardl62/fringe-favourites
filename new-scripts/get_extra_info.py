@@ -3,6 +3,22 @@
 import re
 from file_names import EXTRA_INFO
 
+def check_duration(duration):
+    """Sanity check"""
+    if duration == "0:00" or not re.match(r"^\d:\d\d", duration):
+        raise ValueError(f"Bad duration \"{duration}\"")
+
+def check_dates(dates):
+    """Sanity check"""
+    for date in dates.split():
+        if not re.match(r"\d?\d", date):
+            raise ValueError(f"Bad date \"{date}\"")
+
+
+def check_venue(venue):
+    """Sanity check"""
+    if venue == "venue" or re.match(r"[\"]", venue):
+        raise ValueError(f"Bad venue \"{venue}\"")
 
 def get_extra_info():
     """get non-bookmark information """
@@ -12,16 +28,23 @@ def get_extra_info():
             #ignore blank lines and comments
             if line.strip() == "" or line[0] == '#':
                 continue
+            try:
+                match = re.search(r'(https[^ ]*) +([^ ]+) "(.*)" *(.*)$', line)
+                if not match:
+                    raise ValueError("Format not recognised")
 
-            match = re.search(r'(https[^ ]*) +([^ ]+) "(.*)" *(.*)$', line)
-            if match:
+                [url, duration, dates, venue] = match.groups()
+                check_duration(duration)
+                check_dates(dates)
+                check_venue(venue)
+
                 info.append({
-                    "url": match.group(1),
-                    "duration": match.group(2),
-                    "dates": match.group(3),
-                    "venue": match.group(4)
+                    "url": url,
+                    "duration": duration,
+                    "dates": dates,
+                    "venue": venue
                 })
-            else:
-                print(f"Bad extra info: {line}")
-            
+            except ValueError as err:
+                print(f"Error in extra info: {err} in {line}")
+
     return info
