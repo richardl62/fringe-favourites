@@ -3,7 +3,7 @@ export const favourites = [
 ["1 Dazzling Cabaret", "Laughing Horse", "1:00", "20:00", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/1-dazzling-cabaret", "1", false],
 ["1 Moment in Time", "theSpace @ Surgeons' Hall  ", "0:50", "15:55", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/1-moment-in-time", "0", false],
 ["1917: The Woodbine Poet and Padre", "Church Sanctuary at Palmerston Place Church", "1:10", "14:15", "14", "https://www.edfringe.com/tickets/whats-on/1917-the-woodbine-poet-and-padre", "0", false],
-["A Letter to Lyndon B Johnson or God: Whoever Reads This First", "theSpace @ Niddry St", "0:50", "misc", "12 13 15 16", "https://www.edfringe.com/tickets/whats-on/a-letter-to-lyndon-b-johnson-or-god-whoever-reads-this-first", "1", false],
+["A Letter to Lyndon B Johnson or God: Whoever Reads This First", "theSpace @ Niddry St", "0:50", {12:"19:25", 13:"21:25", 16:"21:25", }, "12 13 15 16", "https://www.edfringe.com/tickets/whats-on/a-letter-to-lyndon-b-johnson-or-god-whoever-reads-this-first", "1", false],
 ["After Shakespeare", "theSpace @ Surgeons' Hall", "1:00", "16:15", "11 12 13 14 15", "https://www.edfringe.com/tickets/whats-on/after-shakespeare", "0", false],
 ["Alex Kouvatas: How to Fail as a Magician in 55 Minutes", "PBH's Free Fringe @ Sandport Tavern", "0:55", "17:00", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/alex-kouvatas-how-to-fail-as-a-magician-in-55-minutes", "0", false],
 ["Th - Ali Affleck&#39;s Queens of Swing", "The Jazz Bar", "1:00", "14:30", "14", "https://www.edfringe.com/tickets/whats-on/ali-affleck-s-queens-of-swing", "1", false],

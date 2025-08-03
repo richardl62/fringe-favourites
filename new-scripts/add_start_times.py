@@ -42,6 +42,7 @@ def add_start_times(shows):
     """Get start times for specific dates.
     For use with shows with multiple start times"""
 
+    multiple = []
     with open(START_TIMES,  mode='r', encoding='windows-1252') as start_times:
         lineno = 0
         for fullline in start_times:
@@ -51,18 +52,22 @@ def add_start_times(shows):
             if line == "" or line[0] == "#":
                 continue
             try:
-                split = line.split(" ")
-                link = split.pop(0)
+                time_specs = line.split(" ")
+                link = time_specs.pop(0)
                 show = get_show_from_url(shows, link)
+                assert len(time_specs) > 0, "no times found"
                 assert show, f"Start times specified for unrecognised show {show}"
                 assert show["times"] == "misc", \
                      f"Start times explicitly specified for show with known start time {show}"
+                
+                if time_specs[0] == "multiple":
+                    multiple.append(link)
+                else:
+                    times = {}
+                    for time_spec in time_specs:
+                        add_times(times, time_spec)
 
-                times = {}
-                for time_spec in split:
-                    add_times(times, time_spec)
-
-                set_start_times(show, times)
+                    set_start_times(show, times)
 
 
             except Exception as err: # pylint: disable=broad-except
@@ -72,8 +77,9 @@ def add_start_times(shows):
     with open(VARIABLE_START_TIMES, "w", encoding='windows-1252') as vst:
         for show in shows:
             if show["times"] == "misc":
-                vst_count += 1
-                vst.write(show["url"] + "\n")
+                if not show["url"] in multiple:
+                    vst_count += 1
+                    vst.write(show["url"] + "\n")
 
     if vst_count > 0:
         print(f"{vst_count} shows have do not have start times set")
