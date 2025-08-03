@@ -29,7 +29,8 @@ def add_extra_info(shows, extra_info):
             show['dates'] = '?'
 
     # Give information about shows that need extra info
-    print(f"{len(extra_info_needed)} shows need extra information")
+    if len(extra_info_needed) > 0:
+        print(f"{len(extra_info_needed)} shows need extra information")
 
     # sort into reverse order of rating
     extra_info_needed.sort( key = lambda show: -int(show["rating"]) )

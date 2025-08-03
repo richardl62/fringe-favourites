@@ -8,6 +8,10 @@ EXTRA_INFO = "input/extra_info.txt"
 
 EXTRA_INFO_NEEDED = "generated/extra_info_needed.txt"
 
+START_TIMES = "input/start_times.txt"
+
+VARIABLE_START_TIMES = "generated/variable_start_times.txt"
+
 """Bookmarks to edfringe.com that were not successfully processed"""
 UNPROCESSED_BOOKMARKS = "generated/unprocessed.txt"
 

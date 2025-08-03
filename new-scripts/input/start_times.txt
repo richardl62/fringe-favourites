@@ -1,0 +1,6 @@
+# link then start time for particular dates or date ranges e.g.
+# https://tickets.edfringe.com/whats-on/16-postcodes 10-17|14:00 18|17:30
+# This is intended for use with shows with different start times of different days
+# rather than for shows with multiple start times on a given day.
+
+https://www.edfringe.com/tickets/whats-on/attila-the-stockbroker-fiery-words-for-hellish-times 11-15|16:00 16|13:30 17-18|16:00
