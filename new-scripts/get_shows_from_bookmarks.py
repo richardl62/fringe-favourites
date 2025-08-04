@@ -3,11 +3,6 @@ import glob
 import sys
 import re
 
-from get_extra_info import get_extra_info
-from write_favourites_ts import write_favourites_ts
-from add_extra_info import add_extra_info
-from add_bookings import add_bookings
-from add_start_times import add_start_times
 from file_names import CHROME_BOOKMARKS_REGEX, UNPROCESSED_BOOKMARKS
 
 def check_start_time(start_time):
@@ -84,22 +79,3 @@ def get_shows_from_bookmarks():
               f"Check {UNPROCESSED_BOOKMARKS} for details.")
 
     return show_info
-
-def main():
-    """Main function to read and process bookmarks"""
-    shows = get_shows_from_bookmarks()
-    print(f"{len(shows)} shows details extracted from bookmarks.")
-
-    extra_info = get_extra_info()
-
-    add_extra_info(shows, extra_info)
-
-    add_bookings(shows)
-
-    # For use with shows with variable start times
-    add_start_times(shows)
-
-    write_favourites_ts(shows)
-
-if __name__ == "__main__":
-    main()
