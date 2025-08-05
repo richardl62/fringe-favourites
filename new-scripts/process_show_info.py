@@ -1,5 +1,6 @@
 """Process information about shows from bookmarks and elsewhere"""
 from get_shows_from_bookmarks import get_shows_from_bookmarks
+from get_non_bookmark_shows import get_non_bookmark_shows
 from get_extra_info import get_extra_info
 from write_favourites_ts import write_favourites_ts
 from add_extra_info import add_extra_info
@@ -10,6 +11,10 @@ def main():
     """Main function to read and process show info"""
     shows = get_shows_from_bookmarks()
     print(f"{len(shows)} shows details extracted from bookmarks.")
+
+    non_bookmark_shows = get_non_bookmark_shows()
+    print(f"{len(non_bookmark_shows)} non-bookmark shows processed.")
+    shows.extend(non_bookmark_shows)
 
     extra_info = get_extra_info()
 

@@ -2,6 +2,8 @@
 
 CHROME_BOOKMARKS_REGEX = "input/bookmarks_*"
 
+NON_BOOKMARK_SHOWS = "input/non-fringe-shows.csv"
+
 BOOKED = "input/booked.txt"
 
 EXTRA_INFO = "input/extra_info.txt"

@@ -57,4 +57,5 @@ export const favourites = [
 ["RIFT", "Traverse", "1:20", "13:30", "10", "https://www.edfringe.com/tickets/whats-on/rift", "2", true],
 ["A Gambler&#39;s Guide to Dying", "Traverse", "1:10", "16:00", "10", "https://www.edfringe.com/tickets/whats-on/a-gambler-s-guide-to-dying", "2", true],
 ["The Beautiful Future Is Coming", "Traverse", "1:30", "17:30", "10", "https://www.edfringe.com/tickets/whats-on/the-beautiful-future-is-coming", "2", true],
+["DAVID ALNWICK: OCCULT ILLUSIONIST", "Banshee Labyrinth", "1:00", "16:40", "9 10 11 12 13 14 15 16 17", "https://freefringe.org.uk/shows/david-alnwick-occult-illusionist/", "1", false],
 ] as const;
