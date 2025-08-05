@@ -3,23 +3,6 @@
 import re
 from file_names import EXTRA_INFO
 
-def check_duration(duration):
-    """Sanity check"""
-    if duration == "0:00" or not re.match(r"^\d:\d\d", duration):
-        raise ValueError(f"Bad duration \"{duration}\"")
-
-def check_dates(dates):
-    """Sanity check"""
-    for date in dates.split():
-        if not re.match(r"\d?\d", date):
-            raise ValueError(f"Bad date \"{date}\"")
-
-
-def check_venue(venue):
-    """Sanity check"""
-    if venue == "venue" or re.match(r"[\"]", venue):
-        raise ValueError(f"Bad venue \"{venue}\"")
-
 def get_extra_info():
     """get non-bookmark information """
     info = []
@@ -34,9 +17,6 @@ def get_extra_info():
                     raise ValueError("Format not recognised")
 
                 [url, duration, dates, venue] = match.groups()
-                check_duration(duration)
-                check_dates(dates)
-                check_venue(venue)
 
                 info.append({
                     "url": url,
