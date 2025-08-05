@@ -12,8 +12,10 @@ def set_start_times(show, times):
             bad_dates.append(date)
 
     if len(bad_dates) > 0:
-        print(f"WARNING: Start times and dates inconsistent for {show["url"]}: Problem dates {bad_dates}")
-    
+        url = show["url"]
+        print("WARNING: Start times and dates inconsistent for {url}: Problem dates {bad_dates}")
+
+
     show["times"] = times
 
 def add_times(times, spec):
