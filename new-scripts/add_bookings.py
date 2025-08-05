@@ -42,7 +42,7 @@ def add_bookings(shows):
     for [link, booked_date] in bookings:
         show = get_show_from_url(shows, link)
         if show:
-            show["dates"] = f'"{booked_date}"'
+            show["dates"] = f'{booked_date}'
             show["booked"] = True
         else:
             print(f"WARNING: Booked show {link} is not in show list")
