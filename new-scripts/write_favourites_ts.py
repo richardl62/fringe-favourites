@@ -1,4 +1,7 @@
 """Make favourites.ts"""
+from check_show import check_booked, check_dates, check_duration, check_rating, \
+    check_times, check_title, check_url, check_venue
+
 from file_names import FAVOURITE_TS
 
 def make_js_string(text):
@@ -26,14 +29,14 @@ def make_js_times(times):
 
 def make_output_line(info):
     """Make a line for favourites.js"""
-    title = make_js_string(info["title"])
-    venue = make_js_string(info["venue"])
-    duration = make_js_string(info["duration"])
-    times = make_js_times(info["times"])
-    dates = make_js_string(info["dates"])
-    rating=make_js_string(info["rating"])
-    booked = make_js_boolean(info["booked"])
-    url=make_js_string(info["url"])
+    title = make_js_string(check_title(info["title"]))
+    venue = make_js_string(check_venue(info["venue"]))
+    duration = make_js_string(check_duration(info["duration"]))
+    times = make_js_times(check_times(info["times"]))
+    dates = make_js_string(check_dates(info["dates"]))
+    rating=make_js_string(check_rating(info["rating"]))
+    booked = make_js_boolean(check_booked(info["booked"]))
+    url=make_js_string(check_url(info["url"]))
 
     data = (title,venue,duration,times,dates,url,rating, booked)
     return "["+ ", ".join(data) + "]"
