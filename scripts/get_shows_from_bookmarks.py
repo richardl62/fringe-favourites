@@ -65,7 +65,7 @@ def get_shows_from_bookmarks():
         open(UNPROCESSED_BOOKMARKS, 'w', encoding='UTF-8') as unprocessed:
         for line in bookmarks:
             try:
-                if 'https://www.edfringe.com' in line:
+                if 'https://www.edfringe.com/tickets/' in line:
                     bookmark_name, url = get_name_and_url(line)
                     info = unpack_bookmark_name(bookmark_name)
                     info['url'] = url

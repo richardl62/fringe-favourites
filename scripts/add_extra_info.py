@@ -1,4 +1,5 @@
 """Add non-bookmark info to show information"""
+from consts import UNSET
 from get_show_from_url import get_show_from_url
 from file_names import EXTRA_INFO_NEEDED
 
@@ -24,13 +25,13 @@ def add_extra_info(shows, extra_info):
     for show in shows:
         if not 'duration' in show:
             extra_info_needed.append(show)
-            show['venue'] = '?'
-            show['duration'] = '?'
-            show['dates'] = '?'
+            show['venue'] = UNSET
+            show['duration'] = UNSET
+            show['dates'] = UNSET
 
     # Give information about shows that need extra info
     if len(extra_info_needed) > 0:
-        print(f"{len(extra_info_needed)} shows need extra information")
+        print(f"{len(extra_info_needed)} show(s) missing dates duration and venue")
 
     # sort into reverse order of rating
     extra_info_needed.sort( key = lambda show: -int(show["rating"]) )

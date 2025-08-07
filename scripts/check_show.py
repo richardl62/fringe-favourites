@@ -3,6 +3,8 @@
     They are used when writing tp typescript (which is the last thing do with show info)
 """
 import re
+
+from consts import UNSET
 TIME_RE = r"^\d\d:\d\d$"
 DATE_RE = r"^\d?\d$"
 
@@ -41,21 +43,24 @@ def check_times(times):
 
 def check_duration(duration):
     """Sanity check"""
-    if duration == "0:00" or not re.match(r"^\d:\d\d$", duration):
-        raise ValueError(f"bad duration {duration}")
+    if duration != UNSET:
+        if duration == "0:00" or not re.match(r"^\d:\d\d$", duration):
+            raise ValueError(f"bad duration {duration}")
 
     return duration
 
 def check_dates(dates):
     """Sanity check"""
-    for date in dates.split():
-        if not re.match(DATE_RE, date):
-            raise ValueError(f"bad date '{date}'")
+    if dates != UNSET:
+        for date in dates.split():
+            if not re.match(DATE_RE, date):
+                raise ValueError(f"bad date '{date}'")
 
     return dates
 
 def check_venue(venue):
     """Sanity check"""
+
     if venue == "venue" or re.match(r"[\"]", venue):
         raise ValueError(f"bad venue {venue}")
 

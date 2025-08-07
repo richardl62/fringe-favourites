@@ -1,0 +1,2 @@
+""" Define some constants """
+UNSET = '?'

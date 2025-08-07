@@ -5,7 +5,7 @@ from get_show_from_url import get_show_from_url
 def set_start_times(show, times):
     """Set the times for the show after some sanity checks"""
     dates = show["dates"].split()
-    
+
     bad_dates = []
     for date in times.keys():
         if not date in dates:
@@ -13,7 +13,7 @@ def set_start_times(show, times):
 
     if len(bad_dates) > 0:
         url = show["url"]
-        print("WARNING: Start times and dates inconsistent for {url}: Problem dates {bad_dates}")
+        print(f"WARNING: Start times and dates inconsistent for {url}: Problem dates {bad_dates}")
 
 
     show["times"] = times
@@ -61,7 +61,7 @@ def add_start_times(shows):
                 assert show, f"Start times specified for unrecognised show {show}"
                 assert show["times"] == "misc", \
                      f"Start times explicitly specified for show with known start time {show}"
-                
+
                 if time_specs[0] == "multiple":
                     multiple.append(link)
                 else:
@@ -70,7 +70,6 @@ def add_start_times(shows):
                         add_times(times, time_spec)
 
                     set_start_times(show, times)
-
 
             except Exception as err: # pylint: disable=broad-except
                 print(f'WARNING: Cannot process line {lineno}: {line} of {START_TIMES}: {err}')
@@ -84,4 +83,4 @@ def add_start_times(shows):
                     vst.write(show["url"] + "\n")
 
     if vst_count > 0:
-        print(f"{vst_count} shows have do not have start times set")
+        print(f"{vst_count} show(s) missing start times")
