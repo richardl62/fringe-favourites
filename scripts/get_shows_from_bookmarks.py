@@ -61,15 +61,22 @@ def get_shows_from_bookmarks():
 
     show_info = []
     unprocessed_count = 0
+    bookmark_group = "-"
     with open(filenames[0],encoding='UTF-8') as bookmarks, \
         open(UNPROCESSED_BOOKMARKS, 'w', encoding='UTF-8') as unprocessed:
         for line in bookmarks:
             try:
+                match = re.match(r".*<H3[^>]+>([^<]+)",line)
+                if match:
+                    bookmark_group = match.group(1)
+
                 if 'https://www.edfringe.com/tickets/' in line:
                     bookmark_name, url = get_name_and_url(line)
                     info = unpack_bookmark_name(bookmark_name)
                     info['url'] = url
                     show_info.append(info)
+                    if bookmark_group != "EDShows":
+                        print(f'WARNING: Unexpected bookmark group "{bookmark_group}" for {url}')
             except ValueError as e:
                 unprocessed.write(f"{line.strip()} {e}\n")
                 unprocessed_count += 1
