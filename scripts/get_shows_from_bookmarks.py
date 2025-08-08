@@ -3,7 +3,7 @@ import glob
 import sys
 import re
 
-from file_names import CHROME_BOOKMARKS_REGEX, UNPROCESSED_BOOKMARKS
+from file_names import CHROME_BOOKMARKS_REGEX, BAD_BOOKMARKS
 
 def check_start_time(start_time):
     """Check if the start time is in the correct format"""
@@ -60,10 +60,10 @@ def get_shows_from_bookmarks():
         sys.exit()
 
     show_info = []
-    unprocessed_count = 0
+    bad_bookmark_count = 0
     bookmark_group = "-"
     with open(filenames[0],encoding='UTF-8') as bookmarks, \
-        open(UNPROCESSED_BOOKMARKS, 'w', encoding='UTF-8') as unprocessed:
+        open(BAD_BOOKMARKS, 'w', encoding='UTF-8') as unprocessed:
         for line in bookmarks:
             try:
                 match = re.match(r".*<H3[^>]+>([^<]+)",line)
@@ -79,10 +79,10 @@ def get_shows_from_bookmarks():
                         print(f'WARNING: Unexpected bookmark group "{bookmark_group}" for {url}')
             except ValueError as e:
                 unprocessed.write(f"{line.strip()} {e}\n")
-                unprocessed_count += 1
+                bad_bookmark_count += 1
 
-    if unprocessed_count > 0:
-        print(f"WARNING: {unprocessed_count} bookmarks were not processed successfully.",
-              f"Check {UNPROCESSED_BOOKMARKS} for details.")
+    if bad_bookmark_count > 0:
+        print(f"WARNING: {bad_bookmark_count} bad bookmark(s) found.",
+              f"See {BAD_BOOKMARKS} for details.")
 
     return show_info

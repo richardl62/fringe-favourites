@@ -14,8 +14,9 @@ START_TIMES = "input/start_times.txt"
 
 VARIABLE_START_TIMES = "generated/variable_start_times.txt"
 
-"""Bookmarks to edfringe.com that were not successfully processed"""
-UNPROCESSED_BOOKMARKS = "generated/unprocessed.txt"
+"""Bookmarks to edfringe.com that were not successfully processed probably
+becase the rating and time when not correctly added to the name"""
+BAD_BOOKMARKS = "generated/bad_bookmarks.txt"
 
 """Type formatted favourites in 'raw' format"""
 #FAVOURITE_TS = "generated/raw-favourites.ts"
