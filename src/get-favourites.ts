@@ -2,9 +2,25 @@
 import { favourites as rawFavourites } from "./raw-favourites";
 export type RawStartTimesT = string | Record<number,string>
 
+// Covert uppercase words to camel case
+function convertUpperCaseWords(str: string): string {
+    const convertOneWord = (str: string) => {
+        if (str === str.toUpperCase()) {
+            return str.charAt(0) + str.slice(1).toLowerCase();
+        }
+        return str;
+    }
+
+     return str.split(" ").map(convertOneWord).join(" ");
+}
+
+function processTitle(title: string) {
+    const simpleCharacters = title.replace(/[^A-Za-z0-9 ]/g, "");
+    return convertUpperCaseWords(simpleCharacters) 
+}
+
 function processVenue(venue: string) {
-    // To do consider proper implemenation of camel case 
-    return venue.replace("ROUNDABOUT", "Roundabout");
+    return convertUpperCaseWords(venue);
 }
 
 export interface ProcssedStartTime {
@@ -44,7 +60,7 @@ type Line = [string, string, string, RawStartTimesT, string, string, string, boo
 function processOneFavourite(line: Readonly<Line>, date: number | null) {
 
     const obj = {
-        title: line[0],
+        title: processTitle(line[0]),
         venue: processVenue(line[1]),
         duration: line[2],
         dates: processDates(line[4]),
