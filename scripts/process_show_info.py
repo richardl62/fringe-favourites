@@ -21,10 +21,10 @@ def main():
 
     add_extra_info(shows, extra_info)
 
-    add_bookings(shows)
-
     # For use with shows with variable start times
     add_start_times(shows)
+
+    add_bookings(shows)
 
     write_favourites_ts(shows)
 
