@@ -4,6 +4,7 @@ import sys
 import re
 
 from file_names import CHROME_BOOKMARKS_REGEX, BAD_BOOKMARKS
+from get_show_from_url import get_show_from_url
 
 def check_start_time(start_time):
     """Check if the start time is in the correct format"""
@@ -74,9 +75,14 @@ def get_shows_from_bookmarks():
                     bookmark_name, url = get_name_and_url(line)
                     info = unpack_bookmark_name(bookmark_name)
                     info['url'] = url
-                    show_info.append(info)
                     if bookmark_group != "EDShows":
                         print(f'WARNING: Unexpected bookmark group "{bookmark_group}" for {url}')
+                    
+                    if get_show_from_url(show_info, url):
+                        print(f"Duplicate URL found: {url}")
+                    else:    
+                        show_info.append(info)
+
             except ValueError as e:
                 unprocessed.write(f"{line.strip()} {e}\n")
                 bad_bookmark_count += 1
