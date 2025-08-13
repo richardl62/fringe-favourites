@@ -14,17 +14,16 @@ const compareRatings = (info1: ShowInfo, info2: ShowInfo) => {
     return ratingValue(info2) - ratingValue(info1);
 }
 
-const compareDates = (info1: ExtendedShowInfo, info2: ExtendedShowInfo) => {
-    if (info1.nextPerformance === unknownDate && info2.nextPerformance === unknownDate) {
-        return 0;
+const compareDates = (info1: ExtendedShowInfo, info2: ExtendedShowInfo, todaysDate: number) => {
+
+    const nextPossibleDate = (info: ExtendedShowInfo) => {
+        if (info.nextPerformance === unknownDate) {
+            return todaysDate;
+        }
+        return info.nextPerformance;
     }
-    if (info1.nextPerformance === unknownDate) {
-        return 1;
-    }
-    if (info2.nextPerformance === unknownDate) {
-        return -1;
-    }
-    return info1.nextPerformance - info2.nextPerformance;
+
+    return nextPossibleDate(info1) - nextPossibleDate(info2);
 }
 
 const compareTimes = (info1: ShowInfo, info2: ShowInfo) => {
@@ -45,8 +44,12 @@ const compareTimes = (info1: ShowInfo, info2: ShowInfo) => {
 export function sortFavourites({favourites, sortByRating, sortByDate}
     : {favourites: ExtendedShowInfo[], sortByRating: boolean, sortByDate: boolean}
 ) {
+    // Shows with unspecified dates are treated as starting on todays date when sorting
+    const today = new Date();
+    const todaysDate = today.getDate();
+    
     favourites.sort((f1, f2) => 
-        (sortByDate && compareDates(f1, f2)) ||
+        (sortByDate && compareDates(f1, f2, todaysDate)) ||
         (sortByRating && compareRatings(f1, f2)) ||
         compareTimes(f1, f2)
     );
