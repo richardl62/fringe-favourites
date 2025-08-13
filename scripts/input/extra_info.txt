@@ -72,3 +72,14 @@ https://www.edfringe.com/tickets/whats-on/olaf-falafel-asks-orange-you-glad 1:00
 https://www.edfringe.com/tickets/whats-on/she-s-behind-you 1:15 "9 10 12 13 14 15 16 17 18" Traverse
 https://www.edfringe.com/tickets/whats-on/fatal-flower 1:15 "9 10 11 13 14 16 17 18" Summerhall
 https://www.edfringe.com/tickets/whats-on/simon-harriyott-autastic 1:00 "9 10 11 13 14 15 16 17 18" Just the Tonic at The Caves
+https://www.edfringe.com/tickets/whats-on/dots 0:45 "9 10 11 12 13 14 15 16 17 18" theSpace @ Niddry St
+https://www.edfringe.com/tickets/whats-on/an-evening-with-dame-granny-smith 1:00 "9 10 11 12 13 14 15 17 18" Underbelly, George Square
+https://www.edfringe.com/tickets/whats-on/altar 1:00 "9 10 11 12 13 14 15 16 17 18" Underbelly, George Square
+https://www.edfringe.com/tickets/whats-on/homo-sapien 1:00 "9 10 11 12 13 14 15 16 17 18" Assembly Roxy
+https://www.edfringe.com/tickets/whats-on/niusia 1:00 "9 10 11 12 13 14 15 16 17" Summerhall
+https://www.edfringe.com/tickets/whats-on/benji-waterhouse-maddening 1:00 "9 10 11 12 13 14 15 16 17" Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/body-count 1:00 "9 10 11 12 15 17 18" Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/fuselage 1:10 "9 10 11 12 13 14 15 16 17 18" Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/trouble-struggle-bubble-and-squeak 1:00 "9 10 11 12 13 14 15 16 17" Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/in-the-land-of-eagles 1:10 "9 10 11 12 14 15 16 17 18" Pleasance Courtyard
+https://www.edfringe.com/tickets/whats-on/troubled 1:10 "9 10 11 12 13 14 15 16 17" Summerhall
