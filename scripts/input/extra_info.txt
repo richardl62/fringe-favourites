@@ -83,3 +83,5 @@ https://www.edfringe.com/tickets/whats-on/fuselage 1:10 "9 10 11 12 13 14 15 16 
 https://www.edfringe.com/tickets/whats-on/trouble-struggle-bubble-and-squeak 1:00 "9 10 11 12 13 14 15 16 17" Pleasance Courtyard
 https://www.edfringe.com/tickets/whats-on/in-the-land-of-eagles 1:10 "9 10 11 12 14 15 16 17 18" Pleasance Courtyard
 https://www.edfringe.com/tickets/whats-on/troubled 1:10 "9 10 11 12 13 14 15 16 17" Summerhall
+https://www.edfringe.com/tickets/whats-on/florence 0:55 "9 10 11 12 13 14 15 16 18" Greenside @ George Street
+https://www.edfringe.com/tickets/whats-on/dear-annie-i-hate-you 1:00 "9 10 11 12 13 14 15 16 17 18" Pleasance Courtyard
