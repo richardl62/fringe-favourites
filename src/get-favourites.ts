@@ -15,7 +15,7 @@ function convertUpperCaseWords(str: string): string {
 }
 
 function processTitle(title: string) {
-    const simpleCharacters = title.replace(/[^A-Za-z0-9 ]/g, "");
+    const simpleCharacters = title.replace(/[^A-Za-z0-9() ]/g, "");
     return convertUpperCaseWords(simpleCharacters) 
 }
 
