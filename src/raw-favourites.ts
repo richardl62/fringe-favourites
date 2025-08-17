@@ -78,7 +78,7 @@ export const favourites = [
 ["An Evening with Dame Granny Smith", "Underbelly, George Square", "1:00", "13:20", "13", "https://www.edfringe.com/tickets/whats-on/an-evening-with-dame-granny-smith", "1", true],
 ["ALTAR", "Underbelly, George Square", "1:00", "14:40", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/altar", "1", false],
 ["Homo(sapien)", "Assembly Roxy", "1:00", "13:10", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/homo-sapien", "1", false],
-["NIUSIA", "Summerhall", "1:00", "13:20", "9 10 11 12 13 14 15 16 17", "https://www.edfringe.com/tickets/whats-on/niusia", "1", false],
+["NIUSIA", "Summerhall", "1:00", "13:20", "9 10 11 12 13 14 15 16 17", "https://www.edfringe.com/tickets/whats-on/niusia", "2", false],
 ["In the Land of Eagles", "Pleasance Courtyard", "1:10", "15:00", "9 10 11 12 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/in-the-land-of-eagles", "0", false],
 ["Troubled", "Summerhall", "1:10", "11:45", "9 10 11 12 13 14 15 16 17", "https://www.edfringe.com/tickets/whats-on/troubled", "0", false],
 ["Benji Waterhouse: Maddening", "Pleasance Courtyard", "1:00", "17:00", "9 10 11 12 13 14 15 16 17", "https://www.edfringe.com/tickets/whats-on/benji-waterhouse-maddening", "1", false],
@@ -87,6 +87,8 @@ export const favourites = [
 ["Trouble, Struggle, Bubble and Squeak", "Pleasance Courtyard", "1:00", "14:15", "9 10 11 12 13 14 15 16 17", "https://www.edfringe.com/tickets/whats-on/trouble-struggle-bubble-and-squeak", "1", false],
 ["Florence", "Greenside @ George Street", "0:55", "12:35", "9 10 11 12 13 14 15 16 18", "https://www.edfringe.com/tickets/whats-on/florence", "0", false],
 ["Dear Annie, I Hate You", "Pleasance Courtyard", "1:00", "12:00", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/dear-annie-i-hate-you", "0", false],
+["Scaramouche Jones", "Hoots @ Potterrow", "1:15", "14:45", "9 10 11 12 13 14 15 16 17 18", "https://www.edfringe.com/tickets/whats-on/scaramouche-jones", "1", false],
+["Youth in Flames", "?", "?", "19:00", "?", "https://www.edfringe.com/tickets/whats-on/youth-in-flames", "1", false],
 ["DAVID ALNWICK: OCCULT ILLUSIONIST", "Banshee Labyrinth", "1:00", "16:40", "9 10 11 12 13 14 15 16 17", "https://freefringe.org.uk/shows/david-alnwick-occult-illusionist/", "1", false],
 ["NERD MENTALITY: DUEL! TO THE DEATH!", "Carbon – Room 1 (venue 180)", "0:50", "15:10", "11 12 13 14 15 16", "https://freefringe.org.uk/shows/nerd-mentality-duel-to-the-death/", "1", false],
 ] as const;
