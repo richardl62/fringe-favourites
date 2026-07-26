@@ -5,7 +5,7 @@ https://richardl62.github.io/fringe-favourites
 
 In summary, 
 - The scripts folder contains Python scripts and various files with information about the shows. 
-- The Pyton scripts and files can be used to create src/favourites.ts which contains a Typescript-friend array of info about the shows.
+- The Pyton scripts and files can be used to create src/raw-favourites.ts which contains a Typescript-friend array of info about the shows.
 - The rest of the code creates a webpage that shows the info in the array.
 
 The script can by deployed to Github pages using
