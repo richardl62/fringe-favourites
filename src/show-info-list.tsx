@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import styled from "styled-components";
 import { ShowInfo, unknownDate } from "./get-favourites";
 import { ExtendedShowInfo } from "./add-next-performance";
