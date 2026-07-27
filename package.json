@@ -17,6 +17,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "type-check": "tsc -b --noEmit",
+    "format": "prettier --write .",
     "validate": "npm run type-check && npm run lint"
   },
   "browserslist": {
@@ -47,6 +48,7 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "gh-pages": "^6.3.0",
     "globals": "^17.8.0",
+    "prettier": "^3.9.6",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.65.0",
     "vite": "^8.1.5"

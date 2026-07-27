@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { sortFavourites } from './sort-favourites';
-import { ShowInfoList } from './show-info-list';
-import { getFavourites } from './get-favourites';
-import { addNextPerformance } from './add-next-performance';
+import { sortFavourites } from "./sort-favourites";
+import { ShowInfoList } from "./show-info-list";
+import { getFavourites } from "./get-favourites";
+import { addNextPerformance } from "./add-next-performance";
 
 const OuterDiv = styled.div`
   display: inline-block;
-`
+`;
 
 const Inputs = styled.div`
   display: flex;
-  justify-content: end; 
+  justify-content: end;
 
   label {
     margin-left: 1em;
@@ -20,45 +20,58 @@ const Inputs = styled.div`
 
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
-  const [rawStartDate, setRawStartDate] = React.useState(() => new Date().getDate().toString());
+  const [rawStartDate, setRawStartDate] = React.useState(() =>
+    new Date().getDate().toString(),
+  );
 
   useEffect(() => {
-    document.title = 'Fringe Shows';
+    document.title = "Fringe Shows";
   });
 
-  let startDate : number | null = parseInt(rawStartDate);
+  let startDate: number | null = parseInt(rawStartDate);
   if (isNaN(startDate)) {
     startDate = null;
   }
-  
+
   const importedFavourites = getFavourites(startDate);
   const extendedFavourites = addNextPerformance(importedFavourites, startDate);
-  
+
   sortFavourites({
     favourites: extendedFavourites,
     sortByRating,
-    sortByDate: startDate !== null
+    sortByDate: startDate !== null,
   });
 
-  return <OuterDiv>
-    <Inputs>
-      <label>
-        {"Date "}
-        <input type="number" value={rawStartDate} min={1} max={31}
-          onChange={(event) => { setRawStartDate(event.target.value); }}
-        />
-      </label>
+  return (
+    <OuterDiv>
+      <Inputs>
+        <label>
+          {"Date "}
+          <input
+            type="number"
+            value={rawStartDate}
+            min={1}
+            max={31}
+            onChange={(event) => {
+              setRawStartDate(event.target.value);
+            }}
+          />
+        </label>
 
-      <label>
-        {"Sort by rating "}
-        <input type="checkbox" checked={sortByRating}
-          onChange={() => { setSortByRating(!sortByRating); }}
-        />
-      </label>
-
-    </Inputs>
-    <ShowInfoList showInfo={extendedFavourites} startDate={startDate} />
-  </OuterDiv>;
+        <label>
+          {"Sort by rating "}
+          <input
+            type="checkbox"
+            checked={sortByRating}
+            onChange={() => {
+              setSortByRating(!sortByRating);
+            }}
+          />
+        </label>
+      </Inputs>
+      <ShowInfoList showInfo={extendedFavourites} startDate={startDate} />
+    </OuterDiv>
+  );
 }
 
 export default App;
