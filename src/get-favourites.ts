@@ -39,7 +39,7 @@ function processStartTime(times: RawStartTimesT, date: number | null): ProcssedS
         }
     }
 
-    const startTime = (date && times[date]) || null;
+    const startTime = date !== null ? times[date] : null;
     return {startTime, startTimeVaries: true};
 }
 

@@ -20,16 +20,11 @@ const Inputs = styled.div`
 
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
-  const [rawStartDate, setRawStartDate] = React.useState("");
+  const [rawStartDate, setRawStartDate] = React.useState(() => new Date().getDate().toString());
 
   useEffect(() => {
     document.title = 'Fringe Shows';
   });
-  
-  useEffect(() => {
-    const today = new Date();
-    setRawStartDate(today.getDate().toString())
-  },[]);
 
   let startDate : number | null = parseInt(rawStartDate);
   if (isNaN(startDate)) {
@@ -50,14 +45,14 @@ function App() {
       <label>
         {"Date "}
         <input type="number" value={rawStartDate} min={1} max={31}
-          onChange={(event) => setRawStartDate(event.target.value)}
+          onChange={(event) => { setRawStartDate(event.target.value); }}
         />
       </label>
 
       <label>
         {"Sort by rating "}
         <input type="checkbox" checked={sortByRating}
-          onChange={() => setSortByRating(!sortByRating)}
+          onChange={() => { setSortByRating(!sortByRating); }}
         />
       </label>
 
