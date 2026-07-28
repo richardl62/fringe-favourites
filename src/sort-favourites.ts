@@ -1,16 +1,9 @@
 import { ExtendedShowInfo } from "./add-next-performance";
-import { ShowInfo, unknownDate } from "./get-favourites";
+import { unknownDate } from "./data/types";
+import { ShowInfo } from "./get-favourites";
 
 const compareRatings = (info1: ShowInfo, info2: ShowInfo) => {
-  const ratingValue = (info: ShowInfo) => {
-    if (info.booked) {
-      return 100; // arbitrary large number
-    }
-    if (info.rating === "-") {
-      return 1;
-    }
-    return parseInt(info.rating);
-  };
+  const ratingValue = (info: ShowInfo) => (info.booked ? 100 : info.rating); // 100 is an arbitrary large number
   return ratingValue(info2) - ratingValue(info1);
 };
 

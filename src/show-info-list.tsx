@@ -1,7 +1,14 @@
 import type { JSX } from "react";
 import styled from "styled-components";
-import { ShowInfo, unknownDate } from "./get-favourites";
+import { unknownDate } from "./data/types";
+import { ShowInfo } from "./get-favourites";
 import { ExtendedShowInfo } from "./add-next-performance";
+
+function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${hours.toString()}:${mins.toString().padStart(2, "0")}`;
+}
 
 const DateSpan = styled.span`
   text-align: center;
@@ -21,9 +28,9 @@ function Date({
 }
 
 function ShowLink({ showInfo }: { showInfo: ShowInfo }) {
-  const { title, href } = showInfo;
+  const { title, url } = showInfo;
   return (
-    <a href={href} target="_blank" rel="noreferrer">
+    <a href={url} target="_blank" rel="noreferrer">
       {title}
     </a>
   );
@@ -82,11 +89,12 @@ export function ShowInfoList({
     info: ShowInfo,
     item: string,
   ) => {
-    const key = info.href + item;
+    const key = info.url + item;
     gridElems.push(<Wrapper key={key}>{elem}</Wrapper>);
   };
 
-  const ratingString = (info: ShowInfo) => (info.booked ? "*" : info.rating);
+  const ratingString = (info: ShowInfo) =>
+    info.booked ? "*" : info.rating.toString();
 
   for (const info of showInfo) {
     addElem(<ShowLink showInfo={info} />, info, "link");
@@ -96,7 +104,7 @@ export function ShowInfoList({
       info,
       "dates",
     );
-    addElem(info.duration, info, "duration");
+    addElem(formatDuration(info.durationMinutes), info, "duration");
     addElem(ratingString(info), info, "rating");
     addElem(info.venue, info, "venue");
   }

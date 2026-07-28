@@ -1,2 +1,0 @@
-""" Define some constants """
-UNSET = '?'

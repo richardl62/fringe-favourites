@@ -1,4 +1,5 @@
-import { ShowInfo, unknownDate } from "./get-favourites";
+import { unknownDate } from "./data/types";
+import { ShowInfo } from "./get-favourites";
 
 export interface ExtendedShowInfo extends ShowInfo {
   // The next date on which the show will be performed.  More precisely:

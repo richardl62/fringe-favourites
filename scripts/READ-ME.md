@@ -1,1 +1,0 @@
-These scripts are based around exported Chrome favourites
