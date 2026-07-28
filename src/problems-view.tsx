@@ -11,21 +11,57 @@ const ProblemRow = styled.div<{ $severity: Problem["severity"] }>`
   color: ${(props) => (props.$severity === "error" ? "firebrick" : "inherit")};
 `;
 
+const SectionHeading = styled.h2`
+  font-size: 1em;
+`;
+
+function ProblemList({ problems }: { problems: Problem[] }) {
+  return (
+    <>
+      {problems.map((problem, index) => (
+        <ProblemRow key={index} $severity={problem.severity}>
+          {problem.link ? (
+            <>
+              <a href={problem.link.url} target="_blank" rel="noreferrer">
+                {problem.link.title}
+              </a>{" "}
+              {problem.message}
+            </>
+          ) : (
+            problem.message
+          )}
+        </ProblemRow>
+      ))}
+    </>
+  );
+}
+
 export function ProblemsView({ problems }: { problems: Problem[] }) {
+  const errors = problems.filter((p) => p.severity === "error");
+  const warnings = problems.filter((p) => p.severity === "warning");
+
   return (
     <Wrapper>
       <p>
         <a href="#">Back to shows</a>
       </p>
-      <h1>Problems ({problems.length})</h1>
       {problems.length === 0 ? (
         <div>No problems found.</div>
       ) : (
-        problems.map((problem, index) => (
-          <ProblemRow key={index} $severity={problem.severity}>
-            [{problem.severity}] {problem.message}
-          </ProblemRow>
-        ))
+        <>
+          {errors.length > 0 && (
+            <>
+              <SectionHeading>Errors ({errors.length})</SectionHeading>
+              <ProblemList problems={errors} />
+            </>
+          )}
+          {warnings.length > 0 && (
+            <>
+              <SectionHeading>Warnings ({warnings.length})</SectionHeading>
+              <ProblemList problems={warnings} />
+            </>
+          )}
+        </>
       )}
     </Wrapper>
   );

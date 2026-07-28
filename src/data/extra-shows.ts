@@ -2,6 +2,15 @@ import { parse } from "yaml";
 import { error, type Problem } from "./problems";
 import type { RawShow } from "./types";
 
+const KNOWN_FIELDS = ["title", "venue", "duration", "startTime", "url"];
+
+function checkUnknownFields(entry: Record<string, unknown>): void {
+  const unknown = Object.keys(entry).filter((k) => !KNOWN_FIELDS.includes(k));
+  if (unknown.length > 0) {
+    throw new Error(`unknown field(s): ${unknown.join(", ")}`);
+  }
+}
+
 function asString(value: unknown, field: string): string {
   if (typeof value !== "string" || !value.trim()) {
     throw new Error(`missing or invalid "${field}"`);
@@ -45,6 +54,7 @@ export function parseExtraShows(text: string, problems: Problem[]): RawShow[] {
         throw new Error("expected a mapping of fields");
       }
       const entry = value as Record<string, unknown>;
+      checkUnknownFields(entry);
       shows.push({
         id,
         title: asString(entry.title, "title"),

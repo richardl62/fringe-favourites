@@ -15,6 +15,15 @@ function parseDates(value: unknown): number[] {
   return value as number[];
 }
 
+const KNOWN_FIELDS = ["rating", "dates", "booked", "times"];
+
+function checkUnknownFields(entry: Record<string, unknown>): void {
+  const unknown = Object.keys(entry).filter((k) => !KNOWN_FIELDS.includes(k));
+  if (unknown.length > 0) {
+    throw new Error(`unknown field(s): ${unknown.join(", ")}`);
+  }
+}
+
 function parseTimes(value: unknown): Record<number, string> {
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
     throw new Error(
@@ -58,6 +67,7 @@ export function parseShowNotes(
         throw new Error("expected a mapping of fields");
       }
       const entry = value as Record<string, unknown>;
+      checkUnknownFields(entry);
       const notes: ShowNotes = {};
 
       if (entry.rating !== undefined) {

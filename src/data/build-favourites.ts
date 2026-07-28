@@ -22,14 +22,14 @@ export function buildFavourites(
     const notes = notesById.get(raw.id);
     consumedIds.add(raw.id);
 
+    const link = { title: raw.title, url: raw.url };
+
     if (!notes) {
       problems.push(
-        warn(
-          `"${raw.title}" has no entry in show-notes.yaml (needs rating/dates)`,
-        ),
+        warn(`has no entry in show-notes.yaml (needs rating/dates)`, link),
       );
     } else if (notes.rating === undefined) {
-      problems.push(warn(`"${raw.title}" has no "rating" in show-notes.yaml`));
+      problems.push(warn(`has no "rating" in show-notes.yaml`, link));
     }
 
     const { dates, booked } = resolveDatesAndBooking(raw, notes, problems);
@@ -66,11 +66,14 @@ function resolveDatesAndBooking(
   notes: ShowNotes | undefined,
   problems: Problem[],
 ): { dates: DatesT; booked: boolean } {
+  const link = { title: raw.title, url: raw.url };
+
   if (notes?.booked !== undefined) {
     if (notes.dates !== undefined) {
       problems.push(
         warn(
-          `"${raw.title}" has both "booked" and "dates" in show-notes.yaml; using the booked date only`,
+          `has both "booked" and "dates" in show-notes.yaml; using the booked date only`,
+          link,
         ),
       );
     }
@@ -82,7 +85,7 @@ function resolveDatesAndBooking(
   }
 
   if (notes) {
-    problems.push(warn(`"${raw.title}" has no "dates" in show-notes.yaml`));
+    problems.push(warn(`has no "dates" in show-notes.yaml`, link));
   }
   return { dates: unknownDate, booked: false };
 }
@@ -93,11 +96,14 @@ function resolveTimes(
   dates: DatesT,
   problems: Problem[],
 ): TimesT {
+  const link = { title: raw.title, url: raw.url };
+
   if (raw.startTime !== null) {
     if (notes?.times) {
       problems.push(
         warn(
-          `"${raw.title}" has start-time overrides in show-notes.yaml but has a single fixed start time; ignoring them`,
+          `has start-time overrides in show-notes.yaml but has a single fixed start time; ignoring them`,
+          link,
         ),
       );
     }
@@ -112,7 +118,8 @@ function resolveTimes(
   if (staleOverrides.length > 0) {
     problems.push(
       warn(
-        `"${raw.title}" has a start-time override for date(s) ${staleOverrides.join(", ")} not in its dates list`,
+        `has a start-time override for date(s) ${staleOverrides.join(", ")} not in its dates list`,
+        link,
       ),
     );
   }
@@ -121,7 +128,8 @@ function resolveTimes(
   if (missingOverrides.length > 0) {
     problems.push(
       warn(
-        `"${raw.title}" has variable start times but no specific time recorded for date(s) ${missingOverrides.join(", ")}`,
+        `has variable start times but no specific time recorded for date(s) ${missingOverrides.join(", ")}`,
+        link,
       ),
     );
   }

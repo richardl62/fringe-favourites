@@ -3,15 +3,21 @@
 // occasional mistakes are expected.
 export type ProblemSeverity = "error" | "warning";
 
+export interface ProblemShowLink {
+  title: string;
+  url: string;
+}
+
 export interface Problem {
   severity: ProblemSeverity;
   message: string;
+  link?: ProblemShowLink;
 }
 
-export function warn(message: string): Problem {
-  return { severity: "warning", message };
+export function warn(message: string, link?: ProblemShowLink): Problem {
+  return { severity: "warning", message, link };
 }
 
-export function error(message: string): Problem {
-  return { severity: "error", message };
+export function error(message: string, link?: ProblemShowLink): Problem {
+  return { severity: "error", message, link };
 }
