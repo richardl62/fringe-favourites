@@ -16,3 +16,4 @@ example-non-fringe-show:
   duration: "1:00"
   startTime: "18:00"
   url: "https://example.org/shows/example-non-fringe-show"
+  xxx: "fred"
