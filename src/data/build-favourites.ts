@@ -1,5 +1,5 @@
 import { warn, type Problem } from "./problems";
-import type { ShowNotes } from "./show-notes";
+import type { ShowNotes } from "./shows";
 import {
   unknownDate,
   type DatesT,
@@ -8,7 +8,7 @@ import {
   type TimesT,
 } from "./types";
 
-/** Combine shows from their source (CSV/extra-shows) with their hand-written
+/** Combine shows from their source (CSV/shows.yaml) with their hand-written
  * notes, reporting anything missing or inconsistent along the way. */
 export function buildFavourites(
   rawShows: RawShow[],
@@ -26,10 +26,10 @@ export function buildFavourites(
 
     if (!notes) {
       problems.push(
-        warn(`has no entry in show-notes.yaml (needs rating/dates)`, link),
+        warn(`has no entry in shows.yaml (needs rating/dates)`, link),
       );
     } else if (notes.rating === undefined) {
-      problems.push(warn(`has no "rating" in show-notes.yaml`, link));
+      problems.push(warn(`has no "rating" in shows.yaml`, link));
     }
 
     const { dates, booked } = resolveDatesAndBooking(raw, notes, problems);
@@ -52,7 +52,7 @@ export function buildFavourites(
     if (!consumedIds.has(id)) {
       problems.push(
         warn(
-          `show-notes.yaml has an entry for "${id}" that doesn't match any current show (stale?)`,
+          `shows.yaml has an entry for "${id}" that doesn't match any current show (stale?)`,
         ),
       );
     }
@@ -72,7 +72,7 @@ function resolveDatesAndBooking(
     if (notes.dates !== undefined) {
       problems.push(
         warn(
-          `has both "booked" and "dates" in show-notes.yaml; using the booked date only`,
+          `has both "booked" and "dates" in shows.yaml; using the booked date only`,
           link,
         ),
       );
@@ -85,7 +85,7 @@ function resolveDatesAndBooking(
   }
 
   if (notes) {
-    problems.push(warn(`has no "dates" in show-notes.yaml`, link));
+    problems.push(warn(`has no "dates" in shows.yaml`, link));
   }
   return { dates: unknownDate, booked: false };
 }
@@ -102,7 +102,7 @@ function resolveTimes(
     if (notes?.times) {
       problems.push(
         warn(
-          `has start-time overrides in show-notes.yaml but has a single fixed start time; ignoring them`,
+          `has start-time overrides in shows.yaml but has a single fixed start time; ignoring them`,
           link,
         ),
       );

@@ -1,8 +1,7 @@
 import { buildFavourites } from "./build-favourites";
-import { parseExtraShows } from "./extra-shows";
 import { parseFringeCsv } from "./fringe-csv";
 import { error, type Problem } from "./problems";
-import { parseShowNotes } from "./show-notes";
+import { parseShows } from "./shows";
 import type { RawShow, Show } from "./types";
 
 export interface LoadResult {
@@ -33,7 +32,7 @@ function mergeRawShows(
     if (seenIds.has(show.id)) {
       problems.push(
         error(
-          `extra-shows.yaml entry "${show.id}" has the same id as a show already in my_fringe_favourites.csv; ignoring it`,
+          `shows.yaml entry "${show.id}" has the same id as a show already in my_fringe_favourites.csv; ignoring it`,
         ),
       );
       continue;
@@ -46,19 +45,17 @@ function mergeRawShows(
 }
 
 export async function loadFavourites(): Promise<LoadResult> {
-  const [csvText, extraShowsText, notesText] = await Promise.all([
+  const [csvText, showsText] = await Promise.all([
     fetchText("my_fringe_favourites.csv"),
-    fetchText("extra-shows.yaml"),
-    fetchText("show-notes.yaml"),
+    fetchText("shows.yaml"),
   ]);
 
   const problems: Problem[] = [];
 
   const csvShows = parseFringeCsv(csvText, problems);
-  const extraShows = parseExtraShows(extraShowsText, problems);
+  const { rawShows: extraShows, notesById } = parseShows(showsText, problems);
   const rawShows = mergeRawShows(csvShows, extraShows, problems);
 
-  const notesById = parseShowNotes(notesText, problems);
   const shows = buildFavourites(rawShows, notesById, problems);
 
   return { shows, problems };

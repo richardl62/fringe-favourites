@@ -8,11 +8,11 @@ In summary,
 - `public/my_fringe_favourites.csv` is the principal list of shows, exported
   from edfringe.com. Add or remove rows there; the format is fixed by
   edfringe.com's export.
-- `public/show-notes.yaml` holds hand-written info the CSV doesn't provide -
+- `public/shows.yaml` holds hand-written info the CSV doesn't provide -
   rating, which dates you're considering, booking status, and start-time
-  overrides for shows whose time varies by performance.
-- `public/extra-shows.yaml` holds full hand-written entries for the rare show
-  that isn't in the edfringe.com export (e.g. a free-fringe listing).
+  overrides for shows whose time varies by performance - plus full entries
+  for the rare show that isn't in the edfringe.com export (e.g. a
+  free-fringe listing).
 - Everything is fetched and parsed in the browser at page load - there is no
   build/generation step. Edit the files above and refresh.
 - Anything unexpected or missing while loading (a malformed CSV row, a show

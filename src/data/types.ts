@@ -5,8 +5,8 @@ export type DatesT = number[] | typeof unknownDate;
 // of date -> "HH:MM" for shows whose time varies by performance.
 export type TimesT = string | Record<number, string>;
 
-/** A show as read from its source (edfringe.com CSV or extra-shows.yaml),
- * before show-notes.yaml has been applied. */
+/** A show as read from its source (edfringe.com CSV or shows.yaml),
+ * before shows.yaml's notes have been applied. */
 export interface RawShow {
   id: string;
   title: string;

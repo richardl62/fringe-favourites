@@ -1,0 +1,72 @@
+# One entry per show, keyed by an id: the part of its URL after
+# "/whats-on/" for a show from my_fringe_favourites.csv, or one you choose
+# yourself for a show that isn't in the CSV export (e.g. a free-fringe
+# listing).
+#
+# Two kinds of field, both optional:
+#
+#   title, venue, duration, startTime, url:
+#     Only needed for a show that isn't in the CSV export - give all five or
+#     none.
+#       title:     the show's name.
+#       venue:     free text.
+#       duration:  "H:MM", e.g. "1:15".
+#       startTime: "HH:MM", or "varies" if the show's start time changes by
+#                  performance (add per-date times for it below).
+#       url:       link to the show's page.
+#
+#   rating, dates, booked, times:
+#     Hand-written notes for any show. A show with none of them is reported
+#     as needing info on the #problems page.
+#       rating: a number, higher = more interested. Booked shows always sort
+#               first regardless of rating.
+#       dates:  the day-of-month numbers the show is on, e.g. [9, 10, 11].
+#       booked: a single day-of-month number - use instead of "dates" once
+#               you've booked a ticket; it replaces "dates" as the show's
+#               only date.
+#       times:  only needed when the show's start time varies by performance
+#               (my_fringe_favourites.csv says "Various times" for it). A map
+#               of day-of-month number to "HH:MM" for the dates you know the
+#               time for. Dates left out are shown as "varies" with no
+#               specific time.
+
+water-colour:
+  rating: 2
+  dates: [7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+  times:
+    7: "19:30"
+    8: "19:30"
+    9: "14:30"
+
+supposing:
+  rating: 1
+  dates: [8, 9, 10, 11, 12]
+  booked: 10
+
+mrs-stern-wanders-the-prussian-state-library:
+  rating: 1
+  dates: [13, 14, 15, 16, 17]
+
+# "meat-loaf-just-the-best-bits" and "cathy" are deliberately left without an
+# entry here, to show what the #problems page reports for a show that hasn't
+# been given notes yet.
+
+badgers:
+  rating: 0
+  dates: [9]
+
+after-party:
+  rating: 2
+  dates: [7, 12]
+  times:
+    7: "20:00"
+    12: "15:00"
+
+example-non-fringe-show:
+  url: "https://example.org/shows/example-non-fringe-show"
+  title: "Example: A Free Fringe Show"
+  venue: "Some Venue"
+  duration: "1:00"
+  startTime: "18:00"
+  rating: 1
+  dates: [9, 10, 11]
