@@ -69,10 +69,10 @@ function resolveDatesAndBooking(
   const link = { title: raw.title, url: raw.url };
 
   if (notes?.booked !== undefined) {
-    if (notes.dates !== undefined) {
+    if (notes.dates !== undefined && !notes.dates.includes(notes.booked)) {
       problems.push(
         warn(
-          `has both "booked" and "dates" in shows.yaml; using the booked date only`,
+          `is "booked" for a date not in its "dates" list in shows.yaml`,
           link,
         ),
       );
