@@ -1,4 +1,4 @@
-import { warn, type Problem } from "./problems";
+import { lowPriority, warn, type Problem } from "./problems";
 import type { ShowNotes } from "./shows";
 import {
   unknownDate,
@@ -24,12 +24,8 @@ export function buildFavourites(
 
     const link = { title: raw.title, url: raw.url };
 
-    if (!notes) {
-      problems.push(
-        warn(`has no entry in shows.yaml (needs rating/dates)`, link),
-      );
-    } else if (notes.rating === undefined) {
-      problems.push(warn(`has no "rating" in shows.yaml`, link));
+    if (notes?.rating === undefined) {
+      problems.push(lowPriority(`has no "rating" in shows.yaml`, link));
     }
 
     const { dates, booked } = resolveDatesAndBooking(raw, notes, problems);
@@ -84,9 +80,7 @@ function resolveDatesAndBooking(
     return { dates: notes.dates, booked: false };
   }
 
-  if (notes) {
-    problems.push(warn(`has no "dates" in shows.yaml`, link));
-  }
+  problems.push(warn(`has no "dates" in shows.yaml`, link));
   return { dates: unknownDate, booked: false };
 }
 

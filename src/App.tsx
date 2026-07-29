@@ -63,6 +63,7 @@ function App() {
   }, []);
 
   const problems = loadState.status === "loaded" ? loadState.problems : [];
+  const countedProblems = problems.filter((p) => p.severity !== "low");
 
   if (route === "problems") {
     return <ProblemsView problems={problems} />;
@@ -119,7 +120,10 @@ function App() {
 
         <label>
           <a href="#problems">
-            Problems{problems.length > 0 ? ` (${String(problems.length)})` : ""}
+            Problems
+            {countedProblems.length > 0
+              ? ` (${String(countedProblems.length)})`
+              : ""}
           </a>
         </label>
       </Inputs>

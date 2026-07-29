@@ -39,6 +39,7 @@ function ProblemList({ problems }: { problems: Problem[] }) {
 export function ProblemsView({ problems }: { problems: Problem[] }) {
   const errors = problems.filter((p) => p.severity === "error");
   const warnings = problems.filter((p) => p.severity === "warning");
+  const lowPriority = problems.filter((p) => p.severity === "low");
 
   return (
     <Wrapper>
@@ -59,6 +60,12 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
             <>
               <SectionHeading>Warnings ({warnings.length})</SectionHeading>
               <ProblemList problems={warnings} />
+            </>
+          )}
+          {lowPriority.length > 0 && (
+            <>
+              <SectionHeading>Low priority ({lowPriority.length})</SectionHeading>
+              <ProblemList problems={lowPriority} />
             </>
           )}
         </>
