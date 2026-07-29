@@ -161,7 +161,10 @@ function toLondonDayAndTime(isoUtc: string): { day: number; time: string } {
     }
     return found.value;
   };
-  return { day: parseInt(part("day"), 10), time: `${part("hour")}:${part("minute")}` };
+  return {
+    day: parseInt(part("day"), 10),
+    time: `${part("hour")}:${part("minute")}`,
+  };
 }
 
 interface Schedule {

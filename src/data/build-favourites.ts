@@ -7,12 +7,15 @@ import {
   type Show,
   type TimesT,
 } from "./types";
+import { showsYamlEditLink } from "./vscode-link";
 
 /** Combine shows from their source (CSV/shows.yaml) with their hand-written
  * notes, reporting anything missing or inconsistent along the way. */
 export function buildFavourites(
   rawShows: RawShow[],
   notesById: Map<string, ShowNotes>,
+  entryLines: Map<string, number>,
+  lineCount: number,
   problems: Problem[],
 ): Show[] {
   const consumedIds = new Set<string>();
@@ -23,13 +26,22 @@ export function buildFavourites(
     consumedIds.add(raw.id);
 
     const link = { title: raw.title, url: raw.url };
+    const editLine = entryLines.get(raw.id) ?? lineCount;
+    const editLink = showsYamlEditLink(editLine);
 
     if (notes?.rating === undefined) {
-      problems.push(lowPriority(`has no "rating" in shows.yaml`, link));
+      problems.push(
+        lowPriority(`has no "rating" in shows.yaml`, link, editLink),
+      );
     }
 
-    const { dates, booked } = resolveDatesAndBooking(raw, notes, problems);
-    const times = resolveTimes(raw, notes, dates, problems);
+    const { dates, booked } = resolveDatesAndBooking(
+      raw,
+      notes,
+      editLink,
+      problems,
+    );
+    const times = resolveTimes(raw, notes, editLink, dates, problems);
 
     shows.push({
       id: raw.id,
@@ -49,6 +61,8 @@ export function buildFavourites(
       problems.push(
         warn(
           `shows.yaml has an entry for "${id}" that doesn't match any current show (stale?)`,
+          undefined,
+          showsYamlEditLink(entryLines.get(id) ?? lineCount),
         ),
       );
     }
@@ -60,6 +74,7 @@ export function buildFavourites(
 function resolveDatesAndBooking(
   raw: RawShow,
   notes: ShowNotes | undefined,
+  editLink: string | undefined,
   problems: Problem[],
 ): { dates: DatesT; booked: boolean } {
   const link = { title: raw.title, url: raw.url };
@@ -70,6 +85,7 @@ function resolveDatesAndBooking(
         warn(
           `is "booked" for a date not in its "dates" list in shows.yaml`,
           link,
+          editLink,
         ),
       );
     }
@@ -80,13 +96,14 @@ function resolveDatesAndBooking(
     return { dates: notes.dates, booked: false };
   }
 
-  problems.push(warn(`has no "dates" in shows.yaml`, link));
+  problems.push(warn(`has no "dates" in shows.yaml`, link, editLink));
   return { dates: unknownDate, booked: false };
 }
 
 function resolveTimes(
   raw: RawShow,
   notes: ShowNotes | undefined,
+  editLink: string | undefined,
   dates: DatesT,
   problems: Problem[],
 ): TimesT {
@@ -98,6 +115,7 @@ function resolveTimes(
         warn(
           `has start-time overrides in shows.yaml but has a single fixed start time; ignoring them`,
           link,
+          editLink,
         ),
       );
     }
@@ -114,6 +132,7 @@ function resolveTimes(
       warn(
         `has a start-time override for date(s) ${staleOverrides.join(", ")} not in its dates list`,
         link,
+        editLink,
       ),
     );
   }
@@ -124,6 +143,7 @@ function resolveTimes(
       warn(
         `has variable start times but no specific time recorded for date(s) ${missingOverrides.join(", ")}`,
         link,
+        editLink,
       ),
     );
   }

@@ -1,6 +1,14 @@
-import { parse } from "yaml";
+import {
+  LineCounter,
+  YAMLParseError,
+  isMap,
+  isScalar,
+  parse,
+  parseDocument,
+} from "yaml";
 import { error, type Problem } from "./problems";
 import type { RawShow } from "./types";
+import { showsYamlEditLink } from "./vscode-link";
 import { describeYamlError } from "./yaml-errors";
 
 export interface ShowNotes {
@@ -13,6 +21,12 @@ export interface ShowNotes {
 export interface ParsedShows {
   rawShows: RawShow[];
   notesById: Map<string, ShowNotes>;
+  /** 1-based line number of each id's entry in shows.yaml, for ids that have
+   * one - lets a problem link straight to the relevant line. */
+  entryLines: Map<string, number>;
+  /** Total line count of shows.yaml, for linking to the end of the file when
+   * a show has no entry there yet. */
+  lineCount: number;
 }
 
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
@@ -57,9 +71,7 @@ function parseRawShow(id: string, entry: Record<string, unknown>): RawShow {
     title: asString(entry.title, "title"),
     venue: asString(entry.venue, "venue"),
     url: asString(entry.url, "url"),
-    durationMinutes: parseHoursMinutes(
-      asString(entry.duration, "duration"),
-    ),
+    durationMinutes: parseHoursMinutes(asString(entry.duration, "duration")),
     startTime: parseRawStartTime(asString(entry.startTime, "startTime")),
   };
 }
@@ -123,6 +135,8 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
  * times - for any show. A bad entry is skipped and reported rather than
  * aborting the whole file. */
 export function parseShows(text: string, problems: Problem[]): ParsedShows {
+  const lineCount = text.split(/\r\n|\r|\n/).length;
+
   let doc: unknown;
   try {
     doc = parse(text) ?? {};
@@ -130,10 +144,24 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
       throw new Error("should contain a mapping of show id to show details");
     }
   } catch (err) {
-    problems.push(error(`shows.yaml: ${describeYamlError(err, text)}`));
-    return { rawShows: [], notesById: new Map() };
+    const line =
+      err instanceof YAMLParseError ? err.linePos?.[0].line : undefined;
+    problems.push(
+      error(
+        `shows.yaml: ${describeYamlError(err, text)}`,
+        undefined,
+        line !== undefined ? showsYamlEditLink(line) : undefined,
+      ),
+    );
+    return {
+      rawShows: [],
+      notesById: new Map(),
+      entryLines: new Map(),
+      lineCount,
+    };
   }
 
+  const entryLines = findEntryLines(text);
   const rawShows: RawShow[] = [];
   const notesById = new Map<string, ShowNotes>();
 
@@ -151,10 +179,34 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
       notesById.set(id, parseNotes(entry));
     } catch (err) {
       problems.push(
-        error(`shows.yaml entry "${id}": ${(err as Error).message}`),
+        error(
+          `shows.yaml entry "${id}": ${(err as Error).message}`,
+          undefined,
+          showsYamlEditLink(entryLines.get(id) ?? lineCount),
+        ),
       );
     }
   }
 
-  return { rawShows, notesById };
+  return { rawShows, notesById, entryLines, lineCount };
+}
+
+/** Find the line each top-level id's entry starts on, for linking a problem
+ * straight to it. Best-effort: text has already been parsed successfully
+ * above, so this is just a second, position-tracking pass over it. */
+function findEntryLines(text: string): Map<string, number> {
+  const entryLines = new Map<string, number>();
+  const lineCounter = new LineCounter();
+  const doc = parseDocument(text, { lineCounter });
+  if (isMap(doc.contents)) {
+    for (const pair of doc.contents.items) {
+      if (isScalar(pair.key)) {
+        entryLines.set(
+          String(pair.key.value),
+          lineCounter.linePos(pair.key.range[0]).line,
+        );
+      }
+    }
+  }
+  return entryLines;
 }

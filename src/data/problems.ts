@@ -12,16 +12,31 @@ export interface Problem {
   severity: ProblemSeverity;
   message: string;
   link?: ProblemShowLink;
+  /** A vscode://file/... link to the relevant spot in shows.yaml, if known
+   * (see vscode-link.ts). Only ever set when running locally. */
+  editLink?: string;
 }
 
-export function warn(message: string, link?: ProblemShowLink): Problem {
-  return { severity: "warning", message, link };
+export function warn(
+  message: string,
+  link?: ProblemShowLink,
+  editLink?: string,
+): Problem {
+  return { severity: "warning", message, link, editLink };
 }
 
-export function error(message: string, link?: ProblemShowLink): Problem {
-  return { severity: "error", message, link };
+export function error(
+  message: string,
+  link?: ProblemShowLink,
+  editLink?: string,
+): Problem {
+  return { severity: "error", message, link, editLink };
 }
 
-export function lowPriority(message: string, link?: ProblemShowLink): Problem {
-  return { severity: "low", message, link };
+export function lowPriority(
+  message: string,
+  link?: ProblemShowLink,
+  editLink?: string,
+): Problem {
+  return { severity: "low", message, link, editLink };
 }

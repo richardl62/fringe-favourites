@@ -3,6 +3,7 @@ import { parseFringeCsv } from "./fringe-csv";
 import { error, type Problem } from "./problems";
 import { parseShows } from "./shows";
 import type { RawShow, Show } from "./types";
+import { showsYamlEditLink } from "./vscode-link";
 
 export interface LoadResult {
   shows: Show[];
@@ -23,6 +24,7 @@ async function fetchText(fileName: string): Promise<string> {
 function mergeRawShows(
   csvShows: RawShow[],
   extraShows: RawShow[],
+  entryLines: Map<string, number>,
   problems: Problem[],
 ): RawShow[] {
   const shows = [...csvShows];
@@ -30,9 +32,12 @@ function mergeRawShows(
 
   for (const show of extraShows) {
     if (seenIds.has(show.id)) {
+      const line = entryLines.get(show.id);
       problems.push(
         error(
           `shows.yaml entry "${show.id}" has the same id as a show already in my_fringe_favourites.csv; ignoring it`,
+          undefined,
+          line !== undefined ? showsYamlEditLink(line) : undefined,
         ),
       );
       continue;
@@ -53,10 +58,21 @@ export async function loadFavourites(): Promise<LoadResult> {
   const problems: Problem[] = [];
 
   const csvShows = parseFringeCsv(csvText, problems);
-  const { rawShows: extraShows, notesById } = parseShows(showsText, problems);
-  const rawShows = mergeRawShows(csvShows, extraShows, problems);
+  const {
+    rawShows: extraShows,
+    notesById,
+    entryLines,
+    lineCount,
+  } = parseShows(showsText, problems);
+  const rawShows = mergeRawShows(csvShows, extraShows, entryLines, problems);
 
-  const shows = buildFavourites(rawShows, notesById, problems);
+  const shows = buildFavourites(
+    rawShows,
+    notesById,
+    entryLines,
+    lineCount,
+    problems,
+  );
 
   return { shows, problems };
 }

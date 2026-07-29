@@ -30,6 +30,12 @@ function ProblemList({ problems }: { problems: Problem[] }) {
           ) : (
             problem.message
           )}
+          {problem.editLink && (
+            <>
+              {" "}
+              [<a href={problem.editLink}>edit</a>]
+            </>
+          )}
         </ProblemRow>
       ))}
     </>
@@ -64,7 +70,9 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
           )}
           {lowPriority.length > 0 && (
             <>
-              <SectionHeading>Low priority ({lowPriority.length})</SectionHeading>
+              <SectionHeading>
+                Low priority ({lowPriority.length})
+              </SectionHeading>
               <ProblemList problems={lowPriority} />
             </>
           )}
