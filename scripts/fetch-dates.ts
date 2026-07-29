@@ -213,6 +213,7 @@ function applySchedule(doc: Document, id: string, schedule: Schedule): void {
 
   if (schedule.times) {
     const timesMap = new YAMLMap();
+    timesMap.flow = true;
     for (const [day, time] of schedule.times) {
       const value = doc.createNode(time);
       value.type = "QUOTE_DOUBLE";
