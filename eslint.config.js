@@ -12,7 +12,7 @@ export default tseslint.config(
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],
-    files: ["**/*.{ts,tsx}"],
+    files: ["src/**/*.{ts,tsx}", "vite.config.ts"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -28,6 +28,22 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...reactRefresh.configs.vite.rules,
+    },
+  },
+  {
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
+    files: ["scripts/**/*.ts"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: {
+        project: ["./scripts/tsconfig.json"],
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
   },
 );

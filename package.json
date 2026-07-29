@@ -17,7 +17,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "type-check": "tsc -b --noEmit",
+    "type-check": "tsc -b --noEmit && tsc --noEmit -p scripts/tsconfig.json",
+    "fetch-dates": "node scripts/fetch-dates.ts",
     "format": "prettier --write .",
     "validate": "npm run type-check && npm run lint"
   },
