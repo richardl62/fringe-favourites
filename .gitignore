@@ -13,6 +13,9 @@
 # production
 /build
 
+# build cache
+*.tsbuildinfo
+
 # misc
 .DS_Store
 .env.local
