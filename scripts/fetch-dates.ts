@@ -8,10 +8,15 @@
 // data it's built from is already embedded in the page's initial HTML, in a
 // Next.js `__NEXT_DATA__` <script> tag - so a plain fetch + JSON extraction
 // is enough, no headless browser needed.
+//
+// When a show can't be (fully) scraped, whatever data is available is still
+// written, and a "# PROBLEM: ..." comment is added directly above that show's
+// entry - grep for "PROBLEM" to find them all. The comment is cleared
+// automatically once a later run scrapes the show cleanly.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { parseDocument, YAMLMap, type Document } from "yaml";
+import { isScalar, parseDocument, YAMLMap, type Document, type Pair } from "yaml";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
@@ -22,6 +27,7 @@ const WHATS_ON_URL =
 const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36";
 const REQUEST_DELAY_MS = 400;
+const PROBLEM_PREFIX = "PROBLEM: ";
 
 function edFringeUrl(id: string): string {
   return `https://www.edfringe.com/tickets/whats-on/${id}`;
@@ -45,13 +51,9 @@ function idsFromText(text: string): Set<string> {
  * any shows.yaml-only entries whose "url" also points at an edfringe.com
  * show page (entries pointing elsewhere, e.g. a free-fringe listing, are
  * left alone). */
-function discoverShowIds(csvText: string, doc: Document): Set<string> {
+function discoverShowIds(csvText: string, doc: Document, root: YAMLMap): Set<string> {
   const ids = idsFromText(csvText);
 
-  const root = doc.contents;
-  if (!(root instanceof YAMLMap)) {
-    throw new Error("shows.yaml doesn't have a top-level mapping");
-  }
   for (const item of root.items) {
     const id = String(item.key);
     const url = doc.getIn([id, "url"]);
@@ -89,7 +91,17 @@ function getPath(obj: unknown, ...keys: string[]): unknown {
 const NEXT_DATA_RE =
   /<script id="__NEXT_DATA__" type="application\/json">(.+?)<\/script>/s;
 
-async function fetchPerformances(id: string): Promise<Performance[]> {
+interface FetchedPerformances {
+  performances: Performance[];
+  /** Individual performance entries that had to be skipped, if any. */
+  problems: string[];
+}
+
+/** Throws if the page couldn't be read at all (network/HTTP failure, or its
+ * structure doesn't match what this script expects) - there's no usable data
+ * to fall back on in those cases. A single malformed performance entry
+ * amongst otherwise-good ones is not fatal: it's skipped and reported. */
+async function fetchPerformances(id: string): Promise<FetchedPerformances> {
   const url = edFringeUrl(id);
   const response = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
   if (!response.ok) {
@@ -128,14 +140,17 @@ async function fetchPerformances(id: string): Promise<Performance[]> {
     );
   }
 
-  return performancesRaw.map((raw: unknown, index: number) => {
-    if (!isPerformance(raw)) {
-      throw new Error(
-        `performance ${String(index)} on ${url} had an unexpected shape`,
-      );
+  const performances: Performance[] = [];
+  const problems: string[] = [];
+  performancesRaw.forEach((raw: unknown, index: number) => {
+    if (isPerformance(raw)) {
+      performances.push(raw);
+    } else {
+      problems.push(`performance ${String(index)} had an unexpected shape and was skipped`);
     }
-    return raw;
   });
+
+  return { performances, problems };
 }
 
 // --- Convert performances into shows.yaml's dates/times shape -------------
@@ -169,63 +184,163 @@ function toLondonDayAndTime(isoUtc: string): { day: number; time: string } {
 
 interface Schedule {
   dates: number[];
-  /** null means the time is fixed, so no "times" field is needed. */
+  /** null means no "times" field is needed (a single fixed time covers every
+   * date). Otherwise a map of day -> "HH:MM"; a date can be missing from it
+   * (shown as "varies" with no specific time - see shows.yaml's header) when
+   * its time couldn't be determined. */
   times: Map<number, string> | null;
+  problems: string[];
 }
 
-function buildSchedule(id: string, performances: Performance[]): Schedule {
+/** Never throws: a show with no performances, or with performances whose
+ * times can't be reconciled, still gets as complete a schedule as possible,
+ * with the rest reported in `problems`. */
+function buildSchedule(performances: Performance[]): Schedule {
   const active = performances.filter((p) => !p.cancelled);
   if (active.length === 0) {
-    throw new Error(`"${id}" has no non-cancelled performances, skipping`);
+    return {
+      dates: [],
+      times: null,
+      problems: ["no non-cancelled performances were found"],
+    };
   }
 
-  const byDay = new Map<number, string>();
+  const timesByDay = new Map<number, Set<string>>();
   for (const performance of active) {
     const { day, time } = toLondonDayAndTime(performance.dateTime);
-    const existing = byDay.get(day);
-    if (existing !== undefined && existing !== time) {
-      // shows.yaml's "times" can only hold one time per day - see types.ts.
-      throw new Error(
-        `"${id}" has performances on day ${String(day)} at both ${existing} and ${time} - can't represent two times for one day, skipping`,
-      );
+    let times = timesByDay.get(day);
+    if (!times) {
+      times = new Set();
+      timesByDay.set(day, times);
     }
-    byDay.set(day, time);
+    times.add(time);
   }
 
-  const dates = [...byDay.keys()].sort((a, b) => a - b);
+  const problems: string[] = [];
+  const byDay = new Map<number, string>();
+  for (const [day, times] of timesByDay) {
+    if (times.size > 1) {
+      // shows.yaml's "times" can only hold one time per day - see types.ts.
+      problems.push(
+        `day ${String(day)} has performances at multiple times (${[...times].sort().join(", ")}) - left out of "times"`,
+      );
+    } else {
+      byDay.set(day, [...times][0]);
+    }
+  }
+
+  const dates = [...timesByDay.keys()].sort((a, b) => a - b);
   const uniqueTimes = new Set(byDay.values());
-  const times = uniqueTimes.size <= 1 ? null : byDay;
-  return { dates, times };
+  const times = problems.length === 0 && uniqueTimes.size <= 1 ? null : byDay;
+
+  return { dates, times, problems };
 }
 
-// --- Apply a schedule into the YAML document -------------------------------
+// --- Scrape a single show ---------------------------------------------------
 
-function applySchedule(doc: Document, id: string, schedule: Schedule): void {
-  const datesNode = doc.createNode(schedule.dates);
-  datesNode.flow = true;
+interface ScrapeOutcome {
+  /** null means the page couldn't be read at all, so there's no schedule
+   * data available this run - any existing dates/times are left as they are. */
+  dates: number[] | null;
+  times: Map<number, string> | null;
+  problems: string[];
+}
 
-  if (doc.hasIn([id])) {
-    doc.setIn([id, "dates"], datesNode);
-  } else {
-    const entry = new YAMLMap();
-    entry.set("dates", datesNode);
-    const pair = doc.createPair(id, entry);
-    pair.key.spaceBefore = true;
-    (doc.contents as YAMLMap).items.push(pair);
+async function scrapeShow(id: string): Promise<ScrapeOutcome> {
+  let fetched: FetchedPerformances;
+  try {
+    fetched = await fetchPerformances(id);
+  } catch (err) {
+    return { dates: null, times: null, problems: [(err as Error).message] };
   }
 
-  if (schedule.times) {
-    const timesMap = new YAMLMap();
-    timesMap.flow = true;
-    for (const [day, time] of schedule.times) {
-      const value = doc.createNode(time);
-      value.type = "QUOTE_DOUBLE";
-      timesMap.set(day, value);
+  const schedule = buildSchedule(fetched.performances);
+  return {
+    dates: schedule.dates,
+    times: schedule.times,
+    problems: [...fetched.problems, ...schedule.problems],
+  };
+}
+
+// --- Apply an outcome into the YAML document -------------------------------
+
+function findOrCreateEntry(
+  doc: Document,
+  root: YAMLMap,
+  id: string,
+): { pair: Pair; entry: YAMLMap } {
+  const existing = root.items.find((item) => String(item.key) === id);
+  if (existing) {
+    if (!(existing.value instanceof YAMLMap)) {
+      throw new Error(`shows.yaml entry "${id}" isn't a mapping`);
     }
-    doc.setIn([id, "times"], timesMap);
-  } else {
-    doc.deleteIn([id, "times"]);
+    return { pair: existing, entry: existing.value };
   }
+
+  const entry = new YAMLMap();
+  const pair = doc.createPair(id, entry);
+  pair.key.spaceBefore = true;
+  root.items.push(pair);
+  return { pair, entry };
+}
+
+/** A show's entry may already have a hand-written comment above it (e.g. a
+ * freestanding note that happens to sit right before that entry in the
+ * file). Comments are treated as blank-line-separated paragraphs, and only
+ * the *last* paragraph is ever touched by this script: it's replaced with
+ * a "PROBLEM: ..." paragraph when there's a problem, removed when there
+ * isn't, and any earlier paragraphs are always preserved untouched. */
+function updateProblemComment(pair: Pair, problems: string[]): void {
+  const key = pair.key;
+  if (!isScalar(key)) {
+    return; // ids are always plain scalar keys
+  }
+
+  const existing =
+    typeof key.commentBefore === "string" ? key.commentBefore : "";
+  const paragraphs =
+    existing.trim().length > 0 ? existing.replace(/\n+$/, "").split(/\n\s*\n/) : [];
+  const lastIsOwnedProblem =
+    paragraphs.length > 0 &&
+    paragraphs[paragraphs.length - 1].trimStart().startsWith(PROBLEM_PREFIX);
+  const preserved = lastIsOwnedProblem ? paragraphs.slice(0, -1) : paragraphs;
+
+  const updated =
+    problems.length > 0
+      ? [...preserved, ` ${PROBLEM_PREFIX}${problems.join("; ")}`]
+      : preserved;
+
+  key.commentBefore = updated.length > 0 ? updated.join("\n\n") : undefined;
+}
+
+function applyOutcome(
+  doc: Document,
+  root: YAMLMap,
+  id: string,
+  outcome: ScrapeOutcome,
+): void {
+  const { pair, entry } = findOrCreateEntry(doc, root, id);
+
+  if (outcome.dates !== null) {
+    const datesNode = doc.createNode(outcome.dates);
+    datesNode.flow = true;
+    entry.set("dates", datesNode);
+
+    if (outcome.times) {
+      const timesMap = new YAMLMap();
+      timesMap.flow = true;
+      for (const [day, time] of outcome.times) {
+        const value = doc.createNode(time);
+        value.type = "QUOTE_DOUBLE";
+        timesMap.set(day, value);
+      }
+      entry.set("times", timesMap);
+    } else {
+      entry.delete("times");
+    }
+  }
+
+  updateProblemComment(pair, outcome.problems);
 }
 
 // --- Main -------------------------------------------------------------------
@@ -235,18 +350,22 @@ async function main(): Promise<void> {
   const csvText = readFileSync(CSV_PATH, "utf8");
   const doc = parseDocument(originalYamlText);
 
-  const ids = [...discoverShowIds(csvText, doc)].sort();
+  const root = doc.contents;
+  if (!(root instanceof YAMLMap)) {
+    throw new Error("shows.yaml doesn't have a top-level mapping");
+  }
 
-  let errorCount = 0;
+  const ids = [...discoverShowIds(csvText, doc, root)].sort();
+
+  let problemCount = 0;
   for (const id of ids) {
-    try {
-      const performances = await fetchPerformances(id);
-      const schedule = buildSchedule(id, performances);
-      applySchedule(doc, id, schedule);
+    const outcome = await scrapeShow(id);
+    applyOutcome(doc, root, id, outcome);
+    if (outcome.problems.length > 0) {
+      problemCount++;
+      console.error(`✗ ${id}: ${outcome.problems.join("; ")}`);
+    } else {
       console.log(`✓ ${id}`);
-    } catch (err) {
-      errorCount++;
-      console.error(`✗ ${id}: ${(err as Error).message}`);
     }
     await sleep(REQUEST_DELAY_MS);
   }
@@ -262,10 +381,10 @@ async function main(): Promise<void> {
 
   console.log("");
   console.log(
-    `${String(ids.length - errorCount)}/${String(ids.length)} show(s) fetched. shows.yaml ${changed ? "updated" : "unchanged"}.`,
+    `${String(ids.length - problemCount)}/${String(ids.length)} show(s) fetched cleanly. shows.yaml ${changed ? "updated" : "unchanged"}.`,
   );
 
-  if (errorCount > 0) {
+  if (problemCount > 0) {
     process.exitCode = 1;
   }
 }
