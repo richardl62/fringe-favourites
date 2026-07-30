@@ -108,9 +108,9 @@ function parseTimes(value: unknown): Record<number, string> {
 function parseNotes(entry: Record<string, unknown>): ShowNotes {
   const notes: ShowNotes = {};
 
-  if (entry.rating !== undefined) {
+  if (entry.rating !== undefined && entry.rating !== "?") {
     if (typeof entry.rating !== "number") {
-      throw new Error('"rating" should be a number');
+      throw new Error('"rating" should be a number or "?"');
     }
     notes.rating = entry.rating;
   }
