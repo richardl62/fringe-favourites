@@ -1,7 +1,7 @@
 // Non-fatal issues found while loading show data, surfaced on the #problems page
 // rather than aborting the whole load - the source files are hand-edited and
 // occasional mistakes are expected.
-export type ProblemSeverity = "error" | "warning" | "low";
+export type ProblemSeverity = "error" | "warning" | "unrated";
 
 export interface ProblemShowLink {
   title: string;
@@ -33,10 +33,6 @@ export function error(
   return { severity: "error", message, link, editLink };
 }
 
-export function lowPriority(
-  message: string,
-  link?: ProblemShowLink,
-  editLink?: string,
-): Problem {
-  return { severity: "low", message, link, editLink };
+export function unrated(link?: ProblemShowLink, editLink?: string): Problem {
+  return { severity: "unrated", message: "", link, editLink };
 }

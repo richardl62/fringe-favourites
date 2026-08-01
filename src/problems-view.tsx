@@ -24,8 +24,8 @@ function ProblemList({ problems }: { problems: Problem[] }) {
             <>
               <a href={problem.link.url} target="_blank" rel="noreferrer">
                 {problem.link.title}
-              </a>{" "}
-              {problem.message}
+              </a>
+              {problem.message && <> {problem.message}</>}
             </>
           ) : (
             problem.message
@@ -45,7 +45,9 @@ function ProblemList({ problems }: { problems: Problem[] }) {
 export function ProblemsView({ problems }: { problems: Problem[] }) {
   const errors = problems.filter((p) => p.severity === "error");
   const warnings = problems.filter((p) => p.severity === "warning");
-  const lowPriority = problems.filter((p) => p.severity === "low");
+  const unrated = problems
+    .filter((p) => p.severity === "unrated")
+    .sort((a, b) => (a.link?.title ?? "").localeCompare(b.link?.title ?? ""));
 
   return (
     <Wrapper>
@@ -68,12 +70,10 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
               <ProblemList problems={warnings} />
             </>
           )}
-          {lowPriority.length > 0 && (
+          {unrated.length > 0 && (
             <>
-              <SectionHeading>
-                Low priority ({lowPriority.length})
-              </SectionHeading>
-              <ProblemList problems={lowPriority} />
+              <SectionHeading>Unrated ({unrated.length})</SectionHeading>
+              <ProblemList problems={unrated} />
             </>
           )}
         </>

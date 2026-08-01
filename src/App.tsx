@@ -63,7 +63,7 @@ function App() {
   }, []);
 
   const problems = loadState.status === "loaded" ? loadState.problems : [];
-  const countedProblems = problems.filter((p) => p.severity !== "low");
+  const countedProblems = problems.filter((p) => p.severity !== "unrated");
 
   if (route === "problems") {
     return <ProblemsView problems={problems} />;

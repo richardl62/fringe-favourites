@@ -1,4 +1,4 @@
-import { lowPriority, warn, type Problem } from "./problems";
+import { unrated, warn, type Problem } from "./problems";
 import type { ShowNotes } from "./shows";
 import {
   unknownDate,
@@ -30,9 +30,7 @@ export function buildFavourites(
     const editLink = showsYamlEditLink(editLine);
 
     if (notes?.rating === undefined) {
-      problems.push(
-        lowPriority(`has no "rating" in shows.yaml`, link, editLink),
-      );
+      problems.push(unrated(link, editLink));
     }
 
     const { dates, booked } = resolveDatesAndBooking(
