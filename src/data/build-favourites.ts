@@ -58,7 +58,7 @@ export function buildFavourites(
     if (!consumedIds.has(id)) {
       problems.push(
         warn(
-          `shows.yaml has an entry for "${id}" that doesn't match any current show (stale?)`,
+          `shows.yaml entry "${id}" has no matching show in my_fringe_favourites.csv`,
           undefined,
           showsYamlEditLink(entryLines.get(id) ?? lineCount),
         ),
