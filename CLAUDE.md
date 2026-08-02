@@ -11,4 +11,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - If a simpler or cleaner approach exists, say so and push back when warranted.
 - If an instruction seems ill-judged or undesirable as about it.
 - Match existing code style even if you'd do it differently.
-- Don't commit changes without asking.
+- Don't commit changes unless asked. When committing, ingore public/my_fringe_favourites.csv and public/shows.yaml (unless asked to include them).
