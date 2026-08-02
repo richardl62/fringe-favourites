@@ -94,7 +94,9 @@ function resolveDatesAndBooking(
     return { dates: notes.dates, booked: false };
   }
 
-  problems.push(warn(`has no "dates" in shows.yaml`, link, editLink));
+  const message =
+    notes === undefined ? `has no entry in shows.yaml` : `has no "dates" in shows.yaml`;
+  problems.push(warn(message, link, editLink));
   return { dates: unknownDate, booked: false };
 }
 
