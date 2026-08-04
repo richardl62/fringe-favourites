@@ -4,6 +4,7 @@ import { sortFavourites } from "./sort-favourites";
 import { ShowInfoList } from "./show-info-list";
 import { getFavourites } from "./get-favourites";
 import { addNextPerformance } from "./add-next-performance";
+import { filterByMinRating, type MinRating } from "./filter-by-min-rating";
 import { loadFavourites } from "./data/load-favourites";
 import type { Show } from "./data/types";
 import type { Problem } from "./data/problems";
@@ -31,6 +32,7 @@ type LoadState =
 
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
+  const [minRating, setMinRating] = React.useState<MinRating>("");
   const [rawStartDate, setRawStartDate] = React.useState(() =>
     new Date().getDate().toString(),
   );
@@ -83,7 +85,14 @@ function App() {
   }
 
   const importedFavourites = getFavourites(loadState.shows, startDate);
-  const extendedFavourites = addNextPerformance(importedFavourites, startDate);
+  const ratingFilteredFavourites = filterByMinRating(
+    importedFavourites,
+    minRating,
+  );
+  const extendedFavourites = addNextPerformance(
+    ratingFilteredFavourites,
+    startDate,
+  );
 
   sortFavourites({
     favourites: extendedFavourites,
@@ -116,6 +125,23 @@ function App() {
               setSortByRating(!sortByRating);
             }}
           />
+        </label>
+
+        <label>
+          {"Min rating "}
+          <select
+            value={minRating}
+            onChange={(event) => {
+              setMinRating(event.target.value as MinRating);
+            }}
+          >
+            <option value="">-</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="b">Booked</option>
+          </select>
         </label>
 
         <label>

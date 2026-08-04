@@ -26,6 +26,9 @@ export interface Show {
   durationMinutes: number;
   dates: DatesT;
   rating: number;
+  // True when shows.yaml has no "rating" for this show - distinct from an
+  // explicit `rating: 0`, which also leaves `rating` at 0.
+  unrated: boolean;
   booked: boolean;
   times: TimesT;
 }

@@ -29,7 +29,8 @@ export function buildFavourites(
     const editLine = entryLines.get(raw.id) ?? lineCount;
     const editLink = showsYamlEditLink(editLine);
 
-    if (notes?.rating === undefined) {
+    const isUnrated = notes?.rating === undefined;
+    if (isUnrated) {
       problems.push(unrated(link, editLink));
     }
 
@@ -49,6 +50,7 @@ export function buildFavourites(
       durationMinutes: raw.durationMinutes,
       dates,
       rating: notes?.rating ?? 0,
+      unrated: isUnrated,
       booked,
       times,
     });
