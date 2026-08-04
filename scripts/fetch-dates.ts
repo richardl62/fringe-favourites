@@ -383,10 +383,10 @@ async function main(): Promise<void> {
   console.log(
     `${String(ids.length - problemCount)}/${String(ids.length)} show(s) fetched cleanly. shows.yaml ${changed ? "updated" : "unchanged"}.`,
   );
-
-  if (problemCount > 0) {
-    process.exitCode = 1;
-  }
+  // Deliberately no non-zero exit code for per-show problems: they're
+  // already recorded durably as "PROBLEM:" comments in shows.yaml itself,
+  // and a non-zero exit here would break `update-shows`'s
+  // `fetch-dates && tidy-shows` chain on the (common) case of any problem.
 }
 
 main().catch((err: unknown) => {
