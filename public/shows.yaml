@@ -31,141 +31,201 @@
 #               time for. Dates left out are shown as "varies" with no
 #               specific time.
 
-00-45-00:
+00-45-00: # 00:45:00
   rating: "?"
   dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28]
   times: {17: "10:35", 18: "10:35", 19: "10:35", 20: "10:35", 21: "10:35", 22: "10:35", 24: "22:35", 25: "22:35", 26: "22:35", 27: "22:35", 28: "22:35"}
 
-1-800-harmony-hotline:
+1-800-harmony-hotline: # 1-800-Harmony-Hotline
   rating: "?"
   dates: [24, 25, 26, 27, 28, 29]
 
 # PROBLEM: day 7 has performances at multiple times (20:10, 21:40) - left out of "times"; day 8 has performances at multiple times (20:10, 21:40) - left out of "times"; day 10 has performances at multiple times (20:10, 21:40) - left out of "times"; day 11 has performances at multiple times (20:10, 21:40) - left out of "times"
-1-astonishment-2-many-chris-dugdale:
+1-astonishment-2-many-chris-dugdale: # 1 Astonishment 2 Many: Chris Dugdale
   rating: "?"
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   times: {6: "20:10", 9: "20:10", 12: "20:10", 13: "20:10", 14: "20:10", 15: "20:10", 16: "20:10", 17: "20:10", 18: "20:10", 19: "20:10", 20: "20:10", 21: "20:10", 22: "20:10", 23: "20:10", 24: "20:10", 25: "20:10", 26: "20:10", 27: "20:10", 28: "20:10", 29: "20:10", 30: "20:10"}
 
-1-dazzling-cabaret:
+1-dazzling-cabaret: # 1 Dazzling Cabaret
   rating: "?"
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-1-king-2-princes-and-shakespeare-s-lie:
+1-king-2-princes-and-shakespeare-s-lie: # 1 King, 2 Princes and Shakespeare's Lie
   rating: "?"
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
 
-1954-ella-etta-eartha:
+1954-ella-etta-eartha: # 1954: Ella, Etta, Eartha
   rating: "?"
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
-a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends:
+a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends: # A Case for Magic: For Lovers of Magic and Their Ambivalent Friends
   rating: "?"
   dates: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
 
-a-forgotten-woman-mrs-oscar-wilde:
+a-forgotten-woman-mrs-oscar-wilde: # A Forgotten Woman: Mrs Oscar Wilde
   rating: "?"
   dates: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
 
-a-list-burlesque-and-cabaret:
+a-list-burlesque-and-cabaret: # A-List Burlesque and Cabaret
   rating: "?"
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-a-night-at-the-musicals:
+a-night-at-the-musicals: # A Night at the Musicals
   rating: "?"
   dates: [24, 25, 26, 27, 28, 29]
 
-afrique-en-cirque:
+afrique-en-cirque: # Afrique En Cirque
   rating: "?"
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
 
-after-party:
+after-party: # After Party
   rating: 2
   dates: [6, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {6: "19:00", 8: "14:30", 9: "17:45", 11: "11:30", 12: "14:45", 13: "17:30", 14: "11:30", 15: "14:45", 16: "17:30", 18: "11:30", 19: "14:45", 20: "17:30", 21: "11:30", 22: "14:45", 23: "17:30", 25: "11:30", 26: "14:45", 27: "17:30", 28: "11:30", 29: "14:45", 30: "17:30"}
 
-after-shakespeare:
+after-shakespeare: # After Shakespeare
   rating: "?"
   dates: [8, 10, 12, 14, 18, 20, 22, 24, 26, 28]
 
-alan-bennett-s-talking-heads:
+alan-bennett-s-talking-heads: # Alan Bennett's Talking Heads
   rating: "?"
   dates: [10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23]
 
-alan-bissett-when-billy-met-alasdair:
+alan-bissett-when-billy-met-alasdair: # Alan Bissett: When Billy Met Alasdair
   rating: "?"
   dates: [15, 23]
   times: {15: "16:45", 23: "20:30"}
 
-ali-affleck-presents-the-louis-armstrong-duets-with-ella-fitzgerald-and-bing-crosby:
+ali-affleck-presents-the-louis-armstrong-duets-with-ella-fitzgerald-and-bing-crosby: # Ali Affleck Presents the Louis Armstrong Duets with Ella Fitzgerald and Bing Crosby
   rating: "?"
   dates: [11, 12, 17, 24, 27]
   times: {11: "20:30", 12: "13:00", 17: "17:30", 24: "21:00", 27: "16:00"}
 
-alone:
+alone: # ALONE
   rating: "?"
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
 
-amy-tears-dry-on-their-own:
+amy-tears-dry-on-their-own: # Amy – Tears Dry on Their Own
   rating: "?"
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 
-an-introvert-s-guide-to-magic:
+an-introvert-s-guide-to-magic: # An Introvert's Guide to Magic
   rating: "?"
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-an-ode-to-the-casting-director:
+an-ode-to-the-casting-director: # An Ode to the Casting Director
   rating: "?"
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29]
 
-andrew-frost-just-let-me-have-this:
+andrew-frost-just-let-me-have-this: # Andrew Frost: Just Let Me Have This
   rating: "?"
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-aquapella:
+aquapella: # Aquapella
   rating: "?"
   dates: [17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29]
 
-avenue-q:
+avenue-q: # Avenue Q
   rating: "?"
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-badgers:
+badgers: # Badgers
   rating: 0
   dates: [6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {6: "18:00", 7: "20:30", 8: "10:15", 9: "12:45", 11: "15:30", 12: "18:00", 13: "20:30", 14: "10:15", 15: "12:45", 16: "15:30", 18: "18:00", 19: "20:30", 20: "10:15", 21: "12:45", 22: "15:30", 23: "18:00", 25: "20:30", 26: "10:15", 27: "12:45", 28: "15:30", 29: "18:00", 30: "10:15"}
 
-best-of-cabaret-2026:
+best-of-cabaret-2026: # Best of Cabaret 2026
   rating: "?"
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-best-of-the-fest-daytime:
+best-of-the-fest-daytime: # Best of the Fest Daytime
   rating: "?"
   dates: [7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
 
-bob-dylan-on-piano:
+bob-dylan-on-piano: # Bob Dylan On Piano
   rating: "?"
   dates: [7, 9, 14, 25, 27]
   times: {7: "15:00", 9: "17:00", 14: "15:00", 25: "19:00", 27: "17:00"}
 
-breathe-five-arias-that-saved-my-life:
+breathe-five-arias-that-saved-my-life: # Breathe: Five Arias That Saved My Life
   rating: "?"
   dates: [9, 10, 11, 12, 14, 17, 18, 19, 20, 21, 22]
   times: {9: "20:00", 10: "16:30", 11: "15:30", 12: "15:30", 14: "10:30", 17: "15:30", 18: "15:30", 19: "15:30", 20: "15:30", 21: "15:30", 22: "15:30"}
 
-brian-bilston-how-to-lay-an-egg-with-a-horse-inside:
+brian-bilston-how-to-lay-an-egg-with-a-horse-inside: # Brian Bilston: How to Lay an Egg with a Horse Inside 
   rating: "?"
   dates: [24, 25, 26, 27, 28, 29, 30]
 
-burning-down-the-horse:
+burning-down-the-horse: # Burning Down the Horse
   rating: "?"
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-cathy:
+by-a-thread: # By a Thread
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+
+caspar-thomas-the-art-of-close-up-magic-volume-2: # Caspar Thomas: The Art of Close-Up Magic (Volume 2)
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+cathy: # Cathy
   rating: "?"
   dates: [7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {7: "19:00", 8: "11:00", 9: "14:30", 11: "18:30", 12: "11:30", 13: "14:30", 14: "18:30", 15: "11:30", 16: "14:30", 18: "18:30", 19: "11:30", 20: "14:30", 21: "18:30", 22: "11:30", 23: "14:30", 25: "18:30", 26: "11:30", 27: "14:30", 28: "18:30", 29: "11:30", 30: "14:30"}
 
-example-non-fringe-show:
+charlie-caper-magical: # Charlie Caper – Magical
+  rating: "?"
+  dates: [8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
+
+# PROBLEM: day 7 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 8 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 9 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 10 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 11 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 12 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 13 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 14 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 15 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 16 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 17 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 18 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 19 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 20 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 21 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 22 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 23 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 24 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 25 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 26 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 27 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 28 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 29 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 30 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 31 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 5 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 6 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:45, 16:15, 16:45, 17:15, 17:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"
+coma: # COMA
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  times: {}
+
+dancing-shoes-wip: # Dancing Shoes (WIP)
+  rating: "?"
+  dates: [20]
+
+david-alnwick-objectively-the-best-magician: # David Alnwick: Objectively the Best Magician
+  rating: "?"
+  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+david-alnwick-secret-magic-show: # David Alnwick: Secret Magic Show
+  rating: "?"
+  dates: [12, 17, 19, 22, 23, 24, 29, 30]
+  times: {12: "21:30", 19: "21:30", 17: "21:50", 24: "21:50", 23: "15:00", 22: "11:00", 29: "11:00", 30: "12:00"}
+
+david-alnwick-the-haunted-magician: # David Alnwick: The Haunted Magician
+  rating: "?"
+  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+divas-from-stage-to-screen: # DIVAS: From Stage To Screen
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 28, 29, 30]
+
+doom-and-glitter-a-tribute-to-tom-waits: # Doom and Glitter: A Tribute To Tom Waits
+  rating: "?"
+  dates: [9, 10, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27, 29, 30]
+  times: {9: "21:00", 10: "21:00", 13: "21:00", 15: "21:00", 23: "21:00", 25: "21:00", 27: "21:00", 29: "21:00", 30: "21:00", 16: "17:30", 17: "17:30", 18: "17:30", 19: "17:30", 20: "17:30", 21: "17:30", 22: "17:30"}
+
+dune-the-musical: # Dune! The Musical
+  rating: "?"
+  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+earnest: # ...Earnest?
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+eight: # Eight
+  rating: "?"
+  dates: [17, 18, 19, 20, 21, 22]
+
+eric-liddell-the-chariot-of-fire: # Eric Liddell: The Chariot of Fire
+  rating: "?"
+  dates: [18, 19]
+
+example-non-fringe-show: # Example: A Free Fringe Show
   url: "https://example.org/shows/example-non-fringe-show"
   title: "Example: A Free Fringe Show"
   venue: "Some Venue"
@@ -174,207 +234,205 @@ example-non-fringe-show:
   rating: 1
   dates: [9, 10, 11]
 
-meat-loaf-just-the-best-bits:
+flop-the-best-songs-from-the-worst-musicals: # FLOP! The Best Songs From The Worst Musicals
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
+
+forest-fringe-vincent-gambini-this-is-not-a-magic-show: # Forest Fringe: Vincent Gambini: This Is Not a Magic Show
+  rating: "?"
+  dates: [26]
+
+full-score-barbershop-choir-presents-brace-for-impact: # Full Score Barbershop Choir Presents: Brace for Impact!
+  rating: "?"
+  dates: [17, 18, 19, 20, 21, 22]
+
+holmes-and-watson-rathbone-and-bruce-and-a-hound: # Holmes and Watson: Rathbone and Bruce (and a Hound)
+  rating: "?"
+  dates: [20, 21, 22]
+  times: {20: "19:15", 21: "17:15", 22: "12:15"}
+
+how-not-to-make-it-in-america: # How Not to Make it in America
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+
+irrational: # Irrational
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  times: {6: "18:15", 7: "18:15", 8: "18:15", 9: "18:15", 10: "18:15", 12: "18:15", 14: "18:15", 16: "18:15", 11: "20:00", 13: "20:00", 15: "20:00"}
+
+jamie-leonard-blink-of-an-eye: # Jamie Leonard: Blink of an Eye
+  rating: "?"
+  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
+
+joni-mitchell-take-me-as-i-am: # Joni Mitchell: Take Me As I Am
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+
+lear-s-fool: # Lear's Fool
+  rating: "?"
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
+
+lost-the-plot-an-improvised-musical: # Lost the Plot: An Improvised Musical
+  rating: "?"
+  dates: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+
+loud-poets: # Loud Poets
+  rating: "?"
+  dates: [13, 20, 27]
+
+love-s-labour-s-found: # Love's Labour's Found
+  rating: "?"
+  dates: [17, 18, 19, 20, 21, 22]
+
+meat-loaf-just-the-best-bits: # Meat Loaf – Just the Best Bits
   dates: [9, 19, 30]
   rating: "?"
 
-mrs-stern-wanders-the-prussian-state-library:
+midday-cabaret: # Midday Cabaret
+  rating: "?"
+  dates: [7, 8, 9, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 26, 27, 28, 29]
+
+miscast-sondheim: # Miscast Sondheim
+  rating: "?"
+  dates: [7, 8, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22]
+
+mrs-stern-wanders-the-prussian-state-library: # Mrs Stern Wanders the Prussian State Library
   rating: 1
   dates: [6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {6: "10:15", 7: "18:00", 8: "15:15", 9: "18:00", 11: "20:30", 12: "10:15", 13: "12:45", 14: "15:15", 15: "18:00", 16: "20:30", 18: "10:15", 19: "12:45", 20: "15:15", 21: "18:00", 22: "20:30", 23: "10:15", 25: "10:15", 26: "15:15", 27: "18:00", 28: "20:30", 29: "10:15", 30: "12:45"}
 
-supposing:
+northern-lights-presents-horrible-harmonies-history-as-you-ve-never-heard-it-before: # Northern Lights Presents... Horrible Harmonies (History as You've Never Heard It Before!)
+  rating: "?"
+  dates: [17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+
+pace: # PACE
+  rating: "?"
+  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29]
+
+pip-utton-s-farewell-to-edinburgh-fringe-bacon: # Pip Utton's Farewell to Edinburgh Fringe: Bacon
+  rating: "?"
+  dates: [19, 22, 26, 29]
+
+pip-utton-s-farewell-to-edinburgh-fringe-before-i-forget-i-love-you-i-love-you: # Pip Utton's Farewell to Edinburgh Fringe: Before I Forget I Love You, I Love You
+  rating: "?"
+  dates: [21, 25, 28, 30]
+
+# PROBLEM: day 6 has performances at multiple times (18:00, 19:00) - left out of "times"; day 7 has performances at multiple times (18:00, 19:00) - left out of "times"; day 8 has performances at multiple times (18:00, 19:00) - left out of "times"; day 9 has performances at multiple times (18:00, 19:00) - left out of "times"; day 13 has performances at multiple times (18:00, 19:00) - left out of "times"; day 14 has performances at multiple times (18:00, 19:00) - left out of "times"; day 15 has performances at multiple times (18:00, 19:00) - left out of "times"; day 16 has performances at multiple times (18:00, 19:00) - left out of "times"; day 20 has performances at multiple times (18:00, 19:00) - left out of "times"; day 21 has performances at multiple times (18:00, 19:00) - left out of "times"; day 22 has performances at multiple times (18:00, 19:00) - left out of "times"; day 23 has performances at multiple times (18:00, 19:00) - left out of "times"; day 27 has performances at multiple times (18:00, 19:00) - left out of "times"; day 28 has performances at multiple times (18:00, 19:00) - left out of "times"; day 29 has performances at multiple times (18:00, 19:00) - left out of "times"; day 30 has performances at multiple times (18:00, 19:00) - left out of "times"
+planetarium-lates-pink-floyd-s-dark-side-of-the-moon: # Planetarium Lates: Pink Floyd’s Dark Side of the Moon
+  rating: "?"
+  dates: [6, 7, 8, 9, 13, 14, 15, 16, 20, 21, 22, 23, 27, 28, 29, 30]
+  times: {}
+
+sarah-mcguinness-grit-glitter-and-gaslight: # Sarah McGuinness: Grit, Glitter and Gaslight
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
+
+scottish-comedy-legends-jack-docherty: # Scottish Comedy Legends: Jack Docherty
+  rating: "?"
+  dates: [28]
+
+she-named-it-coyote-ugly-an-evening-with-lil-lovell: # She Named It Coyote Ugly – An Evening with Lil Lovell
+  rating: "?"
+  dates: [25]
+
+simon-garfunkel-and-beyond: # Simon & Garfunkel and Beyond
+  rating: "?"
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+
+sims-holland-learning-to-human: # Sims Holland: Learning to Human
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+sinatra-one-last-shot: # Sinatra: One Last Shot
+  rating: "?"
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+
+spring-awakening: # Spring Awakening
+  rating: "?"
+  dates: [24, 25, 26, 27, 28, 29]
+
+strange-face-adventures-with-a-lost-nick-drake-recording-the-story-continues: # Strange Face: Adventures with a Lost Nick Drake Recording... The Story Continues
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+
+sunshine-on-leith: # Sunshine on Leith
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+
+supposing: # Supposing:
   rating: 1
   dates: [6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {6: "12:45", 7: "10:15", 8: "18:00", 9: "20:30", 11: "10:30", 12: "12:45", 13: "15:15", 14: "18:00", 15: "20:30", 16: "10:30", 18: "12:45", 19: "18:00", 20: "18:00", 21: "20:30", 22: "10:30", 23: "12:45", 25: "15:15", 26: "18:00", 27: "20:30", 28: "10:30", 29: "12:45", 30: "20:30"}
 
-water-colour:
+ten-thousand-hours: # Ten Thousand Hours
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+
+the-bbc-s-first-homosexual: # The BBC's First Homosexual
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+# PROBLEM: day 6 has performances at multiple times (10:30, 12:30) - left out of "times"
+the-big-bite-size-breakfast-show: # The Big Bite-Size Breakfast Show
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  times: {5: "10:30", 7: "10:30", 8: "10:30", 9: "10:30", 10: "10:30", 11: "10:30", 12: "10:30", 13: "10:30", 14: "10:30", 15: "10:30", 16: "10:30", 17: "10:30", 18: "10:30", 20: "10:30", 21: "10:30", 22: "10:30", 23: "10:30", 24: "10:30", 25: "10:30", 26: "10:30", 27: "10:30", 28: "10:30", 29: "10:30", 30: "10:30", 31: "10:30"}
+
+the-event: # The Event
+  rating: "?"
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+
+the-farndale-avenue-housing-estate-townswomen-s-guild-dramatic-society-s-production-of-macbeth: # The Farndale Avenue Housing Estate Townswomen's Guild Dramatic Society's Production of Macbeth
+  rating: "?"
+  dates: [7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
+  times: {7: "19:30", 8: "14:30", 10: "19:30", 11: "19:30", 12: "19:30", 13: "19:30", 14: "19:30", 15: "14:30", 17: "19:30", 18: "19:30", 19: "19:30", 20: "19:30", 21: "19:30", 22: "14:30"}
+
+the-oxford-gargoyles-jazz-a-cappella: # The Oxford Gargoyles: Jazz A Cappella
+  rating: "?"
+  dates: [18, 19, 20, 21, 22, 23, 24]
+
+the-sumo-show-hirakuza: # The Sumo Show HIRAKUZA
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+
+the-times-they-are-still-a-changin: # The Times They Are Still A-Changin'
+  rating: "?"
+  dates: [14, 22]
+  times: {14: "15:30", 22: "18:00"}
+
+the-vagina-monologues: # The Vagina Monologues
+  rating: "?"
+  dates: [17, 18, 19, 20, 21, 22]
+
+third-party: # Third Party
+  rating: "?"
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+
+thunderstruck: # Thunderstruck
+  rating: "?"
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+
+trial-by-jury: # Trial by Jury
+  rating: "?"
+  dates: [24, 25, 26, 27, 28, 29, 30]
+
+via-dolorosa-by-david-hare: # Via Dolorosa by David Hare
+  rating: "?"
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
+
+wagner-s-ring-for-people-who-can-t-be-bothered-to-sit-through-it: # Wagner’s Ring for people who can’t be bothered to sit through it
+  rating: "?"
+  dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+
+water-colour: # Water Colour
   rating: 2
   dates: [6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {6: "20:30", 7: "12:45", 8: "12:45", 9: "15:15", 11: "18:00", 12: "20:30", 13: "18:00", 14: "12:45", 15: "15:15", 16: "18:00", 18: "20:30", 19: "15:15", 20: "12:45", 21: "15:15", 22: "18:00", 23: "20:30", 25: "12:45", 26: "12:45", 27: "15:15", 28: "18:00", 29: "20:30", 30: "15:15"}
 
-by-a-thread:
-  dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-
-caspar-thomas-the-art-of-close-up-magic-volume-2:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-charlie-caper-magical:
-  dates: [8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
-
-# PROBLEM: day 7 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 8 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 9 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 10 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 11 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 12 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 13 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 14 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 15 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 16 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 17 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 18 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 19 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 20 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 21 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 22 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 23 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 24 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 25 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 26 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 27 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 28 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 29 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 30 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 31 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 15:15, 18:15, 18:45, 19:15, 20:15, 20:45) - left out of "times"; day 5 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"; day 6 has performances at multiple times (12:15, 12:45, 13:15, 13:45, 14:15, 14:45, 18:15, 18:45, 19:15, 19:45, 20:15, 20:45) - left out of "times"
-coma:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  times: {}
-
-dancing-shoes-wip:
-  dates: [20]
-
-david-alnwick-objectively-the-best-magician:
-  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-david-alnwick-secret-magic-show:
-  dates: [12, 17, 19, 22, 23, 24, 29, 30]
-  times: {12: "21:30", 19: "21:30", 17: "21:50", 24: "21:50", 23: "15:00", 22: "11:00", 29: "11:00", 30: "12:00"}
-
-david-alnwick-the-haunted-magician:
-  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-divas-from-stage-to-screen:
-  dates: [6, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 28, 29, 30]
-
-doom-and-glitter-a-tribute-to-tom-waits:
-  dates: [9, 10, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27, 29, 30]
-  times: {9: "21:00", 10: "21:00", 13: "21:00", 15: "21:00", 23: "21:00", 25: "21:00", 27: "21:00", 29: "21:00", 30: "21:00", 16: "17:30", 17: "17:30", 18: "17:30", 19: "17:30", 20: "17:30", 21: "17:30", 22: "17:30"}
-
-dune-the-musical:
-  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-earnest:
-  dates: [6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-eight:
-  dates: [17, 18, 19, 20, 21, 22]
-
-eric-liddell-the-chariot-of-fire:
-  dates: [18, 19]
-
-flop-the-best-songs-from-the-worst-musicals:
-  dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
-
-forest-fringe-vincent-gambini-this-is-not-a-magic-show:
-  dates: [26]
-
-full-score-barbershop-choir-presents-brace-for-impact:
-  dates: [17, 18, 19, 20, 21, 22]
-
-holmes-and-watson-rathbone-and-bruce-and-a-hound:
-  dates: [20, 21, 22]
-  times: {20: "19:15", 21: "17:15", 22: "12:15"}
-
-how-not-to-make-it-in-america:
-  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-
-irrational:
-  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-  times: {6: "18:15", 7: "18:15", 8: "18:15", 9: "18:15", 10: "18:15", 12: "18:15", 14: "18:15", 16: "18:15", 11: "20:00", 13: "20:00", 15: "20:00"}
-
-jamie-leonard-blink-of-an-eye:
-  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
-
-joni-mitchell-take-me-as-i-am:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-
-lear-s-fool:
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
-
-lost-the-plot-an-improvised-musical:
-  dates: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-
-loud-poets:
-  dates: [13, 20, 27]
-
-love-s-labour-s-found:
-  dates: [17, 18, 19, 20, 21, 22]
-
-midday-cabaret:
-  dates: [7, 8, 9, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 26, 27, 28, 29]
-
-miscast-sondheim:
-  dates: [7, 8, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22]
-
-northern-lights-presents-horrible-harmonies-history-as-you-ve-never-heard-it-before:
-  dates: [17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-
-pace:
-  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29]
-
-pip-utton-s-farewell-to-edinburgh-fringe-bacon:
-  dates: [19, 22, 26, 29]
-
-pip-utton-s-farewell-to-edinburgh-fringe-before-i-forget-i-love-you-i-love-you:
-  dates: [21, 25, 28, 30]
-
-# PROBLEM: day 6 has performances at multiple times (18:00, 19:00) - left out of "times"; day 7 has performances at multiple times (18:00, 19:00) - left out of "times"; day 8 has performances at multiple times (18:00, 19:00) - left out of "times"; day 9 has performances at multiple times (18:00, 19:00) - left out of "times"; day 13 has performances at multiple times (18:00, 19:00) - left out of "times"; day 14 has performances at multiple times (18:00, 19:00) - left out of "times"; day 15 has performances at multiple times (18:00, 19:00) - left out of "times"; day 16 has performances at multiple times (18:00, 19:00) - left out of "times"; day 20 has performances at multiple times (18:00, 19:00) - left out of "times"; day 21 has performances at multiple times (18:00, 19:00) - left out of "times"; day 22 has performances at multiple times (18:00, 19:00) - left out of "times"; day 23 has performances at multiple times (18:00, 19:00) - left out of "times"; day 27 has performances at multiple times (18:00, 19:00) - left out of "times"; day 28 has performances at multiple times (18:00, 19:00) - left out of "times"; day 29 has performances at multiple times (18:00, 19:00) - left out of "times"; day 30 has performances at multiple times (18:00, 19:00) - left out of "times"
-planetarium-lates-pink-floyd-s-dark-side-of-the-moon:
-  dates: [6, 7, 8, 9, 13, 14, 15, 16, 20, 21, 22, 23, 27, 28, 29, 30]
-  times: {}
-
-sarah-mcguinness-grit-glitter-and-gaslight:
-  dates: [5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
-
-scottish-comedy-legends-jack-docherty:
-  dates: [28]
-
-she-named-it-coyote-ugly-an-evening-with-lil-lovell:
-  dates: [25]
-
-simon-garfunkel-and-beyond:
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
-
-sims-holland-learning-to-human:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-sinatra-one-last-shot:
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-
-spring-awakening:
-  dates: [24, 25, 26, 27, 28, 29]
-
-strange-face-adventures-with-a-lost-nick-drake-recording-the-story-continues:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-
-sunshine-on-leith:
-  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
-ten-thousand-hours:
-  dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-
-the-bbc-s-first-homosexual:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-
-# PROBLEM: day 6 has performances at multiple times (10:30, 12:30) - left out of "times"
-the-big-bite-size-breakfast-show:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  times: {5: "10:30", 7: "10:30", 8: "10:30", 9: "10:30", 10: "10:30", 11: "10:30", 12: "10:30", 13: "10:30", 14: "10:30", 15: "10:30", 16: "10:30", 17: "10:30", 18: "10:30", 20: "10:30", 21: "10:30", 22: "10:30", 23: "10:30", 24: "10:30", 25: "10:30", 26: "10:30", 27: "10:30", 28: "10:30", 29: "10:30", 30: "10:30", 31: "10:30"}
-
-the-event:
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-
-the-farndale-avenue-housing-estate-townswomen-s-guild-dramatic-society-s-production-of-macbeth:
-  dates: [7, 8, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
-  times: {7: "19:30", 8: "14:30", 10: "19:30", 11: "19:30", 12: "19:30", 13: "19:30", 14: "19:30", 15: "14:30", 17: "19:30", 18: "19:30", 19: "19:30", 20: "19:30", 21: "19:30", 22: "14:30"}
-
-the-oxford-gargoyles-jazz-a-cappella:
-  dates: [18, 19, 20, 21, 22, 23, 24]
-
-the-sumo-show-hirakuza:
-  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-
-the-times-they-are-still-a-changin:
-  dates: [14, 22]
-  times: {14: "15:30", 22: "18:00"}
-
-the-vagina-monologues:
-  dates: [17, 18, 19, 20, 21, 22]
-
-third-party:
-  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
-
-thunderstruck:
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
-
-trial-by-jury:
-  dates: [24, 25, 26, 27, 28, 29, 30]
-
-via-dolorosa-by-david-hare:
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
-
-wagner-s-ring-for-people-who-can-t-be-bothered-to-sit-through-it:
-  dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
-
-witch-women-on-trial:
+witch-women-on-trial: # Witch? Women on Trial
+  rating: "?"
   dates: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 
-youth-in-flames-winner-scotsman-fringe-first-award:
+youth-in-flames-winner-scotsman-fringe-first-award: # Youth in Flames – Winner: Scotsman Fringe First Award
+  rating: "?"
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
