@@ -126,15 +126,20 @@ function resolveTimes(
   const knownDates = dates === unknownDate ? [] : dates;
   const overrideDates = Object.keys(times).map(Number);
 
-  const staleOverrides = overrideDates.filter((d) => !knownDates.includes(d));
-  if (staleOverrides.length > 0) {
-    problems.push(
-      warn(
-        `has a start-time override for date(s) ${staleOverrides.join(", ")} not in its dates list`,
-        link,
-        editLink,
-      ),
-    );
+  // Booking collapses "dates" down to just the booked day (see
+  // resolveDatesAndBooking), so every other date's override is expected to
+  // look "stale" here - it's leftover reference info, not a mistake.
+  if (notes?.booked === undefined) {
+    const staleOverrides = overrideDates.filter((d) => !knownDates.includes(d));
+    if (staleOverrides.length > 0) {
+      problems.push(
+        warn(
+          `has a start-time override for date(s) ${staleOverrides.join(", ")} not in its dates list`,
+          link,
+          editLink,
+        ),
+      );
+    }
   }
 
   const missingOverrides = knownDates.filter((d) => !overrideDates.includes(d));
