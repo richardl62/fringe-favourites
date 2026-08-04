@@ -19,8 +19,8 @@
     "lint": "eslint .",
     "type-check": "tsc -b --noEmit && tsc --noEmit -p scripts/tsconfig.json",
     "fetch-dates": "node scripts/fetch-dates.ts",
-    "sort-shows": "node scripts/sort-shows.ts",
-    "update-shows": "npm run fetch-dates && npm run sort-shows",
+    "tidy-shows": "node scripts/tidy-shows.ts",
+    "update-shows": "npm run fetch-dates && npm run tidy-shows",
     "format": "prettier --write .",
     "validate": "npm run type-check && npm run lint"
   },
