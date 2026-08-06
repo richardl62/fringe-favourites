@@ -1,7 +1,11 @@
 // Non-fatal issues found while loading show data, surfaced on the #problems page
 // rather than aborting the whole load - the source files are hand-edited and
 // occasional mistakes are expected.
-export type ProblemSeverity = "error" | "warning" | "unrated";
+export type ProblemSeverity =
+  | "error"
+  | "warning"
+  | "unrated"
+  | "multiplePerformances";
 
 export interface ProblemShowLink {
   title: string;
@@ -35,4 +39,17 @@ export function error(
 
 export function unrated(link?: ProblemShowLink, editLink?: string): Problem {
   return { severity: "unrated", message: "", link, editLink };
+}
+
+export function multiplePerformances(
+  dates: number[],
+  link?: ProblemShowLink,
+  editLink?: string,
+): Problem {
+  return {
+    severity: "multiplePerformances",
+    message: `: Dates ${dates.join(", ")}`,
+    link,
+    editLink,
+  };
 }

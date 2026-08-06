@@ -16,6 +16,7 @@ export interface ShowNotes {
   dates?: number[];
   booked?: number;
   times?: Record<number, string>;
+  multiplePerformances?: number[];
 }
 
 export interface ParsedShows {
@@ -30,7 +31,7 @@ export interface ParsedShows {
 }
 
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
-const NOTE_FIELDS = ["rating", "dates", "booked", "times"];
+const NOTE_FIELDS = ["rating", "dates", "booked", "times", "multiplePerformances"];
 const KNOWN_FIELDS = [...RAW_FIELDS, ...NOTE_FIELDS];
 
 function checkUnknownFields(entry: Record<string, unknown>): void {
@@ -76,9 +77,9 @@ function parseRawShow(id: string, entry: Record<string, unknown>): RawShow {
   };
 }
 
-function parseDates(value: unknown): number[] {
+function parseDayList(value: unknown, field: string): number[] {
   if (!Array.isArray(value) || value.some((d) => typeof d !== "number")) {
-    throw new Error('"dates" should be a list of day-of-month numbers');
+    throw new Error(`"${field}" should be a list of day-of-month numbers`);
   }
   return value as number[];
 }
@@ -115,7 +116,7 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
     notes.rating = entry.rating;
   }
   if (entry.dates !== undefined) {
-    notes.dates = parseDates(entry.dates);
+    notes.dates = parseDayList(entry.dates, "dates");
   }
   if (entry.booked !== undefined) {
     if (typeof entry.booked !== "number") {
@@ -125,6 +126,12 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
   }
   if (entry.times !== undefined) {
     notes.times = parseTimes(entry.times);
+  }
+  if (entry.multiplePerformances !== undefined) {
+    notes.multiplePerformances = parseDayList(
+      entry.multiplePerformances,
+      "multiplePerformances",
+    );
   }
 
   return notes;

@@ -25,7 +25,12 @@ function ProblemList({ problems }: { problems: Problem[] }) {
               <a href={problem.link.url} target="_blank" rel="noreferrer">
                 {problem.link.title}
               </a>
-              {problem.message && <> {problem.message}</>}
+              {problem.message &&
+                (problem.message.startsWith(":") ? (
+                  problem.message
+                ) : (
+                  <> {problem.message}</>
+                ))}
             </>
           ) : (
             problem.message
@@ -47,6 +52,9 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
   const warnings = problems.filter((p) => p.severity === "warning");
   const unrated = problems
     .filter((p) => p.severity === "unrated")
+    .sort((a, b) => (a.link?.title ?? "").localeCompare(b.link?.title ?? ""));
+  const multiplePerformances = problems
+    .filter((p) => p.severity === "multiplePerformances")
     .sort((a, b) => (a.link?.title ?? "").localeCompare(b.link?.title ?? ""));
 
   return (
@@ -74,6 +82,14 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
             <>
               <SectionHeading>Unrated ({unrated.length})</SectionHeading>
               <ProblemList problems={unrated} />
+            </>
+          )}
+          {multiplePerformances.length > 0 && (
+            <>
+              <SectionHeading>
+                Multiple performances on same day ({multiplePerformances.length})
+              </SectionHeading>
+              <ProblemList problems={multiplePerformances} />
             </>
           )}
         </>

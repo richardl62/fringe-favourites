@@ -1,4 +1,4 @@
-import { unrated, warn, type Problem } from "./problems";
+import { multiplePerformances, unrated, warn, type Problem } from "./problems";
 import type { ShowNotes } from "./shows";
 import {
   unknownDate,
@@ -148,7 +148,20 @@ function resolveTimes(
     }
   }
 
-  const missingOverrides = knownDates.filter((d) => !overrideDates.includes(d));
+  // A date the show performs multiple times on - `times` can only hold one
+  // override per date, so such a date can never have a specific time
+  // recorded for it, and that's not a mistake worth warning about the way a
+  // genuinely missing override is.
+  const multiplePerformanceDates = (notes?.multiplePerformances ?? []).filter(
+    (d) => knownDates.includes(d),
+  );
+  if (multiplePerformanceDates.length > 0) {
+    problems.push(multiplePerformances(multiplePerformanceDates, link, editLink));
+  }
+
+  const missingOverrides = knownDates.filter(
+    (d) => !overrideDates.includes(d) && !multiplePerformanceDates.includes(d),
+  );
   if (missingOverrides.length > 0) {
     problems.push(
       warn(
