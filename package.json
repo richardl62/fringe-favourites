@@ -18,11 +18,13 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "type-check": "tsc -b --noEmit && tsc --noEmit -p scripts/tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "fetch-dates": "node scripts/fetch-dates.ts",
     "tidy-shows": "node scripts/tidy-shows.ts",
     "update-shows": "npm run fetch-dates && npm run tidy-shows",
     "format": "prettier --write .",
-    "validate": "npm run type-check && npm run lint"
+    "validate": "npm run type-check && npm run lint && npm run test"
   },
   "browserslist": {
     "production": [
@@ -38,7 +40,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/jest": "^30.0.0",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -53,6 +54,7 @@
     "prettier": "^3.9.6",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.65.0",
-    "vite": "^8.1.5"
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   }
 }
