@@ -39,6 +39,18 @@ describe("buildFavourites", () => {
     expect(hasProblem(problems, (p) => p.severity === "unrated")).toBe(true);
   });
 
+  it("does not report a booked show with no rating as unrated", () => {
+    const notes: ShowNotes = {
+      dates: [10],
+      booked: 10,
+      times: { 10: { kind: "single", time: "20:00" } },
+    };
+    const { shows, problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].unrated).toBe(true);
+    expect(hasProblem(problems, (p) => p.severity === "unrated")).toBe(false);
+  });
+
   it("does not report a show with no shows.yaml entry as unrated", () => {
     const { problems } = build([rawShow()], new Map());
 

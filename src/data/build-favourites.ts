@@ -33,8 +33,9 @@ export function buildFavourites(
     // A show with no shows.yaml entry at all is already reported by
     // resolveDatesAndBooking's "has no entry in shows.yaml" warning below -
     // reporting it as unrated too would just be a second warning for the
-    // same underlying gap.
-    if (isUnrated && notes !== undefined) {
+    // same underlying gap. A booked show doesn't need a rating either - it's
+    // already going ahead regardless.
+    if (isUnrated && notes !== undefined && notes.booked === undefined) {
       problems.push(unrated(link, editLink));
     }
 
