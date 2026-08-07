@@ -1,6 +1,9 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    // VS Code may flag "ES2023" as invalid: the schemastore.org tsconfig
+    // schema hasn't been updated past ES2022. tsc itself supports ES2023
+    // (since TS 5.0) and compiles this fine — the warning is a false positive.
     "lib": ["ES2023"],
     "types": ["node"],
     "allowImportingTsExtensions": true
