@@ -185,14 +185,12 @@ function toLondonDayAndTime(isoUtc: string): { day: number; time: string } {
 interface Schedule {
   dates: number[];
   /** null means no "times" field is needed (a single fixed time covers every
-   * date). Otherwise a map of day -> "HH:MM"; a date can be missing from it
+   * date). Otherwise a map of day -> "HH:MM" (one performance), "HH:MM-HH:MM"
+   * (two performances, both known times) or "many" (three or more - too many
+   * to record specific times for). A date can be missing from it entirely
    * (shown as "varies" with no specific time - see shows.yaml's header) when
-   * its time couldn't be determined. */
+   * even a single performance's time couldn't be determined. */
   times: Map<number, string> | null;
-  /** Dates with performances at more than one distinct time - there's no
-   * single "HH:MM" that could represent them in `times`, so they're left out
-   * of it and reported here instead. */
-  multiplePerformances: number[];
   problems: string[];
 }
 
@@ -205,7 +203,6 @@ function buildSchedule(performances: Performance[]): Schedule {
     return {
       dates: [],
       times: null,
-      multiplePerformances: [],
       problems: ["no non-cancelled performances were found"],
     };
   }
@@ -223,33 +220,41 @@ function buildSchedule(performances: Performance[]): Schedule {
 
   const problems: string[] = [];
   const byDay = new Map<number, string>();
-  const multiplePerformances: number[] = [];
+  const singleTimes = new Set<string>();
+  let hasMultiplePerformanceDay = false;
   for (const [day, times] of timesByDay) {
-    if (times.size > 1) {
-      // shows.yaml's "times" can only hold one time per day - see types.ts.
-      multiplePerformances.push(day);
-      problems.push(
-        `day ${String(day)} has performances at multiple times (${[...times].sort().join(", ")}) - left out of "times"`,
-      );
+    const sorted = [...times].sort();
+    if (sorted.length === 1) {
+      byDay.set(day, sorted[0]);
+      singleTimes.add(sorted[0]);
+    } else if (sorted.length === 2) {
+      // shows.yaml's "times" can hold two hyphen-separated times per day -
+      // see types.ts's PerformanceTime.
+      hasMultiplePerformanceDay = true;
+      byDay.set(day, sorted.join("-"));
     } else {
-      byDay.set(day, [...times][0]);
+      hasMultiplePerformanceDay = true;
+      byDay.set(day, "many");
+      problems.push(
+        `day ${String(day)} has performances at ${String(sorted.length)} different times (${sorted.join(", ")}) - recorded as "many"`,
+      );
     }
   }
-  multiplePerformances.sort((a, b) => a - b);
 
   const dates = [...timesByDay.keys()].sort((a, b) => a - b);
-  const uniqueTimes = new Set(byDay.values());
-  const times = problems.length === 0 && uniqueTimes.size <= 1 ? null : byDay;
+  const times =
+    !hasMultiplePerformanceDay && problems.length === 0 && singleTimes.size <= 1
+      ? null
+      : byDay;
 
-  return { dates, times, multiplePerformances, problems };
+  return { dates, times, problems };
 }
 
 // --- Scrape a single show ---------------------------------------------------
 
 interface ScrapeOutcome {
   /** null means the page couldn't be read at all, so there's no schedule
-   * data available this run - any existing dates/times/multiplePerformances
-   * are left as they are. */
+   * data available this run - any existing dates/times are left as they are. */
   schedule: Schedule | null;
   problems: string[];
 }
@@ -329,7 +334,7 @@ function applyOutcome(
   const { pair, entry } = findOrCreateEntry(doc, root, id);
 
   if (outcome.schedule !== null) {
-    const { dates, times, multiplePerformances } = outcome.schedule;
+    const { dates, times } = outcome.schedule;
 
     const datesNode = doc.createNode(dates);
     datesNode.flow = true;
@@ -346,14 +351,6 @@ function applyOutcome(
       entry.set("times", timesMap);
     } else {
       entry.delete("times");
-    }
-
-    if (multiplePerformances.length > 0) {
-      const multiplePerformancesNode = doc.createNode(multiplePerformances);
-      multiplePerformancesNode.flow = true;
-      entry.set("multiplePerformances", multiplePerformancesNode);
-    } else {
-      entry.delete("multiplePerformances");
     }
   }
 

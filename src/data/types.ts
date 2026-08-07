@@ -1,9 +1,18 @@
 export const unknownDate = "?";
 export type DatesT = number[] | typeof unknownDate;
 
+/** A date's performance time(s): a single known time, exactly two known
+ * times (the date has two performances, shown as separate entries on the
+ * page), or "many" for three or more performances, whose times are left
+ * unspecified. */
+export type PerformanceTime =
+  | { kind: "single"; time: string }
+  | { kind: "double"; times: [string, string] }
+  | { kind: "many" };
+
 // A show's start time: a single fixed "HH:MM", or a (possibly incomplete) map
-// of date -> "HH:MM" for shows whose time varies by performance.
-export type TimesT = string | Record<number, string>;
+// of date -> performance time(s) for shows whose time varies by performance.
+export type TimesT = string | Record<number, PerformanceTime>;
 
 /** A show as read from its source (edfringe.com CSV or shows.yaml),
  * before shows.yaml's notes have been applied. */

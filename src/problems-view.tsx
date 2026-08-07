@@ -87,7 +87,7 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
           {multiplePerformances.length > 0 && (
             <>
               <SectionHeading>
-                Multiple performances on same day ({multiplePerformances.length})
+                More than two performances on same day ({multiplePerformances.length})
               </SectionHeading>
               <ProblemList problems={multiplePerformances} />
             </>

@@ -7,7 +7,7 @@ import {
   parseDocument,
 } from "yaml";
 import { error, type Problem } from "./problems";
-import type { RawShow } from "./types";
+import type { PerformanceTime, RawShow } from "./types";
 import { showsYamlEditLink } from "./vscode-link";
 import { describeYamlError } from "./yaml-errors";
 
@@ -15,8 +15,7 @@ export interface ShowNotes {
   rating?: number;
   dates?: number[];
   booked?: number;
-  times?: Record<number, string>;
-  multiplePerformances?: number[];
+  times?: Record<number, PerformanceTime>;
 }
 
 export interface ParsedShows {
@@ -31,7 +30,7 @@ export interface ParsedShows {
 }
 
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
-const NOTE_FIELDS = ["rating", "dates", "booked", "times", "multiplePerformances"];
+const NOTE_FIELDS = ["rating", "dates", "booked", "times"];
 const KNOWN_FIELDS = [...RAW_FIELDS, ...NOTE_FIELDS];
 
 function checkUnknownFields(entry: Record<string, unknown>): void {
@@ -84,24 +83,46 @@ function parseDayList(value: unknown, field: string): number[] {
   return value as number[];
 }
 
-function parseTimes(value: unknown): Record<number, string> {
+const SINGLE_TIME_RE = /^\d{1,2}:\d{2}$/;
+const DOUBLE_TIME_RE = /^(\d{1,2}:\d{2})-(\d{1,2}:\d{2})$/;
+
+/** A date's "times" entry: a single "HH:MM", two hyphen-separated "HH:MM"s
+ * for a date with exactly two performances, or "many" for a date with three
+ * or more (see types.ts's PerformanceTime). */
+function parsePerformanceTime(raw: string, dateKey: string): PerformanceTime {
+  if (raw === "many") {
+    return { kind: "many" };
+  }
+  const doubleMatch = DOUBLE_TIME_RE.exec(raw);
+  if (doubleMatch) {
+    return { kind: "double", times: [doubleMatch[1], doubleMatch[2]] };
+  }
+  if (SINGLE_TIME_RE.test(raw)) {
+    return { kind: "single", time: raw };
+  }
+  throw new Error(
+    `"times" for date ${dateKey} should be "HH:MM", "HH:MM-HH:MM", or "many", got "${raw}"`,
+  );
+}
+
+function parseTimes(value: unknown): Record<number, PerformanceTime> {
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
     throw new Error(
       '"times" should be a mapping of day-of-month number to "HH:MM"',
     );
   }
-  const times: Record<number, string> = {};
+  const times: Record<number, PerformanceTime> = {};
   for (const [dateKey, timeValue] of Object.entries(value)) {
     const date = Number(dateKey);
     if (!Number.isInteger(date)) {
       throw new Error(`"times" has a non-numeric date "${dateKey}"`);
     }
-    if (typeof timeValue !== "string" || !/^\d{1,2}:\d{2}$/.test(timeValue)) {
+    if (typeof timeValue !== "string") {
       throw new Error(
-        `"times" for date ${dateKey} should be "HH:MM", got "${String(timeValue)}"`,
+        `"times" for date ${dateKey} should be "HH:MM", "HH:MM-HH:MM", or "many", got "${String(timeValue)}"`,
       );
     }
-    times[date] = timeValue;
+    times[date] = parsePerformanceTime(timeValue, dateKey);
   }
   return times;
 }
@@ -126,12 +147,6 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
   }
   if (entry.times !== undefined) {
     notes.times = parseTimes(entry.times);
-  }
-  if (entry.multiplePerformances !== undefined) {
-    notes.multiplePerformances = parseDayList(
-      entry.multiplePerformances,
-      "multiplePerformances",
-    );
   }
 
   return notes;

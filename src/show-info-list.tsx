@@ -86,28 +86,31 @@ export function ShowInfoList({
 
   const addElem = (
     elem: JSX.Element | string,
-    info: ShowInfo,
+    rowKey: string,
     item: string,
   ) => {
-    const key = info.url + item;
+    const key = rowKey + item;
     gridElems.push(<Wrapper key={key}>{elem}</Wrapper>);
   };
 
   const ratingString = (info: ShowInfo) =>
     info.booked ? "*" : info.rating.toString();
 
-  for (const info of showInfo) {
-    addElem(<ShowLink showInfo={info} />, info, "link");
-    addElem(<StartTime showInfo={info} />, info, "start");
+  // A show can appear twice (once per performance) when it has two
+  // performances on the selected date - so the url alone isn't a unique key.
+  showInfo.forEach((info, index) => {
+    const rowKey = `${info.url}-${String(index)}`;
+    addElem(<ShowLink showInfo={info} />, rowKey, "link");
+    addElem(<StartTime showInfo={info} />, rowKey, "start");
     addElem(
       <Date date={info.nextPerformance} startDate={startDate} />,
-      info,
+      rowKey,
       "dates",
     );
-    addElem(formatDuration(info.durationMinutes), info, "duration");
-    addElem(ratingString(info), info, "rating");
-    addElem(info.venue, info, "venue");
-  }
+    addElem(formatDuration(info.durationMinutes), rowKey, "duration");
+    addElem(ratingString(info), rowKey, "rating");
+    addElem(info.venue, rowKey, "venue");
+  });
 
   return <ShowList>{gridElems}</ShowList>;
 }

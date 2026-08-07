@@ -148,20 +148,17 @@ function resolveTimes(
     }
   }
 
-  // A date the show performs multiple times on - `times` can only hold one
-  // override per date, so such a date can never have a specific time
-  // recorded for it, and that's not a mistake worth warning about the way a
-  // genuinely missing override is.
-  const multiplePerformanceDates = (notes?.multiplePerformances ?? []).filter(
-    (d) => knownDates.includes(d),
+  // A date recorded as "many" has three or more performances - too many for
+  // `times` to hold a specific time for, so that's reported separately from
+  // (and doesn't count as) a genuinely missing override.
+  const manyDates = knownDates.filter(
+    (d) => overrideDates.includes(d) && times[d].kind === "many",
   );
-  if (multiplePerformanceDates.length > 0) {
-    problems.push(multiplePerformances(multiplePerformanceDates, link, editLink));
+  if (manyDates.length > 0) {
+    problems.push(multiplePerformances(manyDates, link, editLink));
   }
 
-  const missingOverrides = knownDates.filter(
-    (d) => !overrideDates.includes(d) && !multiplePerformanceDates.includes(d),
-  );
+  const missingOverrides = knownDates.filter((d) => !overrideDates.includes(d));
   if (missingOverrides.length > 0) {
     problems.push(
       warn(
