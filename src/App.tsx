@@ -70,7 +70,12 @@ function App() {
   );
 
   if (route === "problems") {
-    return <ProblemsView problems={problems} />;
+    return (
+      <ProblemsView
+        problems={problems}
+        loadError={loadState.status === "error" ? loadState.message : undefined}
+      />
+    );
   }
 
   if (loadState.status === "loading") {

@@ -3,7 +3,7 @@ import { parseFringeCsv } from "./fringe-csv";
 import { error, type Problem } from "./problems";
 import { parseShows } from "./shows";
 import type { RawShow, Show } from "./types";
-import { showsYamlEditLink } from "./vscode-link";
+import { showsYamlEditLink, showsYamlPathWarning } from "./vscode-link";
 
 export interface LoadResult {
   shows: Show[];
@@ -56,6 +56,10 @@ export async function loadFavourites(): Promise<LoadResult> {
   ]);
 
   const problems: Problem[] = [];
+  const pathWarning = showsYamlPathWarning();
+  if (pathWarning) {
+    problems.push(pathWarning);
+  }
 
   const csvShows = parseFringeCsv(csvText, problems);
   const {

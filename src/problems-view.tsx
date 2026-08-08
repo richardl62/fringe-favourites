@@ -47,7 +47,13 @@ function ProblemList({ problems }: { problems: Problem[] }) {
   );
 }
 
-export function ProblemsView({ problems }: { problems: Problem[] }) {
+export function ProblemsView({
+  problems,
+  loadError,
+}: {
+  problems: Problem[];
+  loadError?: string;
+}) {
   const errors = problems.filter((p) => p.severity === "error");
   const warnings = problems.filter((p) => p.severity === "warning");
   const unrated = problems
@@ -62,7 +68,11 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
       <p>
         <a href="#">Back to shows</a>
       </p>
-      {problems.length === 0 ? (
+      {loadError ? (
+        <ProblemRow $severity="error">
+          Failed to load show data: {loadError}
+        </ProblemRow>
+      ) : problems.length === 0 ? (
         <div>No problems found.</div>
       ) : (
         <>
@@ -87,7 +97,8 @@ export function ProblemsView({ problems }: { problems: Problem[] }) {
           {multiplePerformances.length > 0 && (
             <>
               <SectionHeading>
-                More than two performances on same day ({multiplePerformances.length})
+                More than two performances on same day (
+                {multiplePerformances.length})
               </SectionHeading>
               <ProblemList problems={multiplePerformances} />
             </>
