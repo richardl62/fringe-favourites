@@ -75,6 +75,35 @@ describe("getFavourites", () => {
     expect(info.startTimeVaries).toBe(true);
   });
 
+  it("resolves a booked show's start time from its booked date, regardless of the selected date", () => {
+    const [info] = getFavourites(
+      [
+        show(
+          { 20: { kind: "single", time: "19:00" } },
+          { booked: true, dates: [20] },
+        ),
+      ],
+      10,
+    );
+
+    expect(info.startTime).toBe("19:00");
+    expect(info.startTimeVaries).toBe(true);
+  });
+
+  it("resolves a booked show's start time even when no date is selected", () => {
+    const [info] = getFavourites(
+      [
+        show(
+          { 20: { kind: "single", time: "19:00" } },
+          { booked: true, dates: [20] },
+        ),
+      ],
+      null,
+    );
+
+    expect(info.startTime).toBe("19:00");
+  });
+
   it("processes multiple shows independently", () => {
     const infos = getFavourites(
       [

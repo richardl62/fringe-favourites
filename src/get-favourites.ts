@@ -1,9 +1,19 @@
 // Resolve each show's start time for the selected date.
-import type { Show, TimesT } from "./data/types";
+import { unknownDate, type Show, type TimesT } from "./data/types";
 
 export interface ProcessedStartTime {
   startTime: string | null;
   startTimeVaries: boolean;
+}
+
+/** A booked show only has one relevant date - its booked one - so its start
+ * time should always resolve to that, regardless of which date is currently
+ * selected in the UI. */
+function effectiveDate(show: Show, date: number | null): number | null {
+  if (show.booked && show.dates !== unknownDate) {
+    return show.dates[0];
+  }
+  return date;
 }
 
 /** A date with two performances yields one ProcessedStartTime per
@@ -36,7 +46,7 @@ export type ShowInfo = Show & ProcessedStartTime;
  * one per performance. No sorting or filtering is done at this stage. */
 export function getFavourites(shows: Show[], date: number | null): ShowInfo[] {
   return shows.flatMap((show) =>
-    processStartTime(show.times, date).map((startTime) => ({
+    processStartTime(show.times, effectiveDate(show, date)).map((startTime) => ({
       ...show,
       ...startTime,
     })),

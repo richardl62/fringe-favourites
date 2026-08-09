@@ -37,7 +37,7 @@ function ShowLink({ showInfo }: { showInfo: ShowInfo }) {
 }
 
 function StartTime({ showInfo }: { showInfo: ShowInfo }) {
-  const { startTime, startTimeVaries } = showInfo;
+  const { startTime, startTimeVaries, booked } = showInfo;
   let time: string;
   if (startTime === null) {
     time = "misc";
@@ -45,7 +45,9 @@ function StartTime({ showInfo }: { showInfo: ShowInfo }) {
     time = startTime;
   }
 
-  if (startTimeVaries) {
+  // The "+" flags a time resolved from a show's other, varying performances -
+  // meaningless for a booked show, which only ever has the one date.
+  if (startTimeVaries && !booked) {
     time += "+";
   }
 
@@ -94,7 +96,7 @@ export function ShowInfoList({
   };
 
   const ratingString = (info: ShowInfo) =>
-    info.booked ? "*" : info.rating.toString();
+    info.booked ? "B" : info.rating.toString();
 
   // A show can appear twice (once per performance) when it has two
   // performances on the selected date - so the url alone isn't a unique key.
