@@ -131,8 +131,8 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
   const notes: ShowNotes = {};
 
   if (entry.rating !== undefined && entry.rating !== "?") {
-    if (typeof entry.rating !== "number") {
-      throw new Error('"rating" should be a number or "?"');
+    if (typeof entry.rating !== "number" || ![0, 1, 2].includes(entry.rating)) {
+      throw new Error('"rating" should be 0, 1, 2, or "?"');
     }
     notes.rating = entry.rating;
   }

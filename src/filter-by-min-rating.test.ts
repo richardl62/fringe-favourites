@@ -22,7 +22,7 @@ function info(overrides: Partial<ShowInfo> = {}): ShowInfo {
 
 describe("filterByMinRating", () => {
   it("returns everything unfiltered when no minimum is set", () => {
-    const favourites = [info({ rating: 0 }), info({ rating: 3, unrated: true })];
+    const favourites = [info({ rating: 0 }), info({ rating: 2, unrated: true })];
 
     expect(filterByMinRating(favourites, "")).toEqual(favourites);
   });
@@ -36,21 +36,22 @@ describe("filterByMinRating", () => {
     expect(result.map((f) => f.id)).toEqual(["high"]);
   });
 
-  it("excludes unrated shows even if their numeric rating would pass", () => {
+  it("treats an unrated show as having rating 0", () => {
     const unrated = info({ id: "unrated", rating: 0, unrated: true });
 
-    expect(filterByMinRating([unrated], "0")).toEqual([]);
+    expect(filterByMinRating([unrated], "0").map((f) => f.id)).toEqual(["unrated"]);
+    expect(filterByMinRating([unrated], "1")).toEqual([]);
   });
 
   it("keeps a booked show regardless of the minimum rating", () => {
     const booked = info({ id: "booked", rating: 0, unrated: true, booked: true });
 
-    expect(filterByMinRating([booked], "3").map((f) => f.id)).toEqual(["booked"]);
+    expect(filterByMinRating([booked], "2").map((f) => f.id)).toEqual(["booked"]);
   });
 
   it("only keeps booked shows when 'b' is selected", () => {
     const booked = info({ id: "booked", booked: true });
-    const highRated = info({ id: "high-rated", rating: 3 });
+    const highRated = info({ id: "high-rated", rating: 2 });
 
     const result = filterByMinRating([booked, highRated], "b");
 

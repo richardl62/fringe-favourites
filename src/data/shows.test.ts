@@ -82,6 +82,19 @@ a-show:
     expect(notesById.get("a-show")?.rating).toBeUndefined();
   });
 
+  it("rejects a rating outside 0, 1, or 2", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 3
+  dates: [10]
+`);
+
+    expect(notesById.has("a-show")).toBe(false);
+    expect(
+      hasProblem(problems, (p) => p.message.includes('"rating" should be 0, 1, 2, or "?"')),
+    ).toBe(true);
+  });
+
   it("rejects an unknown field", () => {
     const { notesById, problems } = parse(`
 a-show:

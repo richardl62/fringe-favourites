@@ -1,8 +1,9 @@
 import type { ShowInfo } from "./get-favourites";
 
 // The "Min rating" select's value: "" for no filter, a digit for a minimum
-// rating (excluding unrated shows), or "b" for booked shows only.
-export type MinRating = "" | "0" | "1" | "2" | "3" | "b";
+// rating (0, 1, or 2 - the permitted range, see data/shows.ts's
+// parseNotes - an unrated show counts as 0), or "b" for booked shows only.
+export type MinRating = "" | "0" | "1" | "2" | "b";
 
 /** Filter shows by the "Min rating" option. Booked shows are always
  * included regardless of the filter - see sort-favourites.ts's
@@ -21,6 +22,6 @@ export function filterByMinRating(
     if (minRating === "b") {
       return false;
     }
-    return !info.unrated && info.rating >= Number(minRating);
+    return info.rating >= Number(minRating);
   });
 }

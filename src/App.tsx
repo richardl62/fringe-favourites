@@ -142,11 +142,9 @@ function App() {
               setMinRating(event.target.value as MinRating);
             }}
           >
-            <option value="">-</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
-            <option value="3">3</option>
             <option value="b">Booked</option>
           </select>
         </label>
