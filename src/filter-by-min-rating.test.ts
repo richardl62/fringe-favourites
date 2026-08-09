@@ -21,10 +21,10 @@ function info(overrides: Partial<ShowInfo> = {}): ShowInfo {
 }
 
 describe("filterByMinRating", () => {
-  it("returns everything unfiltered when no minimum is set", () => {
+  it("returns everything when the minimum is 0, since every rating qualifies", () => {
     const favourites = [info({ rating: 0 }), info({ rating: 2, unrated: true })];
 
-    expect(filterByMinRating(favourites, "")).toEqual(favourites);
+    expect(filterByMinRating(favourites, "0")).toEqual(favourites);
   });
 
   it("excludes shows below the minimum rating", () => {

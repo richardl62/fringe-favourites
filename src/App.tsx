@@ -32,7 +32,7 @@ type LoadState =
 
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
-  const [minRating, setMinRating] = React.useState<MinRating>("");
+  const [minRating, setMinRating] = React.useState<MinRating>("0");
   const [rawStartDate, setRawStartDate] = React.useState(() =>
     new Date().getDate().toString(),
   );

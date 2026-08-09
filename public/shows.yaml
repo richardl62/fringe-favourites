@@ -18,9 +18,9 @@
 #   rating, dates, booked, times:
 #     Hand-written notes for any show. A show with none of them is reported
 #     as needing info on the #problems page.
-#       rating: a number, higher = more interested. Booked shows always sort
-#               first regardless of rating. "?" counts as not having a rating
-#               yet, same as leaving it out.
+#       rating: 0, 1, or 2 - higher = more interested. "?" counts as not 
+#               having a rating yet, same as leaving it out (both are treated as 0).
+#               Booked shows always come first when sorting by rating.
 #       dates:  the day-of-month numbers the show is on, e.g. [9, 10, 11].
 #       booked: a single day-of-month number - use instead of "dates" once
 #               you've booked a ticket; it replaces "dates" as the show's
