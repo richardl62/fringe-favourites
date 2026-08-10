@@ -33,9 +33,15 @@ Some scripts exist to help update shows.yaml:
   fields, leaving everything else in the file untouched. A show that can't
   be fully scraped still gets whatever data is available, with a
   `# PROBLEM: ...` comment added above its entry to flag what's missing.
+  `npm run fetch-dates:quick` only scrapes shows with no `dates` field yet,
+  skipping everything already scraped in a previous run - much faster, at
+  the cost of assuming edfringe.com hasn't changed anything for those shows
+  since.
 - `npm run tidy-shows` sorts entries alphabetically by id, adds `rating: "?"`
   to any entry that doesn't have a rating yet, and adds/updates a trailing
   `# Show Title` comment on each entry so the file can be searched by name
   despite being keyed by id.
-- `npm run update-shows` runs both of the above in sequence, and is the
-  normal way to bring shows.yaml up to date.
+- `npm run update-shows` runs `fetch-dates:quick` followed by `tidy-shows`,
+  and is the normal way to bring shows.yaml up to date. Run
+  `npm run fetch-dates` (without `--quick`) occasionally too, to pick up
+  date/time changes on shows already scraped.

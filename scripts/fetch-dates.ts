@@ -4,6 +4,14 @@
 //
 // Run with: npm run fetch-dates
 //
+// Pass --quick (npm run fetch-dates -- --quick) to only scrape shows that
+// don't have a "dates" field yet, skipping every show already scraped in a
+// previous run. Useful once most shows are already up to date and you just
+// want to pick up new additions to my_fringe_favourites.csv/shows.yaml
+// quickly - it assumes edfringe.com hasn't changed anything for a show
+// that's already been scraped, so re-run without --quick occasionally to
+// pick up date/time changes on edfringe.com itself.
+//
 // How it works: edfringe.com's "DATES" tab is rendered client-side, but the
 // data it's built from is already embedded in the page's initial HTML, in a
 // Next.js `__NEXT_DATA__` <script> tag - so a plain fetch + JSON extraction
@@ -64,6 +72,13 @@ function discoverShowIds(csvText: string, doc: Document, root: YAMLMap): Set<str
     }
   }
   return ids;
+}
+
+/** In --quick mode, a show that already has a "dates" field is assumed to
+ * still be accurate and is skipped, leaving only shows that have never been
+ * scraped at all. */
+function hasExistingDates(doc: Document, id: string): boolean {
+  return doc.getIn([id, "dates"]) !== undefined;
 }
 
 // --- Fetch and parse a show's __NEXT_DATA__ payload -----------------------
@@ -369,7 +384,15 @@ async function main(): Promise<void> {
     throw new Error("shows.yaml doesn't have a top-level mapping");
   }
 
-  const ids = [...discoverShowIds(csvText, doc, root)].sort();
+  const quick = process.argv.includes("--quick");
+  let ids = [...discoverShowIds(csvText, doc, root)].sort();
+  if (quick) {
+    const skipped = ids.filter((id) => hasExistingDates(doc, id)).length;
+    ids = ids.filter((id) => !hasExistingDates(doc, id));
+    console.log(
+      `--quick: skipping ${String(skipped)} show(s) that already have "dates".`,
+    );
+  }
 
   let problemCount = 0;
   for (const id of ids) {
