@@ -46,12 +46,8 @@
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
-1-greatest-hit-rock-n-roll-magic-show: # #1 Greatest Hit Rock'n'Roll Magic Show
-  rating: "?"
-  dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-
 1-hour-straitjacket-escape-magic-show: # 1 Hour Straitjacket Escape Magic Show
-  rating: "?"
+  rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30]
 
 1-king-2-princes-and-shakespeare-s-lie: # 1 King, 2 Princes and Shakespeare's Lie
@@ -61,6 +57,10 @@
 1954-ella-etta-eartha: # 1954: Ella, Etta, Eartha
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+44-minutes: # 44 Minutes
+  rating: 1
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
 
 a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends: # A Case for Magic: For Lovers of Magic and Their Ambivalent Friends
   rating: 0
@@ -195,7 +195,7 @@ dancing-shoes-wip: # Dancing Shoes (WIP)
   dates: [20]
 
 david-alnwick-magician-not-creepy: # David Alnwick: Magician. Not Creepy.
-  rating: "?"
+  rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
 david-alnwick-objectively-the-best-magician: # David Alnwick: Objectively the Best Magician
@@ -235,6 +235,10 @@ full-score-barbershop-choir-presents-brace-for-impact: # Full Score Barbershop C
   rating: 0
   dates: [17, 18, 19, 20, 21, 22]
 
+good-with-faces: # Good With Faces
+  rating: 1
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
+
 how-not-to-make-it-in-america: # How Not to Make it in America
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
@@ -245,7 +249,7 @@ irrational: # Irrational
   times: {6: "18:15", 7: "18:15", 8: "18:15", 9: "18:15", 10: "18:15", 12: "18:15", 14: "18:15", 16: "18:15", 11: "20:00", 13: "20:00", 15: "20:00"}
 
 joni-mitchell-take-me-as-i-am: # Joni Mitchell: Take Me As I Am
-  rating: 0
+  rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
 
 lear-s-fool: # Lear's Fool
@@ -259,6 +263,10 @@ lost-the-plot-an-improvised-musical: # Lost the Plot: An Improvised Musical
 loud-poets: # Loud Poets
   rating: 0
   dates: [13, 20, 27]
+
+madeleine-brettingham-legend: # Madeleine Brettingham: Legend
+  rating: 1
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
 
 mark-thomas-40-in-stand-up-years: # Mark Thomas: 40 in Stand-Up Years
   rating: 1
@@ -281,6 +289,10 @@ mrs-stern-wanders-the-prussian-state-library: # Mrs Stern Wanders the Prussian S
 pace: # PACE
   rating: 0
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29]
+
+pilate-the-lost-gospel: # Pilate: The Lost Gospel
+  rating: 1
+  dates: [5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
 
 pip-utton-s-farewell-to-edinburgh-fringe-bacon: # Pip Utton's Farewell to Edinburgh Fringe: Bacon
   rating: 0
@@ -357,6 +369,11 @@ the-event: # The Event
 the-oxford-gargoyles-jazz-a-cappella: # The Oxford Gargoyles: Jazz A Cappella
   rating: 0
   dates: [18, 19, 20, 21, 22, 23, 24]
+
+the-speakeasy-experience: # The Speakeasy Experience
+  rating: 1
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  times: {6: "17:45-19:45", 7: "17:45-19:45", 8: "17:45-19:45", 9: "17:45-19:45", 10: "17:45-19:45", 11: "17:45-19:45", 12: "17:45-19:45", 13: "17:45-19:45", 14: "17:45-19:45", 15: "17:45-19:45", 16: "17:45-19:45", 17: "17:45-19:45", 18: "17:45-19:45", 19: "17:45-19:45", 20: "17:45-19:45", 21: "17:45-19:45", 22: "17:45-19:45", 23: "17:45-19:45", 24: "17:45-19:45", 25: "17:45-19:45", 26: "17:45-19:45", 27: "17:45-19:45", 28: "17:45-19:45", 29: "17:45-19:45", 30: "17:45-19:45", 31: "17:45-19:45"}
 
 the-sumo-show-hirakuza: # The Sumo Show HIRAKUZA
   rating: 1
