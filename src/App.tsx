@@ -5,6 +5,7 @@ import { ShowInfoList } from "./show-info-list";
 import { getFavourites } from "./get-favourites";
 import { addNextPerformance } from "./add-next-performance";
 import { filterByMinRating, type MinRating } from "./filter-by-min-rating";
+import { filterAvailableDates } from "./filter-available-dates";
 import { loadFavourites } from "./data/load-favourites";
 import type { Show } from "./data/types";
 import type { Problem } from "./data/problems";
@@ -33,6 +34,7 @@ type LoadState =
 function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
   const [minRating, setMinRating] = React.useState<MinRating>("0");
+  const [availableOnly, setAvailableOnly] = React.useState(true);
   const [rawStartDate, setRawStartDate] = React.useState(() =>
     new Date().getDate().toString(),
   );
@@ -91,7 +93,8 @@ function App() {
     startDate = null;
   }
 
-  const importedFavourites = getFavourites(loadState.shows, startDate);
+  const availableShows = filterAvailableDates(loadState.shows, availableOnly);
+  const importedFavourites = getFavourites(availableShows, startDate);
   const ratingFilteredFavourites = filterByMinRating(
     importedFavourites,
     minRating,
@@ -147,6 +150,17 @@ function App() {
             <option value="2">2</option>
             <option value="b">Booked</option>
           </select>
+        </label>
+
+        <label>
+          {"Available only "}
+          <input
+            type="checkbox"
+            checked={availableOnly}
+            onChange={() => {
+              setAvailableOnly(!availableOnly);
+            }}
+          />
         </label>
 
         <label>
