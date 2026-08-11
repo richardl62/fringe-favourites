@@ -133,7 +133,7 @@ describe("getFavourites", () => {
     expect(info.startTimeUnavailable).toBe(false);
   });
 
-  it("marks a booked show's start time unavailable using its booked date", () => {
+  it("never marks a booked show's start time unavailable, even if its date has no allocation remaining", () => {
     const [info] = getFavourites(
       [
         show(
@@ -144,7 +144,7 @@ describe("getFavourites", () => {
       10,
     );
 
-    expect(info.startTimeUnavailable).toBe(true);
+    expect(info.startTimeUnavailable).toBe(false);
   });
 
   it("processes multiple shows independently", () => {

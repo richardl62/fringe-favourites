@@ -35,7 +35,10 @@ export function addNextPerformance(
       extendedInfo.push({
         ...fav,
         nextPerformance,
+        // A booked show already has a ticket, so a later availability
+        // change is irrelevant - always treat it as available.
         nextPerformanceUnavailable:
+          !fav.booked &&
           nextPerformance !== unknownDate &&
           fav.noAvailability.includes(nextPerformance),
       });

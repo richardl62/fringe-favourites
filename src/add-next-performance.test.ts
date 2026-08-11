@@ -74,6 +74,16 @@ describe("addNextPerformance", () => {
     expect(result.nextPerformanceUnavailable).toBe(false);
   });
 
+  it("never marks a booked show's nextPerformance unavailable, even if its date has no allocation remaining", () => {
+    const [result] = addNextPerformance(
+      [info({ dates: [10, 15, 20], booked: true, noAvailability: [15] })],
+      12,
+    );
+
+    expect(result.nextPerformance).toBe(15);
+    expect(result.nextPerformanceUnavailable).toBe(false);
+  });
+
   it("is never unavailable when the next performance date is unknown", () => {
     const [result] = addNextPerformance(
       [info({ dates: unknownDate, noAvailability: [10] })],

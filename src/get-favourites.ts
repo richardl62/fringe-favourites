@@ -24,8 +24,12 @@ function effectiveDate(show: Show, date: number | null): number | null {
 function processStartTime(show: Show, date: number | null): ProcessedStartTime[] {
   const { times } = show;
   const resolvedDate = effectiveDate(show, date);
+  // A booked show already has a ticket, so a later availability change is
+  // irrelevant - always treat it as available.
   const startTimeUnavailable =
-    resolvedDate !== null && show.noAvailability.includes(resolvedDate);
+    !show.booked &&
+    resolvedDate !== null &&
+    show.noAvailability.includes(resolvedDate);
 
   if (typeof times === "string") {
     return [{ startTime: times, startTimeVaries: false, startTimeUnavailable }];

@@ -80,10 +80,12 @@ function StartTime({ showInfo }: { showInfo: ShowInfo }) {
 function RemainingDates({
   dates,
   noAvailability,
+  booked,
   startDate,
 }: {
   dates: DatesT;
   noAvailability: number[];
+  booked: boolean;
   startDate: number | null;
 }) {
   if (dates === unknownDate) {
@@ -95,7 +97,10 @@ function RemainingDates({
   return (
     <span>
       {remaining.map((date, index) => (
-        <UnavailableText key={date} $unavailable={noAvailability.includes(date)}>
+        <UnavailableText
+          key={date}
+          $unavailable={!booked && noAvailability.includes(date)}
+        >
           {index > 0 ? `, ${String(date)}` : date}
         </UnavailableText>
       ))}
@@ -171,6 +176,7 @@ export function ShowInfoList({
         <RemainingDates
           dates={info.dates}
           noAvailability={info.noAvailability}
+          booked={info.booked}
           startDate={startDate}
         />
       ) : (
