@@ -10,6 +10,15 @@ function formatDuration(minutes: number): string {
   return `${hours.toString()}:${mins.toString().padStart(2, "0")}`;
 }
 
+// "Room at Venue" is shortened to just "Venue" - the room number rarely
+// means much on its own. Splits on the first " at " so a venue name that
+// itself contains "at" (e.g. "Just The Tonic at The Caves") stays intact.
+function formatVenue(venue: string): string {
+  const separator = " at ";
+  const index = venue.indexOf(separator);
+  return index === -1 ? venue : venue.slice(index + separator.length);
+}
+
 // Brighter than "firebrick" so it's unmistakable in a dense grid of small text.
 const UNAVAILABLE_COLOR = "red";
 
@@ -125,7 +134,7 @@ export function ShowInfoList({
     );
     addElem(formatDuration(info.durationMinutes), rowKey, "duration");
     addElem(ratingString(info), rowKey, "rating");
-    addElem(info.venue, rowKey, "venue");
+    addElem(formatVenue(info.venue), rowKey, "venue");
   });
 
   return <ShowList>{gridElems}</ShowList>;
