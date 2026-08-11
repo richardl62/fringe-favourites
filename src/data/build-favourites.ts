@@ -46,6 +46,13 @@ export function buildFavourites(
       problems,
     );
     const times = resolveTimes(raw, notes, editLink, dates, problems);
+    const noAvailability = resolveNoAvailability(
+      raw,
+      notes,
+      editLink,
+      dates,
+      problems,
+    );
 
     shows.push({
       id: raw.id,
@@ -58,6 +65,7 @@ export function buildFavourites(
       unrated: isUnrated,
       booked,
       times,
+      noAvailability,
     });
   }
 
@@ -171,4 +179,33 @@ function resolveTimes(
   }
 
   return times;
+}
+
+function resolveNoAvailability(
+  raw: RawShow,
+  notes: ShowNotes | undefined,
+  editLink: string | undefined,
+  dates: DatesT,
+  problems: Problem[],
+): number[] {
+  const link = { title: raw.title, url: raw.url };
+  const noAvailability = notes?.noAvailability ?? [];
+  const knownDates = dates === unknownDate ? [] : dates;
+
+  // Same "booking collapses dates, so leftover entries look stale" reasoning
+  // as resolveTimes's staleOverrides check.
+  if (notes?.booked === undefined) {
+    const stale = noAvailability.filter((d) => !knownDates.includes(d));
+    if (stale.length > 0) {
+      problems.push(
+        warn(
+          `has a "no availability" entry for date(s) ${stale.join(", ")} not in its dates list`,
+          link,
+          editLink,
+        ),
+      );
+    }
+  }
+
+  return noAvailability;
 }

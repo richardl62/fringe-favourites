@@ -15,10 +15,10 @@
 #                  performance (add per-date times for it below).
 #       url:       link to the show's page.
 #
-#   rating, dates, booked, times:
+#   rating, dates, booked, times, noAvailability:
 #     Hand-written notes for any show. A show with none of them is reported
 #     as needing info on the #problems page.
-#       rating: 0, 1, or 2 - higher = more interested. "?" counts as not 
+#       rating: 0, 1, or 2 - higher = more interested. "?" counts as not
 #               having a rating yet, same as leaving it out (both are treated as 0).
 #               Booked shows always come first when sorting by rating.
 #       dates:  the day-of-month numbers the show is on, e.g. [9, 10, 11].
@@ -36,6 +36,11 @@
 #                                 many to record specific times for.
 #               Dates left out entirely are shown as "varies" with no
 #               specific time.
+#       noAvailability:
+#               day-of-month numbers with no allocation remaining on
+#               edfringe.com (shown there as a red bar under the date, with
+#               a "No allocation remaining" caption) - shown in red on this
+#               page's date/time too. Filled in automatically by fetch-dates.
 
 00-45-00: # 00:45:00
   rating: 0
@@ -45,6 +50,7 @@
 1-dazzling-cabaret: # 1 Dazzling Cabaret
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [6, 7, 8, 9, 10]
 
 1-hour-straitjacket-escape-magic-show: # 1 Hour Straitjacket Escape Magic Show
   rating: 1
@@ -53,14 +59,17 @@
 1-king-2-princes-and-shakespeare-s-lie: # 1 King, 2 Princes and Shakespeare's Lie
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  noAvailability: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
 
 1954-ella-etta-eartha: # 1954: Ella, Etta, Eartha
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  noAvailability: [10]
 
 44-minutes: # 44 Minutes
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  noAvailability: [7, 9, 10, 11, 12, 13]
 
 a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends: # A Case for Magic: For Lovers of Magic and Their Ambivalent Friends
   rating: 0
@@ -69,6 +78,7 @@ a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends: # A Case for 
 a-forgotten-woman-mrs-oscar-wilde: # A Forgotten Woman: Mrs Oscar Wilde
   rating: 1
   dates: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
+  noAvailability: [7, 9, 11, 13, 15, 17, 19, 21]
 
 a-list-burlesque-and-cabaret: # A-List Burlesque and Cabaret
   rating: 0
@@ -80,16 +90,19 @@ a-night-at-the-musicals: # A Night at the Musicals
 
 after-party: # After Party
   rating: 2
-  dates: [11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {11: "11:30", 12: "14:45", 13: "17:30", 14: "11:30", 15: "14:45", 16: "17:30", 18: "11:30", 19: "14:45", 20: "17:30", 21: "11:30", 22: "14:45", 23: "17:30", 25: "11:30", 26: "14:45", 27: "17:30", 28: "11:30", 29: "14:45", 30: "17:30"}
+  dates: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {12: "14:45", 13: "17:30", 14: "11:30", 15: "14:45", 16: "17:30", 18: "11:30", 19: "14:45", 20: "17:30", 21: "11:30", 22: "14:45", 23: "17:30", 25: "11:30", 26: "14:45", 27: "17:30", 28: "11:30", 29: "14:45", 30: "17:30"}
+  noAvailability: [12, 13, 15, 16, 18, 19, 20]
 
 after-shakespeare: # After Shakespeare
   rating: 1
   dates: [8, 10, 12, 14, 18, 20, 22, 24, 26, 28]
+  noAvailability: [10, 12]
 
 alan-bennett-s-talking-heads: # Alan Bennett's Talking Heads
   rating: 0
   dates: [10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23]
+  noAvailability: [10, 11]
 
 ali-affleck-presents-the-louis-armstrong-duets-with-ella-fitzgerald-and-bing-crosby: # Ali Affleck Presents the Louis Armstrong Duets with Ella Fitzgerald and Bing Crosby
   rating: 1
@@ -100,10 +113,12 @@ alone: # ALONE
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {5: "13:35", 6: "13:35", 7: "13:35", 8: "13:35", 9: "13:35", 10: "13:35", 11: "13:35", 12: "13:35", 13: "13:35", 14: "13:35", 15: "13:35", 16: "13:35", 18: "13:35", 19: "13:35", 20: "13:35", 21: "13:35", 22: "13:35", 23: "13:35", 25: "13:35-17:40", 26: "13:35-17:40", 27: "13:35-17:40", 28: "13:35-17:40", 29: "13:35", 30: "13:35"}
+  noAvailability: [8, 9, 11, 12, 13, 14, 15, 16, 18, 22]
 
 amy-tears-dry-on-their-own: # Amy – Tears Dry on Their Own
   rating: 0
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+  noAvailability: [10]
 
 an-introvert-s-guide-to-magic: # An Introvert's Guide to Magic
   rating: 1
@@ -112,10 +127,12 @@ an-introvert-s-guide-to-magic: # An Introvert's Guide to Magic
 an-ode-to-the-casting-director: # An Ode to the Casting Director
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+  noAvailability: [10]
 
 andrew-frost-just-let-me-have-this: # Andrew Frost: Just Let Me Have This
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [11]
 
 angels-in-america: # Angels in America
   rating: "?"
@@ -134,11 +151,13 @@ aquapella: # Aquapella
 avenue-q: # Avenue Q
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [10]
 
 badgers: # Badgers
   rating: 0
-  dates: [11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {11: "15:30", 12: "18:00", 13: "20:30", 14: "10:15", 15: "12:45", 16: "15:30", 18: "18:00", 19: "20:30", 20: "10:15", 21: "12:45", 22: "15:30", 23: "18:00", 25: "20:30", 26: "10:15", 27: "12:45", 28: "15:30", 29: "18:00", 30: "10:15"}
+  dates: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {12: "18:00", 13: "20:30", 14: "10:15", 15: "12:45", 16: "15:30", 18: "18:00", 19: "20:30", 20: "10:15", 21: "12:45", 22: "15:30", 23: "18:00", 25: "20:30", 26: "10:15", 27: "12:45", 28: "15:30", 29: "18:00", 30: "10:15"}
+  noAvailability: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 27]
 
 best-of-cabaret-2026: # Best of Cabaret 2026
   rating: 0
@@ -147,6 +166,7 @@ best-of-cabaret-2026: # Best of Cabaret 2026
 best-of-the-fest-daytime: # Best of the Fest Daytime
   rating: 0
   dates: [7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
+  noAvailability: [8]
 
 bob-dylan-on-piano: # Bob Dylan On Piano
   rating: 0
@@ -165,10 +185,12 @@ brian-bilston-how-to-lay-an-egg-with-a-horse-inside: # Brian Bilston: How to Lay
 burning-down-the-horse: # Burning Down the Horse
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [9, 10]
 
 by-a-thread: # By a Thread
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  noAvailability: [8, 10, 11]
 
 caspar-thomas-the-art-of-close-up-magic-volume-2: # Caspar Thomas: The Art of Close-Up Magic (Volume 2)
   rating: 1
@@ -177,8 +199,9 @@ caspar-thomas-the-art-of-close-up-magic-volume-2: # Caspar Thomas: The Art of Cl
 cathy: # Cathy
   rating: "?"
   booked: 19
-  dates: [11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {11: "18:30", 12: "11:30", 13: "14:30", 14: "18:30", 15: "11:30", 16: "14:30", 18: "18:30", 19: "11:30", 20: "14:30", 21: "18:30", 22: "11:30", 23: "14:30", 25: "18:30", 26: "11:30", 27: "14:30", 28: "18:30", 29: "11:30", 30: "14:30"}
+  dates: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {12: "11:30", 13: "14:30", 14: "18:30", 15: "11:30", 16: "14:30", 18: "18:30", 19: "11:30", 20: "14:30", 21: "18:30", 22: "11:30", 23: "14:30", 25: "18:30", 26: "11:30", 27: "14:30", 28: "18:30", 29: "11:30", 30: "14:30"}
+  noAvailability: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
 
 charlie-caper-magical: # Charlie Caper – Magical
   rating: 0
@@ -226,6 +249,7 @@ eight: # Eight
 flop-the-best-songs-from-the-worst-musicals: # FLOP! The Best Songs From The Worst Musicals
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
+  noAvailability: [10]
 
 forest-fringe-vincent-gambini-this-is-not-a-magic-show: # Forest Fringe: Vincent Gambini: This Is Not a Magic Show
   rating: 0
@@ -242,6 +266,7 @@ good-with-faces: # Good With Faces
 how-not-to-make-it-in-america: # How Not to Make it in America
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [9, 11]
 
 irrational: # Irrational
   rating: 0
@@ -267,10 +292,12 @@ loud-poets: # Loud Poets
 madeleine-brettingham-legend: # Madeleine Brettingham: Legend
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [7, 8, 9, 10]
 
 mark-thomas-40-in-stand-up-years: # Mark Thomas: 40 in Stand-Up Years
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [5, 6, 7, 8, 9, 10]
 
 midday-cabaret: # Midday Cabaret
   rating: 0
@@ -283,8 +310,9 @@ miscast-sondheim: # Miscast Sondheim
 mrs-stern-wanders-the-prussian-state-library: # Mrs Stern Wanders the Prussian State Library
   rating: "?"
   booked: 27
-  dates: [11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {11: "20:30", 12: "10:15", 13: "12:45", 14: "15:15", 15: "18:00", 16: "20:30", 18: "10:15", 19: "12:45", 20: "15:15", 21: "18:00", 22: "20:30", 23: "10:15", 25: "10:15", 26: "15:15", 27: "18:00", 28: "20:30", 29: "10:15", 30: "12:45"}
+  dates: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {12: "10:15", 13: "12:45", 14: "15:15", 15: "18:00", 16: "20:30", 18: "10:15", 19: "12:45", 20: "15:15", 21: "18:00", 22: "20:30", 23: "10:15", 25: "10:15", 26: "15:15", 27: "18:00", 28: "20:30", 29: "10:15", 30: "12:45"}
+  noAvailability: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
 
 pace: # PACE
   rating: 0
@@ -318,6 +346,7 @@ scottish-comedy-legends-jack-docherty: # Scottish Comedy Legends: Jack Docherty
 simon-garfunkel-and-beyond: # Simon & Garfunkel and Beyond
   rating: 0
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+  noAvailability: [10, 11]
 
 sims-holland-learning-to-human: # Sims Holland: Learning to Human
   rating: 0
@@ -342,20 +371,24 @@ strange-face-adventures-with-a-lost-nick-drake-recording-the-story-continues: # 
 sunshine-on-leith: # Sunshine on Leith
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [10, 11]
 
 supposing: # Supposing:
   rating: "?"
   booked: 20
-  dates: [11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {11: "10:30", 12: "12:45", 13: "15:15", 14: "18:00", 15: "20:30", 16: "10:30", 18: "12:45", 19: "18:00", 20: "18:00", 21: "20:30", 22: "10:30", 23: "12:45", 25: "15:15", 26: "18:00", 27: "20:30", 28: "10:30", 29: "12:45", 30: "20:30"}
+  dates: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {12: "12:45", 13: "15:15", 14: "18:00", 15: "20:30", 16: "10:30", 18: "12:45", 19: "18:00", 20: "18:00", 21: "20:30", 22: "10:30", 23: "12:45", 25: "15:15", 26: "18:00", 27: "20:30", 28: "10:30", 29: "12:45", 30: "20:30"}
+  noAvailability: [12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 28]
 
 ten-thousand-hours: # Ten Thousand Hours
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  noAvailability: [10, 11]
 
 the-bbc-s-first-homosexual: # The BBC's First Homosexual
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  noAvailability: [8, 9, 10, 12, 14, 15, 16]
 
 the-big-bite-size-breakfast-show: # The Big Bite-Size Breakfast Show
   rating: 0
@@ -374,11 +407,13 @@ the-speakeasy-experience: # The Speakeasy Experience
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {6: "17:45-19:45", 7: "17:45-19:45", 8: "17:45-19:45", 9: "17:45-19:45", 10: "17:45-19:45", 11: "17:45-19:45", 12: "17:45-19:45", 13: "17:45-19:45", 14: "17:45-19:45", 15: "17:45-19:45", 16: "17:45-19:45", 17: "17:45-19:45", 18: "17:45-19:45", 19: "17:45-19:45", 20: "17:45-19:45", 21: "17:45-19:45", 22: "17:45-19:45", 23: "17:45-19:45", 24: "17:45-19:45", 25: "17:45-19:45", 26: "17:45-19:45", 27: "17:45-19:45", 28: "17:45-19:45", 29: "17:45-19:45", 30: "17:45-19:45", 31: "17:45-19:45"}
+  noAvailability: [10, 11]
 
 the-sumo-show-hirakuza: # The Sumo Show HIRAKUZA
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   booked: 26
+  noAvailability: [8, 10]
 
 the-vagina-monologues: # The Vagina Monologues
   rating: 0
@@ -399,18 +434,22 @@ via-dolorosa-by-david-hare: # Via Dolorosa by David Hare
 wagner-s-ring-for-people-who-can-t-be-bothered-to-sit-through-it: # Wagner’s Ring for people who can’t be bothered to sit through it
   rating: 0
   dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  noAvailability: [17, 18, 19, 20]
 
 water-colour: # Water Colour
   rating: "?"
   booked: 16
-  dates: [6, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {6: "20:30", 11: "18:00", 12: "20:30", 13: "18:00", 14: "12:45", 15: "15:15", 16: "18:00", 18: "20:30", 19: "15:15", 20: "12:45", 21: "15:15", 22: "18:00", 23: "20:30", 25: "12:45", 26: "12:45", 27: "15:15", 28: "18:00", 29: "20:30", 30: "15:15"}
+  dates: [6, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {6: "20:30", 12: "20:30", 13: "18:00", 14: "12:45", 15: "15:15", 16: "18:00", 18: "20:30", 19: "15:15", 20: "12:45", 21: "15:15", 22: "18:00", 23: "20:30", 25: "12:45", 26: "12:45", 27: "15:15", 28: "18:00", 29: "20:30", 30: "15:15"}
+  noAvailability: [12, 13, 14, 15, 19]
 
 witch-women-on-trial: # Witch? Women on Trial
   rating: 0
   dates: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+  noAvailability: [10]
 
 youth-in-flames-winner-scotsman-fringe-first-award: # Youth in Flames – Winner: Scotsman Fringe First Award
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {5: "11:30", 6: "11:30", 7: "11:30", 8: "11:30", 9: "11:30", 10: "11:30", 11: "11:30", 12: "11:30-14:10", 13: "11:30", 14: "11:30", 15: "11:30", 16: "11:30", 17: "11:30", 18: "11:30-14:10", 20: "11:30", 21: "11:30", 22: "11:30", 23: "11:30", 24: "11:30", 25: "11:30-14:10", 26: "11:30", 27: "11:30", 28: "11:30", 29: "11:30", 30: "11:30", 31: "11:30"}
+  noAvailability: [9]

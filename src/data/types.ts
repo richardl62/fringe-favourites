@@ -40,4 +40,7 @@ export interface Show {
   unrated: boolean;
   booked: boolean;
   times: TimesT;
+  // Day-of-month numbers with no allocation remaining, per edfringe.com's
+  // own "no allocation remaining" date indicator.
+  noAvailability: number[];
 }

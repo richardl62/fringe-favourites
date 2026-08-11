@@ -10,21 +10,24 @@ function formatDuration(minutes: number): string {
   return `${hours.toString()}:${mins.toString().padStart(2, "0")}`;
 }
 
-const DateSpan = styled.span`
+const DateSpan = styled.span<{ $unavailable: boolean }>`
   text-align: center;
+  color: ${(props) => (props.$unavailable ? "firebrick" : "inherit")};
 `;
 
 function Date({
   date,
   startDate,
+  unavailable,
 }: {
   date: number | typeof unknownDate;
   startDate: number | null;
+  unavailable: boolean;
 }) {
   if (date === startDate) {
     return null;
   }
-  return <DateSpan>{date}</DateSpan>;
+  return <DateSpan $unavailable={unavailable}>{date}</DateSpan>;
 }
 
 function ShowLink({ showInfo }: { showInfo: ShowInfo }) {
@@ -36,8 +39,12 @@ function ShowLink({ showInfo }: { showInfo: ShowInfo }) {
   );
 }
 
+const StartTimeSpan = styled.span<{ $unavailable: boolean }>`
+  color: ${(props) => (props.$unavailable ? "firebrick" : "inherit")};
+`;
+
 function StartTime({ showInfo }: { showInfo: ShowInfo }) {
-  const { startTime, startTimeVaries, booked } = showInfo;
+  const { startTime, startTimeVaries, startTimeUnavailable, booked } = showInfo;
   let time: string;
   if (startTime === null) {
     time = "misc";
@@ -51,7 +58,7 @@ function StartTime({ showInfo }: { showInfo: ShowInfo }) {
     time += "+";
   }
 
-  return <span>{time}</span>;
+  return <StartTimeSpan $unavailable={startTimeUnavailable}>{time}</StartTimeSpan>;
 }
 
 const ShowList = styled.div`
@@ -105,7 +112,11 @@ export function ShowInfoList({
     addElem(<ShowLink showInfo={info} />, rowKey, "link");
     addElem(<StartTime showInfo={info} />, rowKey, "start");
     addElem(
-      <Date date={info.nextPerformance} startDate={startDate} />,
+      <Date
+        date={info.nextPerformance}
+        startDate={startDate}
+        unavailable={info.nextPerformanceUnavailable}
+      />,
       rowKey,
       "dates",
     );

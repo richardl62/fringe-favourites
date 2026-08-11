@@ -15,8 +15,10 @@ function info(overrides: Partial<ShowInfo> = {}): ShowInfo {
     unrated: false,
     booked: false,
     times: "20:00",
+    noAvailability: [],
     startTime: null,
     startTimeVaries: false,
+    startTimeUnavailable: false,
     ...overrides,
   };
 }
@@ -50,6 +52,36 @@ describe("addNextPerformance", () => {
     const result = addNextPerformance([info()], 21);
 
     expect(result).toHaveLength(0);
+  });
+
+  it("marks nextPerformance unavailable when it has no allocation remaining", () => {
+    const [result] = addNextPerformance(
+      [info({ dates: [10, 15, 20], noAvailability: [15] })],
+      12,
+    );
+
+    expect(result.nextPerformance).toBe(15);
+    expect(result.nextPerformanceUnavailable).toBe(true);
+  });
+
+  it("does not mark nextPerformance unavailable for a different date's entry", () => {
+    const [result] = addNextPerformance(
+      [info({ dates: [10, 15, 20], noAvailability: [10] })],
+      12,
+    );
+
+    expect(result.nextPerformance).toBe(15);
+    expect(result.nextPerformanceUnavailable).toBe(false);
+  });
+
+  it("is never unavailable when the next performance date is unknown", () => {
+    const [result] = addNextPerformance(
+      [info({ dates: unknownDate, noAvailability: [10] })],
+      12,
+    );
+
+    expect(result.nextPerformance).toBe(unknownDate);
+    expect(result.nextPerformanceUnavailable).toBe(false);
   });
 
   it("processes multiple shows independently", () => {

@@ -16,6 +16,7 @@ export interface ShowNotes {
   dates?: number[];
   booked?: number;
   times?: Record<number, PerformanceTime>;
+  noAvailability?: number[];
 }
 
 export interface ParsedShows {
@@ -30,7 +31,7 @@ export interface ParsedShows {
 }
 
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
-const NOTE_FIELDS = ["rating", "dates", "booked", "times"];
+const NOTE_FIELDS = ["rating", "dates", "booked", "times", "noAvailability"];
 const KNOWN_FIELDS = [...RAW_FIELDS, ...NOTE_FIELDS];
 
 function checkUnknownFields(entry: Record<string, unknown>): void {
@@ -148,14 +149,17 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
   if (entry.times !== undefined) {
     notes.times = parseTimes(entry.times);
   }
+  if (entry.noAvailability !== undefined) {
+    notes.noAvailability = parseDayList(entry.noAvailability, "noAvailability");
+  }
 
   return notes;
 }
 
 /** Parse shows.yaml: hand-written entries for shows not in the edfringe.com
  * CSV export (raw fields), plus hand-written notes - rating/dates/booking/
- * times - for any show. A bad entry is skipped and reported rather than
- * aborting the whole file. */
+ * times/availability - for any show. A bad entry is skipped and reported
+ * rather than aborting the whole file. */
 export function parseShows(text: string, problems: Problem[]): ParsedShows {
   const lineCount = text.split(/\r\n|\r|\n/).length;
 

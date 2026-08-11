@@ -8,6 +8,9 @@ export interface ExtendedShowInfo extends ShowInfo {
   // - the first date in the dates array on or after the UI start date if it is set
   // Shows with no suitable dates are filtered out.
   nextPerformance: number | typeof unknownDate;
+  // True when nextPerformance has no allocation remaining - see
+  // data/types.ts's Show.noAvailability.
+  nextPerformanceUnavailable: boolean;
 }
 
 /** Add next performance date to shows in the favourites list,
@@ -32,6 +35,9 @@ export function addNextPerformance(
       extendedInfo.push({
         ...fav,
         nextPerformance,
+        nextPerformanceUnavailable:
+          nextPerformance !== unknownDate &&
+          fav.noAvailability.includes(nextPerformance),
       });
     }
   }

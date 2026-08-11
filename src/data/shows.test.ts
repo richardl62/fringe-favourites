@@ -72,6 +72,34 @@ a-show:
     });
   });
 
+  it("parses noAvailability", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  dates: [10, 11]
+  noAvailability: [11]
+`);
+
+    expect(problems).toHaveLength(0);
+    expect(notesById.get("a-show")?.noAvailability).toEqual([11]);
+  });
+
+  it("rejects a non-numeric noAvailability entry", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  dates: [10]
+  noAvailability: ["eleven"]
+`);
+
+    expect(notesById.has("a-show")).toBe(false);
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes('"noAvailability" should be a list of day-of-month numbers'),
+      ),
+    ).toBe(true);
+  });
+
   it("treats a '?' rating as no rating", () => {
     const { notesById } = parse(`
 a-show:

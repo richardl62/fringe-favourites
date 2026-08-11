@@ -14,6 +14,7 @@ function show(times: TimesT, overrides: Partial<Show> = {}): Show {
     unrated: false,
     booked: false,
     times,
+    noAvailability: [],
     ...overrides,
   };
 }
@@ -102,6 +103,48 @@ describe("getFavourites", () => {
     );
 
     expect(info.startTime).toBe("19:00");
+  });
+
+  it("marks the start time unavailable when the resolved date has no allocation remaining", () => {
+    const [info] = getFavourites(
+      [
+        show(
+          { 10: { kind: "single", time: "19:00" } },
+          { noAvailability: [10] },
+        ),
+      ],
+      10,
+    );
+
+    expect(info.startTimeUnavailable).toBe(true);
+  });
+
+  it("does not mark the start time unavailable for a different date's no-availability entry", () => {
+    const [info] = getFavourites(
+      [
+        show(
+          { 10: { kind: "single", time: "19:00" } },
+          { noAvailability: [11] },
+        ),
+      ],
+      10,
+    );
+
+    expect(info.startTimeUnavailable).toBe(false);
+  });
+
+  it("marks a booked show's start time unavailable using its booked date", () => {
+    const [info] = getFavourites(
+      [
+        show(
+          { 20: { kind: "single", time: "19:00" } },
+          { booked: true, dates: [20], noAvailability: [20] },
+        ),
+      ],
+      10,
+    );
+
+    expect(info.startTimeUnavailable).toBe(true);
   });
 
   it("processes multiple shows independently", () => {

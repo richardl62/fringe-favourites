@@ -15,9 +15,12 @@ function info(overrides: Partial<ExtendedShowInfo> = {}): ExtendedShowInfo {
     unrated: false,
     booked: false,
     times: "20:00",
+    noAvailability: [],
     startTime: null,
     startTimeVaries: false,
+    startTimeUnavailable: false,
     nextPerformance: 10,
+    nextPerformanceUnavailable: false,
     ...overrides,
   };
 }

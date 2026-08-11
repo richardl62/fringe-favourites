@@ -201,6 +201,69 @@ describe("buildFavourites", () => {
     ).toBe(false);
   });
 
+  it("carries through noAvailability dates with no problem", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      dates: [10, 11],
+      times: {
+        10: { kind: "single", time: "20:00" },
+        11: { kind: "single", time: "20:00" },
+      },
+      noAvailability: [11],
+    };
+    const { shows, problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].noAvailability).toEqual([11]);
+    expect(problems).toHaveLength(0);
+  });
+
+  it("defaults noAvailability to an empty list when not given", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      dates: [10],
+      times: { 10: { kind: "single", time: "20:00" } },
+    };
+    const { shows } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].noAvailability).toEqual([]);
+  });
+
+  it("warns about a noAvailability entry for a date not in the dates list", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      dates: [10],
+      times: { 10: { kind: "single", time: "20:00" } },
+      noAvailability: [11],
+    };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes(
+          'has a "no availability" entry for date(s) 11 not in its dates list',
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not warn about a stale noAvailability entry once the show is booked", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      dates: [10, 11],
+      booked: 10,
+      times: {
+        10: { kind: "single", time: "20:00" },
+        11: { kind: "single", time: "20:00" },
+      },
+      noAvailability: [11],
+    };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(
+      hasProblem(problems, (p) => p.message.includes("no availability")),
+    ).toBe(false);
+  });
+
   it("warns about a shows.yaml entry with no matching CSV show", () => {
     const notes: ShowNotes = { rating: 1, dates: [10] };
     const { problems } = build([], new Map([["orphan-show", notes]]));

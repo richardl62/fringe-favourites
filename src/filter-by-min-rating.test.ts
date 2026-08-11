@@ -14,8 +14,10 @@ function info(overrides: Partial<ShowInfo> = {}): ShowInfo {
     unrated: false,
     booked: false,
     times: "20:00",
+    noAvailability: [],
     startTime: null,
     startTimeVaries: false,
+    startTimeUnavailable: false,
     ...overrides,
   };
 }

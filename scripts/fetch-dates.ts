@@ -1,6 +1,7 @@
-// Fetches each show's performance dates/times from edfringe.com and writes
-// them into public/shows.yaml's "dates"/"times" fields, in place, preserving
-// everything else in the file (comments, other fields, formatting).
+// Fetches each show's performance dates/times/availability from
+// edfringe.com and writes them into public/shows.yaml's
+// "dates"/"times"/"noAvailability" fields, in place, preserving everything
+// else in the file (comments, other fields, formatting).
 //
 // Run with: npm run fetch-dates
 //
@@ -24,7 +25,13 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { isScalar, parseDocument, YAMLMap, type Document, type Pair } from "yaml";
+import {
+  isScalar,
+  parseDocument,
+  YAMLMap,
+  type Document,
+  type Pair,
+} from "yaml";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
@@ -59,7 +66,11 @@ function idsFromText(text: string): Set<string> {
  * any shows.yaml-only entries whose "url" also points at an edfringe.com
  * show page (entries pointing elsewhere, e.g. a free-fringe listing, are
  * left alone). */
-function discoverShowIds(csvText: string, doc: Document, root: YAMLMap): Set<string> {
+function discoverShowIds(
+  csvText: string,
+  doc: Document,
+  root: YAMLMap,
+): Set<string> {
   const ids = idsFromText(csvText);
 
   for (const item of root.items) {
@@ -83,15 +94,26 @@ function hasExistingDates(doc: Document, id: string): boolean {
 
 // --- Fetch and parse a show's __NEXT_DATA__ payload -----------------------
 
+// edfringe.com's own date picker shows a date as "No allocation remaining"
+// (a red bar under the date) when every performance that day has this
+// ticketStatus - see the DATES tab of e.g.
+// https://www.edfringe.com/tickets/whats-on/the-bbc-s-first-homosexual.
+const NO_ALLOCATION_STATUS = "NO_ALLOCATION_CONTACT_VENUE";
+
 interface Performance {
   dateTime: string;
   cancelled: boolean;
+  ticketStatus: string;
 }
 
 function isPerformance(value: unknown): value is Performance {
   if (typeof value !== "object" || value === null) return false;
   const v = value as Record<string, unknown>;
-  return typeof v.dateTime === "string" && typeof v.cancelled === "boolean";
+  return (
+    typeof v.dateTime === "string" &&
+    typeof v.cancelled === "boolean" &&
+    typeof v.ticketStatus === "string"
+  );
 }
 
 function field(obj: unknown, key: string): unknown {
@@ -161,7 +183,9 @@ async function fetchPerformances(id: string): Promise<FetchedPerformances> {
     if (isPerformance(raw)) {
       performances.push(raw);
     } else {
-      problems.push(`performance ${String(index)} had an unexpected shape and was skipped`);
+      problems.push(
+        `performance ${String(index)} had an unexpected shape and was skipped`,
+      );
     }
   });
 
@@ -206,6 +230,8 @@ interface Schedule {
    * (shown as "varies" with no specific time - see shows.yaml's header) when
    * even a single performance's time couldn't be determined. */
   times: Map<number, string> | null;
+  /** Dates where every performance has no allocation remaining. */
+  noAvailability: number[];
   problems: string[];
 }
 
@@ -218,26 +244,32 @@ function buildSchedule(performances: Performance[]): Schedule {
     return {
       dates: [],
       times: null,
+      noAvailability: [],
       problems: ["no non-cancelled performances were found"],
     };
   }
 
-  const timesByDay = new Map<number, Set<string>>();
+  const performancesByDay = new Map<
+    number,
+    { time: string; ticketStatus: string }[]
+  >();
   for (const performance of active) {
     const { day, time } = toLondonDayAndTime(performance.dateTime);
-    let times = timesByDay.get(day);
-    if (!times) {
-      times = new Set();
-      timesByDay.set(day, times);
+    let dayPerformances = performancesByDay.get(day);
+    if (!dayPerformances) {
+      dayPerformances = [];
+      performancesByDay.set(day, dayPerformances);
     }
-    times.add(time);
+    dayPerformances.push({ time, ticketStatus: performance.ticketStatus });
   }
 
   const problems: string[] = [];
   const byDay = new Map<number, string>();
   const singleTimes = new Set<string>();
+  const noAvailability: number[] = [];
   let hasMultiplePerformanceDay = false;
-  for (const [day, times] of timesByDay) {
+  for (const [day, dayPerformances] of performancesByDay) {
+    const times = new Set(dayPerformances.map((p) => p.time));
     const sorted = [...times].sort();
     if (sorted.length === 1) {
       byDay.set(day, sorted[0]);
@@ -254,22 +286,28 @@ function buildSchedule(performances: Performance[]): Schedule {
         `day ${String(day)} has performances at ${String(sorted.length)} different times (${sorted.join(", ")}) - recorded as "many"`,
       );
     }
+
+    if (dayPerformances.every((p) => p.ticketStatus === NO_ALLOCATION_STATUS)) {
+      noAvailability.push(day);
+    }
   }
 
-  const dates = [...timesByDay.keys()].sort((a, b) => a - b);
+  const dates = [...performancesByDay.keys()].sort((a, b) => a - b);
   const times =
     !hasMultiplePerformanceDay && problems.length === 0 && singleTimes.size <= 1
       ? null
       : byDay;
+  noAvailability.sort((a, b) => a - b);
 
-  return { dates, times, problems };
+  return { dates, times, noAvailability, problems };
 }
 
 // --- Scrape a single show ---------------------------------------------------
 
 interface ScrapeOutcome {
   /** null means the page couldn't be read at all, so there's no schedule
-   * data available this run - any existing dates/times are left as they are. */
+   * data available this run - any existing dates/times/noAvailability are
+   * left as they are. */
   schedule: Schedule | null;
   problems: string[];
 }
@@ -326,7 +364,9 @@ function updateProblemComment(pair: Pair, problems: string[]): void {
   const existing =
     typeof key.commentBefore === "string" ? key.commentBefore : "";
   const paragraphs =
-    existing.trim().length > 0 ? existing.replace(/\n+$/, "").split(/\n\s*\n/) : [];
+    existing.trim().length > 0
+      ? existing.replace(/\n+$/, "").split(/\n\s*\n/)
+      : [];
   const lastIsOwnedProblem =
     paragraphs.length > 0 &&
     paragraphs[paragraphs.length - 1].trimStart().startsWith(PROBLEM_PREFIX);
@@ -349,7 +389,7 @@ function applyOutcome(
   const { pair, entry } = findOrCreateEntry(doc, root, id);
 
   if (outcome.schedule !== null) {
-    const { dates, times } = outcome.schedule;
+    const { dates, times, noAvailability } = outcome.schedule;
 
     const datesNode = doc.createNode(dates);
     datesNode.flow = true;
@@ -366,6 +406,14 @@ function applyOutcome(
       entry.set("times", timesMap);
     } else {
       entry.delete("times");
+    }
+
+    if (noAvailability.length > 0) {
+      const noAvailabilityNode = doc.createNode(noAvailability);
+      noAvailabilityNode.flow = true;
+      entry.set("noAvailability", noAvailabilityNode);
+    } else {
+      entry.delete("noAvailability");
     }
   }
 
