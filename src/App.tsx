@@ -35,6 +35,7 @@ function App() {
   const [sortByRating, setSortByRating] = React.useState(false);
   const [minRating, setMinRating] = React.useState<MinRating>("0");
   const [availableOnly, setAvailableOnly] = React.useState(true);
+  const [showRemainingDates, setShowRemainingDates] = React.useState(false);
   const [rawStartDate, setRawStartDate] = React.useState(() =>
     new Date().getDate().toString(),
   );
@@ -164,6 +165,17 @@ function App() {
         </label>
 
         <label>
+          {"Show remaining dates "}
+          <input
+            type="checkbox"
+            checked={showRemainingDates}
+            onChange={() => {
+              setShowRemainingDates(!showRemainingDates);
+            }}
+          />
+        </label>
+
+        <label>
           <a href="#problems">
             Problems
             {countedProblems.length > 0
@@ -172,7 +184,11 @@ function App() {
           </a>
         </label>
       </Inputs>
-      <ShowInfoList showInfo={extendedFavourites} startDate={startDate} />
+      <ShowInfoList
+        showInfo={extendedFavourites}
+        startDate={startDate}
+        showRemainingDates={showRemainingDates}
+      />
     </OuterDiv>
   );
 }

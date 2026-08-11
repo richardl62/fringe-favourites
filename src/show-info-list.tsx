@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import styled from "styled-components";
-import { unknownDate } from "./data/types";
+import { unknownDate, type DatesT } from "./data/types";
 import { ShowInfo } from "./get-favourites";
 import { ExtendedShowInfo } from "./add-next-performance";
 
@@ -22,9 +22,12 @@ function formatVenue(venue: string): string {
 // Brighter than "firebrick" so it's unmistakable in a dense grid of small text.
 const UNAVAILABLE_COLOR = "red";
 
-const DateSpan = styled.span<{ $unavailable: boolean }>`
-  text-align: center;
+const UnavailableText = styled.span<{ $unavailable: boolean }>`
   color: ${(props) => (props.$unavailable ? UNAVAILABLE_COLOR : "inherit")};
+`;
+
+const DateSpan = styled(UnavailableText)`
+  text-align: center;
 `;
 
 function Date({
@@ -51,10 +54,6 @@ function ShowLink({ showInfo }: { showInfo: ShowInfo }) {
   );
 }
 
-const StartTimeSpan = styled.span<{ $unavailable: boolean }>`
-  color: ${(props) => (props.$unavailable ? UNAVAILABLE_COLOR : "inherit")};
-`;
-
 function StartTime({ showInfo }: { showInfo: ShowInfo }) {
   const { startTime, startTimeVaries, startTimeUnavailable, booked } = showInfo;
   let time: string;
@@ -70,7 +69,38 @@ function StartTime({ showInfo }: { showInfo: ShowInfo }) {
     time += "+";
   }
 
-  return <StartTimeSpan $unavailable={startTimeUnavailable}>{time}</StartTimeSpan>;
+  return <UnavailableText $unavailable={startTimeUnavailable}>{time}</UnavailableText>;
+}
+
+// The dates a show is still on from the selected Date onwards (or all of
+// them, if no Date is set) - each individually flagged red if it has no
+// allocation remaining. When "Available only" is on, such dates have
+// already been dropped upstream (see filter-available-dates.ts), so none
+// show up here at all.
+function RemainingDates({
+  dates,
+  noAvailability,
+  startDate,
+}: {
+  dates: DatesT;
+  noAvailability: number[];
+  startDate: number | null;
+}) {
+  if (dates === unknownDate) {
+    return <span>{unknownDate}</span>;
+  }
+  const remaining =
+    startDate === null ? dates : dates.filter((date) => date >= startDate);
+
+  return (
+    <span>
+      {remaining.map((date, index) => (
+        <UnavailableText key={date} $unavailable={noAvailability.includes(date)}>
+          {index > 0 ? `, ${String(date)}` : date}
+        </UnavailableText>
+      ))}
+    </span>
+  );
 }
 
 const ShowList = styled.div`
@@ -96,9 +126,11 @@ const Wrapper = styled.div`
 export function ShowInfoList({
   showInfo,
   startDate,
+  showRemainingDates,
 }: {
   showInfo: ExtendedShowInfo[];
   startDate: number | null;
+  showRemainingDates: boolean;
 }) {
   if (!showInfo.length) {
     return <div>No shows found</div>;
@@ -134,7 +166,19 @@ export function ShowInfoList({
     );
     addElem(formatDuration(info.durationMinutes), rowKey, "duration");
     addElem(ratingString(info), rowKey, "rating");
-    addElem(formatVenue(info.venue), rowKey, "venue");
+    addElem(
+      showRemainingDates ? (
+        <RemainingDates
+          dates={info.dates}
+          noAvailability={info.noAvailability}
+          startDate={startDate}
+        />
+      ) : (
+        formatVenue(info.venue)
+      ),
+      rowKey,
+      "venue",
+    );
   });
 
   return <ShowList>{gridElems}</ShowList>;
