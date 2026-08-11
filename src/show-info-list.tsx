@@ -10,9 +10,12 @@ function formatDuration(minutes: number): string {
   return `${hours.toString()}:${mins.toString().padStart(2, "0")}`;
 }
 
+// Brighter than "firebrick" so it's unmistakable in a dense grid of small text.
+const UNAVAILABLE_COLOR = "red";
+
 const DateSpan = styled.span<{ $unavailable: boolean }>`
   text-align: center;
-  color: ${(props) => (props.$unavailable ? "firebrick" : "inherit")};
+  color: ${(props) => (props.$unavailable ? UNAVAILABLE_COLOR : "inherit")};
 `;
 
 function Date({
@@ -40,7 +43,7 @@ function ShowLink({ showInfo }: { showInfo: ShowInfo }) {
 }
 
 const StartTimeSpan = styled.span<{ $unavailable: boolean }>`
-  color: ${(props) => (props.$unavailable ? "firebrick" : "inherit")};
+  color: ${(props) => (props.$unavailable ? UNAVAILABLE_COLOR : "inherit")};
 `;
 
 function StartTime({ showInfo }: { showInfo: ShowInfo }) {
