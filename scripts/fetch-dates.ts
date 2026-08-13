@@ -268,6 +268,7 @@ function buildSchedule(performances: Performance[]): Schedule {
   const singleTimes = new Set<string>();
   const noAvailability: number[] = [];
   let hasMultiplePerformanceDay = false;
+  let hasManyPerformancesDay = false;
   for (const [day, dayPerformances] of performancesByDay) {
     const times = new Set(dayPerformances.map((p) => p.time));
     const sorted = [...times].sort();
@@ -281,15 +282,17 @@ function buildSchedule(performances: Performance[]): Schedule {
       byDay.set(day, sorted.join("-"));
     } else {
       hasMultiplePerformanceDay = true;
+      hasManyPerformancesDay = true;
       byDay.set(day, "many");
-      problems.push(
-        `day ${String(day)} has performances at ${String(sorted.length)} different times (${sorted.join(", ")}) - recorded as "many"`,
-      );
     }
 
     if (dayPerformances.every((p) => p.ticketStatus === NO_ALLOCATION_STATUS)) {
       noAvailability.push(day);
     }
+  }
+
+  if (hasManyPerformancesDay) {
+    problems.push("some dates have more than two performances");
   }
 
   const dates = [...performancesByDay.keys()].sort((a, b) => a - b);
