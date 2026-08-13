@@ -1,7 +1,9 @@
 // Tidies public/shows.yaml in place, preserving everything else in the file
 // (comments, other fields, formatting):
 //  - sorts entries alphabetically by id
-//  - adds `rating: "?"` to any entry that doesn't have a "rating" field yet
+//  - adds `rating: "?"` to any entry that doesn't have a "rating" field yet,
+//    unless it's booked - a booked show doesn't need one (see the app's
+//    own "don't report booked shows as unrated" behaviour)
 //  - adds/updates a trailing "# Show Title" comment after each entry's key,
 //    so the show's name is searchable even though entries are keyed by id
 //
@@ -24,7 +26,7 @@ function addMissingRatings(doc: Document, root: YAMLMap): void {
     if (!(item.value instanceof YAMLMap)) {
       throw new Error(`shows.yaml entry "${id}" isn't a mapping`);
     }
-    if (!item.value.has("rating")) {
+    if (!item.value.has("rating") && !item.value.has("booked")) {
       item.value.items.unshift(doc.createPair("rating", "?"));
     }
   }
