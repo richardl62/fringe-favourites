@@ -8,10 +8,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Use a fail-fast principle. Prefer throws, assertions, or even exceptions to workarounds that might hide mistakes in the design. When an invariant is violated, throw explicitly rather than silently skipping.
 - Make good use of TypeScript, in particular avoid unnecessary `any`.
 - If something is unclear, ask — don't hide confusion.
-- If a simpler or cleaner approach exists say so and push back when warranted.
-- If an instruction seems ill-judged or undesirable say so and push back when warranted.
+- If an instruction seems ill-judged or undesirable, or if a simpler or cleaner approach exists, say so and push back when warranted.
 - When making changes also update tests as appproprate.
-- Don't commit changes unless asked. When committing, ingore public/my_fringe_favourites.csv and public/shows.yaml (unless asked to include them).
+- When committing, changes to files in public/ should not be part of a git add unless those changes reflect the code changes being committed.
 
 ## Environment
 
