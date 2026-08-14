@@ -4,8 +4,9 @@
 //  - adds `rating: "?"` to any entry that doesn't have a "rating" field yet,
 //    unless it's booked - a booked show doesn't need one (see the app's
 //    own "don't report booked shows as unrated" behaviour)
-//  - adds/updates a trailing "# Show Title" comment after each entry's key,
-//    so the show's name is searchable even though entries are keyed by id
+//  - adds/updates a "# Show Title" comment on the line after each entry's
+//    key, so the show's name is searchable even though entries are keyed
+//    by id
 //
 // Run with: npm run tidy-shows
 
@@ -62,10 +63,10 @@ function titlesFromCsv(csvText: string): Map<string, string> {
   return titles;
 }
 
-/** Adds/updates a trailing "# Show Title" comment on each entry's key, so
- * the file can be searched by show name despite being keyed by id. An
- * entry's own "title" field (for shows not in the CSV) wins over the CSV;
- * an id matching neither is left alone - there's nothing to show. */
+/** Adds/updates a "# Show Title" comment on the line after each entry's
+ * key, so the file can be searched by show name despite being keyed by id.
+ * An entry's own "title" field (for shows not in the CSV) wins over the
+ * CSV; an id matching neither is left alone - there's nothing to show. */
 function addTitleComments(root: YAMLMap, titleById: Map<string, string>): void {
   for (const item of root.items) {
     if (!isScalar(item.key) || !(item.value instanceof YAMLMap)) {
@@ -76,11 +77,13 @@ function addTitleComments(root: YAMLMap, titleById: Map<string, string>): void {
     const title =
       typeof ownTitle === "string" ? ownTitle : titleById.get(id);
     if (title) {
-      // On a round trip, a key's trailing comment reappears as its nested
-      // map's commentBefore rather than staying on the key - clear that
-      // out first so re-running this doesn't duplicate the comment.
-      item.value.commentBefore = undefined;
-      item.key.comment = ` ${title}`;
+      // Own line, before the entry's fields, rather than trailing on the
+      // id line - eemeli/yaml's parser reattaches a trailing comment there
+      // on any later round-trip anyway (e.g. by fetch-dates.ts), so writing
+      // it here from the start keeps the file stable instead of shifting
+      // on every run that isn't tidy-shows.
+      item.key.comment = undefined;
+      item.value.commentBefore = ` ${title}`;
     }
   }
 }
