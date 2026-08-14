@@ -37,11 +37,17 @@ Some scripts exist to help update shows.yaml:
   skipping everything already scraped in a previous run - much faster, at
   the cost of assuming edfringe.com hasn't changed anything for those shows
   since.
+- `npm run fetch-free-fringe` scrapes title/venue/duration/start
+  time/dates for each show URL listed in `public/free-fringe-favourites.txt`
+  (one per line) - PBH's Free Fringe shows, which aren't in the
+  edfringe.com CSV export - and writes a full entry for each into
+  shows.yaml. Same `# PROBLEM: ...`/`npm run fetch-free-fringe:quick`
+  behaviour as `fetch-dates` above.
 - `npm run tidy-shows` sorts entries alphabetically by id, adds `rating: "?"`
-  to any entry that doesn't have a rating yet, and adds/updates a trailing
-  `# Show Title` comment on each entry so the file can be searched by name
-  despite being keyed by id.
-- `npm run update-shows` runs `fetch-dates:quick` followed by `tidy-shows`,
-  and is the normal way to bring shows.yaml up to date. Run
-  `npm run fetch-dates` (without `--quick`) occasionally too, to pick up
-  date/time changes on shows already scraped.
+  to any entry that doesn't have a rating yet (unless it's booked), and
+  adds/updates a trailing `# Show Title` comment on each entry so the file
+  can be searched by name despite being keyed by id.
+- `npm run update-shows` runs `fetch-dates`, `fetch-free-fringe`, and
+  `tidy-shows` in sequence, and is the normal way to bring shows.yaml fully
+  up to date. `npm run update-shows:quick` does the same with both fetch
+  steps in `--quick` mode.

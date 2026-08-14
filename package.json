@@ -25,9 +25,11 @@
     "test:watch": "vitest",
     "fetch-dates": "node scripts/fetch-dates.ts",
     "fetch-dates:quick": "node scripts/fetch-dates.ts --quick",
+    "fetch-free-fringe": "node scripts/fetch-free-fringe.ts",
+    "fetch-free-fringe:quick": "node scripts/fetch-free-fringe.ts --quick",
     "tidy-shows": "node scripts/tidy-shows.ts",
-    "update-shows:quick": "npm run fetch-dates:quick && npm run tidy-shows",
-    "update-shows": "npm run fetch-dates && npm run tidy-shows",
+    "update-shows:quick": "npm run fetch-dates:quick && npm run fetch-free-fringe:quick && npm run tidy-shows",
+    "update-shows": "npm run fetch-dates && npm run fetch-free-fringe && npm run tidy-shows",
     "format": "prettier --write .",
     "validate": "npm run type-check && npm run lint && npm run test"
   },
