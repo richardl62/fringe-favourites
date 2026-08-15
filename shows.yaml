@@ -218,7 +218,7 @@ brian-bilston-how-to-lay-an-egg-with-a-horse-inside:
 
 buggers:
   # Buggers
-  rating: 1
+  rating: 2
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   noAvailability: [14, 15, 16]
 
@@ -452,6 +452,12 @@ scottish-comedy-legends-jack-docherty:
   rating: 0
   dates: [28]
 
+see-you-tomorrow:
+  # See You Tomorrow
+  rating: 1
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  times: {7: "17:15", 8: "17:15", 9: "17:15", 10: "17:15", 11: "17:15", 12: "17:15", 13: "17:15", 14: "17:15", 15: "17:15", 17: "11:25", 18: "11:25", 19: "11:25", 20: "11:25", 21: "11:25", 22: "11:25", 24: "11:25", 25: "11:25", 26: "11:25", 27: "11:25", 28: "11:25", 29: "11:25"}
+
 simon-garfunkel-and-beyond:
   # Simon & Garfunkel and Beyond
   rating: 0
@@ -519,6 +525,18 @@ the-event:
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
 
+the-jolly-fisherman:
+  # The Jolly Fisherman
+  rating: 1
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [7, 8, 9, 10, 11, 12, 14, 16, 18, 19, 20, 21, 22, 23, 24, 25, 29]
+
+the-librarians-a-very-serious-comedy:
+  # The Librarians: A Very Serious Comedy!
+  rating: 0
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [11, 15]
+
 the-oxford-gargoyles-jazz-a-cappella:
   # The Oxford Gargoyles: Jazz A Cappella
   rating: 0
@@ -529,6 +547,11 @@ the-pitch:
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31]
   noAvailability: [6, 11, 15]
+
+the-problem:
+  # The Problem
+  rating: 1
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
 the-singer:
   # The Singer
