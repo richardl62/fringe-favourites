@@ -20,10 +20,10 @@
 // frame on the article page (not just the top-level document) for the
 // table, since which embedding technique Scotsman uses could change.
 
-import { writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { chromium, type Frame, type Locator, type Page } from "playwright";
-import { stringify } from "yaml";
+import { parse, stringify } from "yaml";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const OUTPUT_PATH = `${REPO_ROOT}public/scotsman-fringe-reviews.yaml`;
@@ -34,11 +34,61 @@ const LINK_TEXT = "Edinburgh Fringe Theatre 2026";
 const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36";
 const FRAME_SEARCH_TIMEOUT_MS = 20000;
+const DEFAULT_CONSIDERED = "no";
 
 interface ReviewedShow {
   title: string;
   rating: number;
   reviewUrl: string;
+}
+
+interface OutputShow {
+  title: string;
+  rating: number;
+  considered: string;
+  reviewUrl: string;
+}
+
+function isStoredShow(value: unknown): value is { title: string; considered: string } {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+  const v = value as Record<string, unknown>;
+  return typeof v.title === "string" && typeof v.considered === "string";
+}
+
+/** "considered" is a hand-edited field (defaults to "no", manually flipped
+ * to "yes") that this script must never reset on a re-run - so any
+ * existing output file's values are read first, keyed by title, and
+ * carried over onto freshly-scraped shows with the same title. A show
+ * that's new (or whose title changed) gets DEFAULT_CONSIDERED instead. */
+function readExistingConsidered(path: string): Map<string, string> {
+  if (!existsSync(path)) {
+    return new Map();
+  }
+  const parsed: unknown = parse(readFileSync(path, "utf8"));
+  if (!Array.isArray(parsed)) {
+    return new Map();
+  }
+  const considered = new Map<string, string>();
+  for (const entry of parsed) {
+    if (isStoredShow(entry)) {
+      considered.set(entry.title, entry.considered);
+    }
+  }
+  return considered;
+}
+
+function withConsidered(
+  shows: ReviewedShow[],
+  existingConsidered: Map<string, string>,
+): OutputShow[] {
+  return shows.map((show) => ({
+    title: show.title,
+    rating: show.rating,
+    considered: existingConsidered.get(show.title) ?? DEFAULT_CONSIDERED,
+    reviewUrl: show.reviewUrl,
+  }));
 }
 
 async function findArticleUrl(page: Page): Promise<string> {
@@ -141,6 +191,8 @@ function toReviewedShow(row: RawRow, index: number): ReviewedShow {
 }
 
 async function main(): Promise<void> {
+  const existingConsidered = readExistingConsidered(OUTPUT_PATH);
+
   const browser = await chromium.launch();
   try {
     const page = await (
@@ -157,17 +209,21 @@ async function main(): Promise<void> {
     const shows = rawRows
       .map(toReviewedShow)
       .sort((a, b) => a.title.localeCompare(b.title));
+    const outputShows = withConsidered(shows, existingConsidered);
 
     const yamlText =
       `# Star ratings and review links for Edinburgh Fringe Theatre shows,\n` +
       `# scraped from The Scotsman's "${LINK_TEXT}" review roundup article:\n` +
       `# ${articleUrl}\n` +
       `#\n` +
+      `# considered: "yes"/"no" - hand-edited, defaults to "no" for a new\n` +
+      `#             show and is left untouched by later runs of this script.\n` +
+      `#\n` +
       `# Run with: npm run fetch-scotsman-reviews\n\n` +
-      stringify(shows);
+      stringify(outputShows);
     writeFileSync(OUTPUT_PATH, yamlText);
 
-    console.log(`${String(shows.length)} show(s) written to ${OUTPUT_PATH}.`);
+    console.log(`${String(outputShows.length)} show(s) written to ${OUTPUT_PATH}.`);
   } finally {
     await browser.close();
   }
