@@ -1,6 +1,7 @@
 import { buildFavourites } from "./build-favourites";
 import { parseFringeCsv } from "./fringe-csv";
-import { error, type Problem } from "./problems";
+import { error, warn, type Problem } from "./problems";
+import { scotsmanReviewProblems } from "./scotsman-reviews";
 import { parseShows } from "./shows";
 import type { RawShow, Show } from "./types";
 import { showsYamlEditLink, showsYamlPathWarning } from "./vscode-link";
@@ -19,6 +20,22 @@ async function fetchText(fileName: string): Promise<string> {
     );
   }
   return response.text();
+}
+
+/** Unlike my_fringe_favourites.csv/shows.yaml, scotsman-fringe-reviews.yaml
+ * is purely supplementary (it only ever produces "unconsidered" problems) -
+ * so a failure to load it is reported as a problem rather than aborting the
+ * whole page. */
+async function fetchOptionalText(
+  fileName: string,
+): Promise<{ text: string } | { errorMessage: string }> {
+  try {
+    return { text: await fetchText(fileName) };
+  } catch (err) {
+    return {
+      errorMessage: err instanceof Error ? err.message : String(err),
+    };
+  }
 }
 
 function mergeRawShows(
@@ -50,15 +67,26 @@ function mergeRawShows(
 }
 
 export async function loadFavourites(): Promise<LoadResult> {
-  const [csvText, showsText] = await Promise.all([
+  const [csvText, showsText, scotsmanReviewsFetch] = await Promise.all([
     fetchText("my_fringe_favourites.csv"),
     fetchText("shows.yaml"),
+    fetchOptionalText("scotsman-fringe-reviews.yaml"),
   ]);
 
   const problems: Problem[] = [];
   const pathWarning = showsYamlPathWarning();
   if (pathWarning) {
     problems.push(pathWarning);
+  }
+
+  if ("text" in scotsmanReviewsFetch) {
+    problems.push(...scotsmanReviewProblems(scotsmanReviewsFetch.text));
+  } else {
+    problems.push(
+      warn(
+        `Could not load scotsman-fringe-reviews.yaml: ${scotsmanReviewsFetch.errorMessage}`,
+      ),
+    );
   }
 
   const csvShows = parseFringeCsv(csvText, problems);

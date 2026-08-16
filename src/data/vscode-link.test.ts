@@ -1,5 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { showsYamlEditLink, showsYamlPathWarning } from "./vscode-link";
+import {
+  scotsmanReviewsYamlEditLink,
+  showsYamlEditLink,
+  showsYamlPathWarning,
+} from "./vscode-link";
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -18,6 +22,25 @@ describe("showsYamlEditLink", () => {
     vi.stubEnv("VITE_SHOWS_YAML_PATH", "");
 
     expect(showsYamlEditLink(42)).toBeUndefined();
+  });
+});
+
+describe("scotsmanReviewsYamlEditLink", () => {
+  it("builds a vscode:// link when VITE_SCOTSMAN_REVIEWS_YAML_PATH is set", () => {
+    vi.stubEnv(
+      "VITE_SCOTSMAN_REVIEWS_YAML_PATH",
+      "/repo/public/scotsman-fringe-reviews.yaml",
+    );
+
+    expect(scotsmanReviewsYamlEditLink(7)).toBe(
+      "vscode://file//repo/public/scotsman-fringe-reviews.yaml:7:1",
+    );
+  });
+
+  it("returns undefined when VITE_SCOTSMAN_REVIEWS_YAML_PATH is unset", () => {
+    vi.stubEnv("VITE_SCOTSMAN_REVIEWS_YAML_PATH", "");
+
+    expect(scotsmanReviewsYamlEditLink(7)).toBeUndefined();
   });
 });
 

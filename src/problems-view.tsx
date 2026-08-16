@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import styled from "styled-components";
 import type { Problem } from "./data/problems";
 
@@ -47,6 +48,19 @@ function ProblemList({ problems }: { problems: Problem[] }) {
   );
 }
 
+/** Groups already rating-sorted (highest first) "unconsidered" problems into
+ * one list per rating, preserving that order (a Map's insertion order). */
+function groupByRating(problems: Problem[]): { rating: number; problems: Problem[] }[] {
+  const groups = new Map<number, Problem[]>();
+  for (const problem of problems) {
+    const rating = problem.rating ?? 0;
+    const group = groups.get(rating) ?? [];
+    group.push(problem);
+    groups.set(rating, group);
+  }
+  return [...groups].map(([rating, group]) => ({ rating, problems: group }));
+}
+
 export function ProblemsView({
   problems,
   loadError,
@@ -62,6 +76,13 @@ export function ProblemsView({
   const multiplePerformances = problems
     .filter((p) => p.severity === "multiplePerformances")
     .sort((a, b) => (a.link?.title ?? "").localeCompare(b.link?.title ?? ""));
+  const unconsidered = problems
+    .filter((p) => p.severity === "unconsidered")
+    .sort(
+      (a, b) =>
+        (b.rating ?? 0) - (a.rating ?? 0) ||
+        (a.link?.title ?? "").localeCompare(b.link?.title ?? ""),
+    );
 
   return (
     <Wrapper>
@@ -103,6 +124,14 @@ export function ProblemsView({
               <ProblemList problems={multiplePerformances} />
             </>
           )}
+          {groupByRating(unconsidered).map(({ rating, problems: group }) => (
+            <Fragment key={rating}>
+              <SectionHeading>
+                Unconsidered Scotsman reviews: {rating} stars
+              </SectionHeading>
+              <ProblemList problems={group} />
+            </Fragment>
+          ))}
         </>
       )}
     </Wrapper>
