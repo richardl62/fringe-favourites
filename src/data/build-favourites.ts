@@ -40,6 +40,10 @@ export function buildFavourites(
       problems.push(unrated(link, editLink));
     }
 
+    if (notes?.scrapingIssue !== undefined) {
+      problems.push(warn(notes.scrapingIssue, link, editLink));
+    }
+
     const { dates, booked } = resolveDatesAndBooking(
       raw,
       notes,

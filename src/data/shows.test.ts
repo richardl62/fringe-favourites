@@ -72,6 +72,36 @@ a-show:
     });
   });
 
+  it("parses scrapingIssue", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  dates: [10]
+  scrapingIssue: "edfringe.com's page didn't list a performance on 10"
+`);
+
+    expect(problems).toHaveLength(0);
+    expect(notesById.get("a-show")?.scrapingIssue).toBe(
+      "edfringe.com's page didn't list a performance on 10",
+    );
+  });
+
+  it("rejects an empty scrapingIssue", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  dates: [10]
+  scrapingIssue: "  "
+`);
+
+    expect(notesById.has("a-show")).toBe(false);
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes('"scrapingIssue" should be a non-empty string'),
+      ),
+    ).toBe(true);
+  });
+
   it("parses noAvailability", () => {
     const { notesById, problems } = parse(`
 a-show:

@@ -22,6 +22,14 @@
 // written, and a "# PROBLEM: ..." comment is added directly above that show's
 // entry - grep for "PROBLEM" to find them all. The comment is cleared
 // automatically once a later run scrapes the show cleanly.
+//
+// edfringe.com's page HTML is occasionally stale (its "DATES" tab is backed
+// by a separate, more current API than the embedded data this script reads).
+// As a free, no-extra-scraping check for that: if a show is "booked" for a
+// date that's missing from a fresh scrape - which shouldn't be possible,
+// since booking only succeeds for a real performance - a "scrapingIssue"
+// note is written for it (see updateScrapingIssue below), which the app
+// surfaces as a warning on the #problems page.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -319,6 +327,27 @@ async function scrapeShow(id: string): Promise<ScrapeOutcome> {
 
 // --- Apply an outcome into the YAML document -------------------------------
 
+/** A cheap, free way to catch edfringe.com serving stale performance data
+ * for a show (see the "Water Colour" incident this was added for: its page
+ * HTML - what this script scrapes - was missing several performances that
+ * the site's own live "Dates" tab showed, including a date that had
+ * already been booked). Booking only succeeds for a real performance, so a
+ * booked date missing from a *fresh* scrape is a strong signal that the
+ * scrape - not the booking - is the thing that's wrong. Recorded as a
+ * "scrapingIssue" note so it surfaces as a warning on the #problems page,
+ * not just as a "PROBLEM:" comment only visible in shows.yaml itself. */
+function updateScrapingIssue(entry: YAMLMap, dates: number[]): void {
+  const booked = entry.get("booked");
+  if (typeof booked === "number" && !dates.includes(booked)) {
+    entry.set(
+      "scrapingIssue",
+      `edfringe.com's page didn't list a performance on ${String(booked)} (the booked date) when last scraped - its data for this show may be stale. Check the show's "Dates" tab on edfringe.com directly.`,
+    );
+  } else {
+    entry.delete("scrapingIssue");
+  }
+}
+
 function applyOutcome(
   doc: Document,
   root: YAMLMap,
@@ -329,6 +358,7 @@ function applyOutcome(
 
   if (outcome.schedule !== null) {
     const { dates, times, noAvailability } = outcome.schedule;
+    updateScrapingIssue(entry, dates);
 
     const datesNode = doc.createNode(dates);
     datesNode.flow = true;

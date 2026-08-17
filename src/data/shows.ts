@@ -21,6 +21,11 @@ export interface ShowNotes {
   bookedTime?: string;
   times?: Record<number, PerformanceTime>;
   noAvailability?: number[];
+  /** Set by fetch-dates.ts when it spots a likely sign that edfringe.com's
+   * scraped data for this show is stale (see updateScrapingIssue in that
+   * script) - surfaced as a warning on the #problems page rather than left
+   * to only show up as a "PROBLEM:" comment in shows.yaml. */
+  scrapingIssue?: string;
 }
 
 export interface ParsedShows {
@@ -42,6 +47,7 @@ const NOTE_FIELDS = [
   "bookedTime",
   "times",
   "noAvailability",
+  "scrapingIssue",
 ];
 const KNOWN_FIELDS = [...RAW_FIELDS, ...NOTE_FIELDS];
 
@@ -171,6 +177,12 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
   }
   if (entry.noAvailability !== undefined) {
     notes.noAvailability = parseDayList(entry.noAvailability, "noAvailability");
+  }
+  if (entry.scrapingIssue !== undefined) {
+    if (typeof entry.scrapingIssue !== "string" || !entry.scrapingIssue.trim()) {
+      throw new Error('"scrapingIssue" should be a non-empty string');
+    }
+    notes.scrapingIssue = entry.scrapingIssue.trim();
   }
 
   return notes;
