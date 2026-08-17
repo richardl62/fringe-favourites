@@ -80,13 +80,17 @@ function readExistingConsidered(path: string): Map<string, string> {
   return considered;
 }
 
-/** edfringe.com's own CSV export sometimes has a trailing colon that looks
- * like a truncated subtitle (e.g. "Supposing:") which The Scotsman
- * naturally doesn't repeat when it names the same show - so titles are
- * compared with any trailing colon dropped, rather than requiring an exact
- * match. */
+/** The same show's title often differs in punctuation between sources -
+ * e.g. edfringe.com's CSV export has a trailing colon that looks like a
+ * truncated subtitle ("Supposing:"), curly vs straight apostrophes show up
+ * inconsistently, and The Scotsman doesn't always keep a title's "!"/"?".
+ * So titles are compared with all punctuation stripped out and whitespace
+ * collapsed, rather than requiring an exact match. */
 function normalizeTitleForMatching(title: string): string {
-  return title.trim().replace(/:+$/, "").trim();
+  return title
+    .replace(/\p{P}/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** Every show title already in shows.yaml, read from the "# Show Title"
