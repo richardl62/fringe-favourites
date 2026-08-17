@@ -80,6 +80,15 @@ function readExistingConsidered(path: string): Map<string, string> {
   return considered;
 }
 
+/** edfringe.com's own CSV export sometimes has a trailing colon that looks
+ * like a truncated subtitle (e.g. "Supposing:") which The Scotsman
+ * naturally doesn't repeat when it names the same show - so titles are
+ * compared with any trailing colon dropped, rather than requiring an exact
+ * match. */
+function normalizeTitleForMatching(title: string): string {
+  return title.trim().replace(/:+$/, "").trim();
+}
+
 /** Every show title already in shows.yaml, read from the "# Show Title"
  * comment tidy-shows.ts adds above each entry - good enough to spot a
  * match without needing to replicate the app's own title resolution (CSV
@@ -95,7 +104,7 @@ function readShowTitles(path: string): Set<string> {
   const titles = new Set<string>();
   for (const item of root.items) {
     if (isMap(item.value) && typeof item.value.commentBefore === "string") {
-      titles.add(item.value.commentBefore.trim());
+      titles.add(normalizeTitleForMatching(item.value.commentBefore));
     }
   }
   return titles;
@@ -113,7 +122,8 @@ function withConsidered(
     // favourite - added there deliberately, so it counts as considered)
     // wins over the plain "no" default.
     considered:
-      existingConsidered.get(show.title) === "yes" || showTitles.has(show.title)
+      existingConsidered.get(show.title) === "yes" ||
+      showTitles.has(normalizeTitleForMatching(show.title))
         ? "yes"
         : DEFAULT_CONSIDERED,
     reviewUrl: show.reviewUrl,
