@@ -3,7 +3,9 @@
 # https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/best-edinburgh-fringe-theatre-2026-four-five-star-shows-reviews-8839869
 #
 # considered: "yes"/"no" - hand-edited, defaults to "no" for a new
-#             show and is left untouched by later runs of this script.
+#             show, but starts "yes" if the show's title is already in
+#             shows.yaml (i.e. already a favourite). Otherwise left
+#             untouched by later runs of this script.
 #
 # Run with: npm run fetch-scotsman-reviews
 
@@ -17,7 +19,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-giraffe-turn-your-fcking-phones-off-a-gay-masseurs-guide-to-happy-endings-the-toe-poke-8886153
 - title: ALONE
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-alone-blackbox-hadid-basic-bald-btch-live-from-the-afterlife-8920885
 - title: Apples in Winter
   rating: 4
@@ -33,7 +35,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-king-of-all-birds-baby-everything-puttana-the-second-best-school-shooting-ae-the-painted-revolutionary-8917948
 - title: Badgers
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-supposing-for-dolores-badgers-8847434
 - title: Big Stuff
   rating: 4
@@ -53,7 +55,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-dracula-lucys-dream-burn-emma-and-warren-in-the-garden-of-eden-8848051
 - title: Cathy
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-mayflies-after-party-cathy-8885264
 - title: Come Back Home
   rating: 4
@@ -89,7 +91,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-glass-child-the-spectacular-vermin-sisters-8847298
 - title: Good With Faces
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-good-with-faces-day-of-the-locust-helen-bradley-painter-and-storyteller-8848665
 - title: "Helen Bradley: Painter and Storyteller"
   rating: 4
@@ -125,7 +127,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-lifelong-the-bbcs-first-homosexual-11-12-angry-men-theyre-just-small-town-northern-lads-departure-is-my-homecoming-8847127
 - title: Linus Karp Was Hit With An Umbrella
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-come-back-home-linus-karp-was-hit-with-an-umbrella-transmission-into-the-dark-sarah-mcguinness-grit-glamour-and-gaslight-mister-jackpot-8915508
 - title: Lions
   rating: 4
@@ -173,7 +175,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-safety-primal-scream-im-mom-8918945
 - title: See You Tomorrow
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-play-dead-see-you-tomorrow-wench-good-girl-ludwig-unfinished-business-space-cadet-chestnuts-8921132
 - title: Supposing
   rating: 5
@@ -201,7 +203,7 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-distance-motorway-slay-bi-curious-george-snail-trail-dinosaurs-8920993
 - title: The Jolly Fisherman
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-bigfoot-ripped-my-dog-in-half-i-saw-it-the-jolly-fisherman-song-unburied-8921940
 - title: The King of All Birds
   rating: 4
@@ -221,15 +223,15 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-late-utopians-you-and-me-and-whoever-comes-next-charles-dickens-the-hanged-mans-bride-the-wetness-disciples-of-anatomy-how-to-poop-in-an-outhouse-at-58degc-8919228
 - title: "The Librarians: A Very Serious Comedy!"
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-librarians-a-very-serious-comedy-i-was-never-here-8921119
 - title: The Singer
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-and-eif-theatre-reviews-the-singer-seagull-8848542
 - title: Toast
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-toast-democrazy-m-woman-of-fashion-8847248
 - title: "Transmission: Into the Dark"
   rating: 4
@@ -241,5 +243,5 @@
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-giraffe-turn-your-fcking-phones-off-a-gay-masseurs-guide-to-happy-endings-the-toe-poke-8886153
 - title: You and Me (and Whoever Comes Next)
   rating: 4
-  considered: no
+  considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-late-utopians-you-and-me-and-whoever-comes-next-charles-dickens-the-hanged-mans-bride-the-wetness-disciples-of-anatomy-how-to-poop-in-an-outhouse-at-58degc-8919228

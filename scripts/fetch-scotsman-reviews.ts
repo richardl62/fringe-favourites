@@ -23,10 +23,11 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { chromium, type Frame, type Locator, type Page } from "playwright";
-import { parse, stringify } from "yaml";
+import { isMap, parse, parseDocument, stringify } from "yaml";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const OUTPUT_PATH = `${REPO_ROOT}public/scotsman-fringe-reviews.yaml`;
+const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
 
 const LISTING_URL =
   "https://www.scotsman.com/arts-and-culture/edinburgh-festivals";
@@ -79,14 +80,42 @@ function readExistingConsidered(path: string): Map<string, string> {
   return considered;
 }
 
+/** Every show title already in shows.yaml, read from the "# Show Title"
+ * comment tidy-shows.ts adds above each entry - good enough to spot a
+ * match without needing to replicate the app's own title resolution (CSV
+ * cross-referencing, raw "title" fields, etc.). */
+function readShowTitles(path: string): Set<string> {
+  if (!existsSync(path)) {
+    return new Set();
+  }
+  const root = parseDocument(readFileSync(path, "utf8")).contents;
+  if (!isMap(root)) {
+    return new Set();
+  }
+  const titles = new Set<string>();
+  for (const item of root.items) {
+    if (isMap(item.value) && typeof item.value.commentBefore === "string") {
+      titles.add(item.value.commentBefore.trim());
+    }
+  }
+  return titles;
+}
+
 function withConsidered(
   shows: ReviewedShow[],
   existingConsidered: Map<string, string>,
+  showTitles: Set<string>,
 ): OutputShow[] {
   return shows.map((show) => ({
     title: show.title,
     rating: show.rating,
-    considered: existingConsidered.get(show.title) ?? DEFAULT_CONSIDERED,
+    // Already "yes" once, or already in shows.yaml (i.e. already a
+    // favourite - added there deliberately, so it counts as considered)
+    // wins over the plain "no" default.
+    considered:
+      existingConsidered.get(show.title) === "yes" || showTitles.has(show.title)
+        ? "yes"
+        : DEFAULT_CONSIDERED,
     reviewUrl: show.reviewUrl,
   }));
 }
@@ -192,6 +221,7 @@ function toReviewedShow(row: RawRow, index: number): ReviewedShow {
 
 async function main(): Promise<void> {
   const existingConsidered = readExistingConsidered(OUTPUT_PATH);
+  const showTitles = readShowTitles(SHOWS_YAML_PATH);
 
   const browser = await chromium.launch();
   try {
@@ -209,7 +239,7 @@ async function main(): Promise<void> {
     const shows = rawRows
       .map(toReviewedShow)
       .sort((a, b) => a.title.localeCompare(b.title));
-    const outputShows = withConsidered(shows, existingConsidered);
+    const outputShows = withConsidered(shows, existingConsidered, showTitles);
 
     const yamlText =
       `# Star ratings and review links for Edinburgh Fringe Theatre shows,\n` +
@@ -217,7 +247,9 @@ async function main(): Promise<void> {
       `# ${articleUrl}\n` +
       `#\n` +
       `# considered: "yes"/"no" - hand-edited, defaults to "no" for a new\n` +
-      `#             show and is left untouched by later runs of this script.\n` +
+      `#             show, but starts "yes" if the show's title is already in\n` +
+      `#             shows.yaml (i.e. already a favourite). Otherwise left\n` +
+      `#             untouched by later runs of this script.\n` +
       `#\n` +
       `# Run with: npm run fetch-scotsman-reviews\n\n` +
       stringify(outputShows);
