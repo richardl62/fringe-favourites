@@ -42,6 +42,16 @@ function ProblemList({ problems }: { problems: Problem[] }) {
               [<a href={problem.editLink}>edit</a>]
             </>
           )}
+          {problem.edfringeUrl && (
+            <>
+              {" "}
+              [
+              <a href={problem.edfringeUrl} target="_blank" rel="noreferrer">
+                edfringe
+              </a>
+              ]
+            </>
+          )}
         </ProblemRow>
       ))}
     </>

@@ -23,6 +23,7 @@ describe("scotsmanReviewProblems", () => {
         link: { title: "A Show", url: "https://example.com/a-show" },
         editLink: undefined,
         rating: 5,
+        edfringeUrl: "https://www.edfringe.com/tickets/whats-on/a-show",
       },
     ]);
   });
