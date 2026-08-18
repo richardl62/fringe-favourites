@@ -47,7 +47,7 @@
   rating: 0
   dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28]
   times: {17: "10:35", 18: "10:35", 19: "10:35", 20: "10:35", 21: "10:35", 22: "10:35", 24: "22:35", 25: "22:35", 26: "22:35", 27: "22:35", 28: "22:35"}
-  noAvailability: [17, 19, 22]
+  noAvailability: [17, 18, 19, 22]
 
 1-dazzling-cabaret:
   # 1 Dazzling Cabaret
@@ -76,12 +76,13 @@
   # 3 Times I Killed
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  booked: 17
 
 44-minutes:
   # 44 Minutes
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  noAvailability: [9, 10, 11, 12, 13, 14, 15, 16, 18, 19]
+  noAvailability: [9, 10, 11, 12, 13, 14, 15, 16]
 
 a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends:
   # A Case for Magic: For Lovers of Magic and Their Ambivalent Friends
@@ -92,7 +93,7 @@ a-forgotten-woman-mrs-oscar-wilde:
   # A Forgotten Woman: Mrs Oscar Wilde
   rating: 1
   dates: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
-  noAvailability: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
+  noAvailability: [7, 9, 11, 13, 15, 17, 21, 25, 27, 29]
 
 a-list-burlesque-and-cabaret:
   # A-List Burlesque and Cabaret
@@ -174,6 +175,12 @@ angels-in-america:
   duration: "5:00"
   dates: [18]
   booked: 18
+
+apples-in-winter:
+  # Apples in Winter
+  rating: 1
+  dates: [8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [11, 12, 14, 15, 17]
 
 aquapella:
   # Aquapella
@@ -330,7 +337,7 @@ elf-lyons-is-the-woman-on-the-edge:
   # Elf Lyons is The Woman on the Edge
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [11, 12, 14, 15, 18]
+  noAvailability: [11, 12, 14, 15]
 
 flop-the-best-songs-from-the-worst-musicals:
   # FLOP! The Best Songs From The Worst Musicals
@@ -348,6 +355,12 @@ full-score-barbershop-choir-presents-brace-for-impact:
   rating: 0
   dates: [17, 18, 19, 20, 21, 22]
 
+giraffe:
+  # Giraffe
+  rating: 0
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
+  noAvailability: [12, 14, 16, 17, 18]
+
 good-with-faces:
   # Good With Faces
   rating: 1
@@ -358,7 +371,7 @@ ham:
   # HAM
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
-  noAvailability: [10, 11, 13, 14, 15, 16, 17, 19]
+  noAvailability: [10, 11, 13, 14, 15, 16, 17, 19, 22]
 
 hess:
   # HESS
@@ -393,7 +406,7 @@ lara-ricote-inkling:
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   times: {5: "17:40", 6: "17:40", 7: "17:40", 8: "17:40", 9: "17:40", 10: "17:40", 11: "17:40", 12: "17:40", 13: "17:40", 14: "17:40", 15: "17:40", 18: "13:25-17:40", 19: "17:40", 20: "17:40", 21: "17:40", 22: "17:40", 23: "17:40", 24: "17:40", 25: "17:40", 26: "17:40", 27: "17:40", 28: "17:40", 29: "17:40", 30: "17:40"}
-  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15]
+  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 22]
 
 lawrence-dodd-this-can-t-be-it:
   # Lawrence Dodd: This Can't Be It
@@ -431,7 +444,7 @@ man-sings-the-same-song-over-and-over-again-for-an-hour:
   # Man Sings the Same Song Over and Over Again for an Hour
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-  times: {6: "19:45", 7: "19:45", 8: "19:45", 9: "19:45", 10: "19:45", 11: "19:45", 12: "19:45", 13: "19:45", 14: "19:45", 15: "19:45", 16: "19:45", 18: "19:45", 19: "19:45", 20: "19:45", 21: "15:00-19:45", 22: "15:00-19:45", 23: "19:45", 25: "19:45", 26: "19:45", 27: "19:45", 28: "19:45", 29: "19:45", 30: "19:45", 31: "19:45"}
+  times: {6: "19:45", 7: "19:45", 8: "19:45", 9: "19:45", 10: "19:45", 11: "19:45", 12: "19:45", 13: "19:45", 14: "19:45", 15: "19:45", 16: "19:45", 18: "19:45", 19: "19:45", 20: "19:45", 21: "15:00-19:45", 22: "15:00-19:45", 23: "19:45", 25: "19:45", 26: "19:45", 27: "19:45", 28: "15:00-19:45", 29: "15:00-19:45", 30: "19:45", 31: "19:45"}
   noAvailability: [8, 11, 12, 13, 14, 16, 18, 19, 20, 23, 25, 26]
 
 mark-thomas-40-in-stand-up-years:
@@ -493,7 +506,6 @@ pip-utton-s-farewell-to-edinburgh-fringe-bacon:
   # Pip Utton's Farewell to Edinburgh Fringe: Bacon
   rating: 0
   dates: [19, 22, 26, 29]
-  noAvailability: [19]
 
 pip-utton-s-farewell-to-edinburgh-fringe-before-i-forget-i-love-you-i-love-you:
   # Pip Utton's Farewell to Edinburgh Fringe: Before I Forget I Love You, I Love You
@@ -527,8 +539,8 @@ scottish-comedy-legends-jack-docherty:
 see-you-tomorrow:
   # See You Tomorrow
   rating: 1
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
-  times: {7: "17:15", 8: "17:15", 9: "17:15", 10: "17:15", 11: "17:15", 12: "17:15", 13: "17:15", 14: "17:15", 15: "17:15", 17: "11:25", 18: "11:25", 19: "11:25", 20: "11:25", 21: "11:25", 22: "11:25", 24: "11:25", 25: "11:25", 26: "11:25", 27: "11:25", 28: "11:25", 29: "11:25"}
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  times: {7: "17:15", 8: "17:15", 9: "17:15", 10: "17:15", 11: "17:15", 12: "17:15", 13: "17:15", 14: "17:15", 15: "17:15", 17: "11:25", 19: "11:25", 20: "11:25", 21: "11:25", 22: "11:25", 24: "11:25", 25: "11:25", 26: "11:25", 27: "11:25", 28: "11:25", 29: "11:25"}
   noAvailability: [15, 17]
 
 simon-garfunkel-and-beyond:
@@ -592,10 +604,11 @@ the-bob-ross-effect:
   # The Bob Ross Effect
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  booked: 17
 
 the-event:
   # The Event
-  rating: 1
+  rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
 
 the-jolly-fisherman:
@@ -614,6 +627,7 @@ the-misfortunes-of-a-spy-and-her-mystic:
   # The Misfortunes of a Spy and Her Mystic
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  booked: 17
 
 the-oxford-gargoyles-jazz-a-cappella:
   # The Oxford Gargoyles: Jazz A Cappella
@@ -636,7 +650,7 @@ the-singer:
   rating: 1
   dates: [14, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {14: "21:15", 18: "21:15", 19: "21:15", 20: "21:00", 21: "21:15", 22: "21:15", 23: "21:00", 25: "21:15", 26: "21:15", 27: "21:00", 28: "21:15", 29: "21:15", 30: "21:00"}
-  noAvailability: [14, 18, 19, 21]
+  noAvailability: [14, 18, 19, 21, 25]
 
 the-speakeasy-experience:
   # The Speakeasy Experience
@@ -721,6 +735,7 @@ you-and-me-and-whoever-comes-next:
   # You and Me (and Whoever Comes Next)
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29]
+  noAvailability: [17]
 
 youth-in-flames-winner-scotsman-fringe-first-award:
   # Youth in Flames – Winner: Scotsman Fringe First Award
