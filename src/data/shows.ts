@@ -15,6 +15,10 @@ export interface ShowNotes {
   rating?: number;
   dates?: number[];
   booked?: number;
+  /** Which of a booked date's performances was booked, as "HH:MM" - only
+   * meaningful (and only needed) when that date has more than one
+   * performance, i.e. its "times" entry is "double" or "many". */
+  bookedTime?: string;
   times?: Record<number, PerformanceTime>;
   noAvailability?: number[];
 }
@@ -31,7 +35,14 @@ export interface ParsedShows {
 }
 
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
-const NOTE_FIELDS = ["rating", "dates", "booked", "times", "noAvailability"];
+const NOTE_FIELDS = [
+  "rating",
+  "dates",
+  "booked",
+  "bookedTime",
+  "times",
+  "noAvailability",
+];
 const KNOWN_FIELDS = [...RAW_FIELDS, ...NOTE_FIELDS];
 
 function checkUnknownFields(entry: Record<string, unknown>): void {
@@ -145,6 +156,15 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
       throw new Error('"booked" should be a day-of-month number');
     }
     notes.booked = entry.booked;
+  }
+  if (entry.bookedTime !== undefined) {
+    if (typeof entry.bookedTime !== "string" || !SINGLE_TIME_RE.test(entry.bookedTime)) {
+      throw new Error('"bookedTime" should be "HH:MM"');
+    }
+    if (notes.booked === undefined) {
+      throw new Error('"bookedTime" needs "booked" to also be set');
+    }
+    notes.bookedTime = entry.bookedTime;
   }
   if (entry.times !== undefined) {
     notes.times = parseTimes(entry.times);

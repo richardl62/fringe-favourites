@@ -108,6 +108,96 @@ describe("buildFavourites", () => {
     expect(problems).toHaveLength(0);
   });
 
+  it("resolves a double-performance booked date down to bookedTime", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      booked: 10,
+      bookedTime: "20:00",
+      times: { 10: { kind: "double", times: ["18:00", "20:00"] } },
+    };
+    const { shows, problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].times).toEqual({ 10: { kind: "single", time: "20:00" } });
+    expect(problems).toHaveLength(0);
+  });
+
+  it("resolves a 'many' booked date down to bookedTime", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      booked: 10,
+      bookedTime: "20:00",
+      times: { 10: { kind: "many" } },
+    };
+    const { shows, problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].times).toEqual({ 10: { kind: "single", time: "20:00" } });
+    expect(problems).toHaveLength(0);
+  });
+
+  it("warns when a double-performance date is booked with no bookedTime", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      booked: 10,
+      times: { 10: { kind: "double", times: ["18:00", "20:00"] } },
+    };
+    const { shows, problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].times).toEqual({
+      10: { kind: "double", times: ["18:00", "20:00"] },
+    });
+    expect(
+      hasProblem(problems, (p) => p.message.includes("doesn't say which one")),
+    ).toBe(true);
+  });
+
+  it("warns when bookedTime doesn't match either double-performance time", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      booked: 10,
+      bookedTime: "21:00",
+      times: { 10: { kind: "double", times: ["18:00", "20:00"] } },
+    };
+    const { shows, problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(shows[0].times).toEqual({
+      10: { kind: "double", times: ["18:00", "20:00"] },
+    });
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes("doesn't match either of its booked date's performance times"),
+      ),
+    ).toBe(true);
+  });
+
+  it("warns when bookedTime doesn't match a single recorded time", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      booked: 10,
+      bookedTime: "21:00",
+      times: { 10: { kind: "single", time: "20:00" } },
+    };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes("doesn't match its booked date's only recorded start time"),
+      ),
+    ).toBe(true);
+  });
+
+  it("warns when bookedTime is given but the booked date has no recorded time", () => {
+    const notes: ShowNotes = { rating: 1, booked: 10, bookedTime: "20:00" };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]));
+
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes(
+          'has "bookedTime" but no recorded start time for its booked date',
+        ),
+      ),
+    ).toBe(true);
+  });
+
   it("ignores shows.yaml time overrides for a show with a single fixed start time", () => {
     const notes: ShowNotes = {
       rating: 1,

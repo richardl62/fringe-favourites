@@ -3,6 +3,7 @@ import type { ShowNotes } from "./shows";
 import {
   unknownDate,
   type DatesT,
+  type PerformanceTime,
   type RawShow,
   type Show,
   type TimesT,
@@ -115,6 +116,89 @@ function resolveDatesAndBooking(
   return { dates: unknownDate, booked: false };
 }
 
+// Record indexing isn't tracked as possibly-undefined by the project's
+// tsconfig, but a given date genuinely might have no "times" entry at all -
+// routing the lookup through a function with an explicit "| undefined"
+// return type keeps that honest (an inline-annotated local gets narrowed
+// straight back to the non-optional type by TS's control-flow analysis).
+function getPerformance(
+  times: Record<number, PerformanceTime>,
+  date: number,
+): PerformanceTime | undefined {
+  return times[date];
+}
+
+/** When a booked date has more than one performance (its "times" entry is
+ * "double" or "many"), "bookedTime" says which one was actually booked -
+ * this resolves that date down to a single performance so the page shows
+ * just the one that was booked, not every possibility. Any mismatch
+ * between "bookedTime" and what was actually scraped/recorded for that
+ * date is reported rather than silently guessed at. */
+function applyBookedTime(
+  times: Record<number, PerformanceTime>,
+  notes: ShowNotes,
+  bookedDate: number,
+  link: { title: string; url: string },
+  editLink: string | undefined,
+  problems: Problem[],
+): Record<number, PerformanceTime> {
+  const performance = getPerformance(times, bookedDate);
+  const bookedTime = notes.bookedTime;
+
+  if (bookedTime === undefined) {
+    if (performance?.kind === "double" || performance?.kind === "many") {
+      problems.push(
+        warn(
+          `is booked for a date with more than one performance but doesn't say which one - add "bookedTime" in shows.yaml`,
+          link,
+          editLink,
+        ),
+      );
+    }
+    return times;
+  }
+
+  if (performance === undefined) {
+    problems.push(
+      warn(
+        `has "bookedTime" but no recorded start time for its booked date`,
+        link,
+        editLink,
+      ),
+    );
+    return times;
+  }
+
+  if (performance.kind === "single") {
+    if (performance.time !== bookedTime) {
+      problems.push(
+        warn(
+          `has "bookedTime" "${bookedTime}" that doesn't match its booked date's only recorded start time "${performance.time}"`,
+          link,
+          editLink,
+        ),
+      );
+    }
+    return times;
+  }
+
+  if (performance.kind === "double" && !performance.times.includes(bookedTime)) {
+    problems.push(
+      warn(
+        `has "bookedTime" "${bookedTime}" that doesn't match either of its booked date's performance times (${performance.times.join(", ")})`,
+        link,
+        editLink,
+      ),
+    );
+    return times;
+  }
+
+  // performance.kind is "double" (and bookedTime matches one of its two
+  // times) or "many" (trusted as given - "many" doesn't record individual
+  // times to check bookedTime against).
+  return { ...times, [bookedDate]: { kind: "single", time: bookedTime } };
+}
+
 function resolveTimes(
   raw: RawShow,
   notes: ShowNotes | undefined,
@@ -137,7 +221,10 @@ function resolveTimes(
     return raw.startTime;
   }
 
-  const times = notes?.times ?? {};
+  let times = notes?.times ?? {};
+  if (notes?.booked !== undefined) {
+    times = applyBookedTime(times, notes, notes.booked, link, editLink, problems);
+  }
   const knownDates = dates === unknownDate ? [] : dates;
   const overrideDates = Object.keys(times).map(Number);
 

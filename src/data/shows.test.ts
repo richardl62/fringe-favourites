@@ -182,6 +182,52 @@ a-show:
     ).toBe(true);
   });
 
+  it("parses bookedTime alongside booked", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  booked: 10
+  bookedTime: "20:00"
+`);
+
+    expect(problems).toHaveLength(0);
+    expect(notesById.get("a-show")).toEqual({
+      rating: 1,
+      booked: 10,
+      bookedTime: "20:00",
+    });
+  });
+
+  it("rejects a malformed bookedTime value", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  booked: 10
+  bookedTime: "8pm"
+`);
+
+    expect(notesById.has("a-show")).toBe(false);
+    expect(
+      hasProblem(problems, (p) => p.message.includes('"bookedTime" should be "HH:MM"')),
+    ).toBe(true);
+  });
+
+  it("rejects bookedTime without booked", () => {
+    const { notesById, problems } = parse(`
+a-show:
+  rating: 1
+  dates: [10]
+  bookedTime: "20:00"
+`);
+
+    expect(notesById.has("a-show")).toBe(false);
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes('"bookedTime" needs "booked" to also be set'),
+      ),
+    ).toBe(true);
+  });
+
   it("rejects a malformed times entry", () => {
     const { problems } = parse(`
 a-show:
