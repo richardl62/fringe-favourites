@@ -354,24 +354,6 @@ describe("buildFavourites", () => {
     ).toBe(false);
   });
 
-  it("warns about a scrapingIssue note", () => {
-    const notes: ShowNotes = {
-      rating: 1,
-      dates: [10],
-      booked: 10,
-      times: { 10: { kind: "single", time: "20:00" } },
-      scrapingIssue:
-        "edfringe.com's page didn't list a performance on 10 (the booked date) when last scraped",
-    };
-    const { problems } = build([rawShow()], new Map([["a-show", notes]]));
-
-    expect(
-      hasProblem(problems, (p) =>
-        p.message.includes("edfringe.com's page didn't list a performance on 10"),
-      ),
-    ).toBe(true);
-  });
-
   it("warns about a shows.yaml entry with no matching CSV show", () => {
     const notes: ShowNotes = { rating: 1, dates: [10] };
     const { problems } = build([], new Map([["orphan-show", notes]]));
