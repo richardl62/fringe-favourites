@@ -30,7 +30,7 @@
     "fetch-scotsman-reviews": "node scripts/fetch-scotsman-reviews.ts",
     "tidy-shows": "node scripts/tidy-shows.ts",
     "update-shows:quick": "npm run fetch-dates:quick && npm run fetch-free-fringe:quick && npm run tidy-shows",
-    "update-shows": "npm run fetch-scotsman-reviews && npm run fetch-dates && npm run fetch-free-fringe && npm run tidy-shows",
+    "update-shows": "npm run fetch-scotsman-reviews; npm run fetch-dates && npm run fetch-free-fringe && npm run tidy-shows",
     "format": "prettier --write .",
     "validate": "npm run type-check && npm run lint && npm run test"
   },
