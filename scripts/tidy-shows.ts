@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isScalar, parseDocument, YAMLMap, type Document } from "yaml";
 import { parseCsv } from "../src/data/parse-csv.ts";
+import { describeYamlError } from "../src/data/yaml-errors.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
@@ -92,6 +93,15 @@ function main(): void {
   const originalYamlText = readFileSync(SHOWS_YAML_PATH, "utf8");
   const csvText = readFileSync(CSV_PATH, "utf8");
   const doc = parseDocument(originalYamlText);
+  if (doc.errors.length > 0) {
+    // parseDocument (unlike shows.ts's plain parse()) never throws on a bad
+    // file - it collects problems into doc.errors instead, so a document
+    // with any would otherwise fail opaquely later, at doc.toString(), with
+    // "Document with errors cannot be stringified" and no indication of
+    // what's actually wrong or where.
+    const descriptions = doc.errors.map((err) => describeYamlError(err, originalYamlText));
+    throw new Error(`shows.yaml: ${descriptions.join("; ")}`);
+  }
 
   const root = doc.contents;
   if (!(root instanceof YAMLMap)) {
