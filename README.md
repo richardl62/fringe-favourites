@@ -5,29 +5,34 @@ https://richardl62.github.io/fringe-favourites.
 
 Updates can be deployed using npm run deploy
 
-The data used by the page is in:
-
-- `public/my_fringe_favourites.csv` is the principal list of shows, exported
-  from edfringe.com.
-- `public/shows.yaml` holds info the CSV doesn't provide, so of which is
-  scrapped from edfringe.com and some of which is hand written.
+The data used by the page is entirely in `public/shows.yaml` - one entry per
+show, keyed by an id, with:
+  - (synced from the CSV, or hand written for a show that isn't in it) title,
+    venue, duration, start time, url.
   - (scrapped) The dates the show is on.
   - (scrapped) Per-date start times for shows for which the start time varies
   - (hand written) Rating
-  - (hand written) Date on which the show is booked,
+  - (hand written) Date on which the show is booked
 
-- `public/shows.yaml` also has fully handwritten entries for shows that are not
-  listed on edfringe.com
-
-This files are processed at page load. After a change to the files reload the page
+This file is processed at page load. After a change to it, reload the page
 to see the result.
 
-- Anything unexpected or missing while loading (a malformed CSV row, a show
-  with no notes yet, inconsistent dates/times) is reported on the page
-  reachable via the "Problems" link, rather than breaking the page.
+- Anything unexpected or missing while loading (a show with no notes yet,
+  inconsistent dates/times, a flagged sync/scrape problem) is reported on
+  the page reachable via the "Problems" link, rather than breaking the page.
+
+`public/my_fringe_favourites.csv` (edfringe.com's export of the user's
+favourited shows) is an offline input to `npm run sync-csv` below, not
+something the page itself reads.
 
 Some scripts exist to help update shows.yaml:
 
+- `npm run sync-csv` reads `public/my_fringe_favourites.csv` and writes each
+  show's title/venue/duration/start time/url into shows.yaml, creating a new
+  entry if needed and overwriting those fields on every run - don't hand-edit
+  them for a CSV-sourced show. A show no longer in the CSV export isn't
+  deleted; a `# PROBLEM: ...` comment is added above its entry instead, left
+  for you to remove by hand if you want.
 - `npm run fetch-dates` scrapes each show's performance dates and start times
   from edfringe.com and writes them into shows.yaml's `dates`/`times`
   fields, leaving everything else in the file untouched. A show that can't
@@ -43,11 +48,10 @@ Some scripts exist to help update shows.yaml:
   edfringe.com CSV export - and writes a full entry for each into
   shows.yaml. Same `# PROBLEM: ...`/`npm run fetch-free-fringe:quick`
   behaviour as `fetch-dates` above.
-- `npm run tidy-shows` sorts entries alphabetically by id, adds `rating: "?"`
-  to any entry that doesn't have a rating yet (unless it's booked), and
-  adds/updates a trailing `# Show Title` comment on each entry so the file
-  can be searched by name despite being keyed by id.
-- `npm run update-shows` runs `fetch-dates`, `fetch-free-fringe`, and
-  `tidy-shows` in sequence, and is the normal way to bring shows.yaml fully
-  up to date. `npm run update-shows:quick` does the same with both fetch
-  steps in `--quick` mode.
+- `npm run tidy-shows` sorts entries alphabetically by id and adds
+  `rating: "?"` to any entry that doesn't have a rating yet (unless it's
+  booked).
+- `npm run update-shows` runs `sync-csv`, `fetch-dates`, `fetch-free-fringe`,
+  and `tidy-shows` in sequence, and is the normal way to bring shows.yaml
+  fully up to date. `npm run update-shows:quick` does the same with both
+  fetch steps in `--quick` mode.

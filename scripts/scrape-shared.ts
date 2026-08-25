@@ -1,16 +1,39 @@
-// Shared helpers for scripts/fetch-dates.ts and scripts/fetch-free-fringe.ts:
-// polite-scraping basics, and editing a shows.yaml entry (including its
-// "# PROBLEM: ..." comment) while preserving everything else in the file.
+// Shared helpers for scripts/fetch-dates.ts, scripts/fetch-free-fringe.ts,
+// and scripts/sync-csv.ts: polite-scraping basics, id-scanning, and editing
+// a shows.yaml entry (including its "# PROBLEM: ..." comment) while
+// preserving everything else in the file.
 
 import { isScalar, YAMLMap, type Document, type Pair } from "yaml";
+import { PROBLEM_PREFIX } from "../src/data/problem-comment.ts";
 
 export const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36";
 export const REQUEST_DELAY_MS = 400;
-export const PROBLEM_PREFIX = "PROBLEM: ";
 
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const WHATS_ON_URL =
+  /https:\/\/www\.edfringe\.com\/tickets\/whats-on\/([^/?#"'\s]+)/g;
+
+/** Every edfringe.com show id found anywhere in a blob of text (a CSV
+ * export, or a single URL) - a broad, unanchored scan rather than a strict
+ * parse, so it still finds ids even around text this script doesn't
+ * otherwise understand. */
+export function idsFromText(text: string): Set<string> {
+  const ids = new Set<string>();
+  for (const match of text.matchAll(WHATS_ON_URL)) {
+    ids.add(match[1]);
+  }
+  return ids;
+}
+
+/** "H:MM", the inverse of shows.ts's parseHoursMinutes. */
+export function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${String(hours)}:${String(mins).padStart(2, "0")}`;
 }
 
 /** In --quick mode, a show that already has a "dates" field is assumed to

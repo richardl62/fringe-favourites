@@ -1,6 +1,6 @@
-import { parseCsv } from "./parse-csv";
-import { error, type Problem } from "./problems";
-import type { RawShow } from "./types";
+import { parseCsv } from "./parse-csv.ts";
+import { error, type Problem } from "./problems.ts";
+import type { RawShow } from "./types.ts";
 
 const EXPECTED_HEADER = [
   "Show Name",
@@ -16,7 +16,7 @@ const EXPECTED_HEADER = [
   "URL to Event Details",
 ];
 
-function idFromUrl(url: string): string {
+export function idFromUrl(url: string): string {
   const match = /\/whats-on\/([^/?#]+)\/?$/.exec(url);
   if (!match) {
     throw new Error(
@@ -49,9 +49,10 @@ function combineVenue(venueName: string, spaceName: string): string {
   return spaceName ? `${spaceName} at ${venueName}` : venueName;
 }
 
-/** Parse my_fringe_favourites.csv, as exported from edfringe.com.
- * A row that can't be understood is skipped and reported as a problem
- * rather than aborting the whole file. */
+/** Parse my_fringe_favourites.csv, as exported from edfringe.com. Used by
+ * scripts/sync-csv.ts to import each show's raw fields into shows.yaml -
+ * not read at app runtime. A row that can't be understood is skipped and
+ * reported as a problem rather than aborting the whole file. */
 export function parseFringeCsv(text: string, problems: Problem[]): RawShow[] {
   const rows = parseCsv(text);
   if (rows.length === 0) {

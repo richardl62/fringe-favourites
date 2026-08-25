@@ -354,14 +354,14 @@ describe("buildFavourites", () => {
     ).toBe(false);
   });
 
-  it("warns about a shows.yaml entry with no matching CSV show", () => {
+  it("warns about a shows.yaml entry with notes but no raw show details", () => {
     const notes: ShowNotes = { rating: 1, dates: [10] };
     const { problems } = build([], new Map([["orphan-show", notes]]));
 
     expect(
       hasProblem(problems, (p) =>
         p.message.includes(
-          'shows.yaml entry "orphan-show" has no matching show in my_fringe_favourites.csv',
+          'shows.yaml entry "orphan-show" has notes but no raw show details',
         ),
       ),
     ).toBe(true);

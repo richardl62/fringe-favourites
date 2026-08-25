@@ -29,6 +29,7 @@ import { parseDocument, YAMLMap, type Document } from "yaml";
 import {
   findOrCreateEntry,
   hasExistingDates,
+  idsFromText,
   REQUEST_DELAY_MS,
   sleep,
   updateProblemComment,
@@ -39,22 +40,11 @@ const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
 const CSV_PATH = `${REPO_ROOT}public/my_fringe_favourites.csv`;
 
-const WHATS_ON_URL =
-  /https:\/\/www\.edfringe\.com\/tickets\/whats-on\/([^/?#"'\s]+)/g;
-
 function edFringeUrl(id: string): string {
   return `https://www.edfringe.com/tickets/whats-on/${id}`;
 }
 
 // --- Discover which shows to scrape ---------------------------------------
-
-function idsFromText(text: string): Set<string> {
-  const ids = new Set<string>();
-  for (const match of text.matchAll(WHATS_ON_URL)) {
-    ids.add(match[1]);
-  }
-  return ids;
-}
 
 /** All show ids worth trying to scrape: every show in the CSV export, plus
  * any shows.yaml-only entries whose "url" also points at an edfringe.com

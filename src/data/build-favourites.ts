@@ -10,8 +10,8 @@ import {
 } from "./types";
 import { showsYamlEditLink } from "./vscode-link";
 
-/** Combine shows from their source (CSV/shows.yaml) with their hand-written
- * notes, reporting anything missing or inconsistent along the way. */
+/** Combine each show's raw details with its hand-written notes, reporting
+ * anything missing or inconsistent along the way. */
 export function buildFavourites(
   rawShows: RawShow[],
   notesById: Map<string, ShowNotes>,
@@ -74,7 +74,7 @@ export function buildFavourites(
     if (!consumedIds.has(id)) {
       problems.push(
         warn(
-          `shows.yaml entry "${id}" has no matching show in my_fringe_favourites.csv`,
+          `shows.yaml entry "${id}" has notes but no raw show details (title/venue/etc.) - run "npm run sync-csv" or add them by hand`,
           undefined,
           showsYamlEditLink(entryLines.get(id) ?? lineCount),
         ),

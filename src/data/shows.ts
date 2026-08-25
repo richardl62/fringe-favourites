@@ -6,7 +6,8 @@ import {
   parse,
   parseDocument,
 } from "yaml";
-import { error, type Problem } from "./problems";
+import { error, warn, type Problem } from "./problems";
+import { extractProblemComment } from "./problem-comment";
 import type { PerformanceTime, RawShow } from "./types";
 import { showsYamlEditLink } from "./vscode-link";
 import { describeYamlError } from "./yaml-errors";
@@ -34,6 +35,11 @@ export interface ParsedShows {
   lineCount: number;
 }
 
+// Every show has RAW_FIELDS now (synced from my_fringe_favourites.csv by
+// scripts/sync-csv.ts, or hand-written for a show that isn't in the CSV,
+// e.g. a free-fringe listing scraped by fetch-free-fringe.ts) - don't
+// hand-edit them for a CSV-sourced show, sync-csv.ts overwrites them wholesale
+// on every run.
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
 const NOTE_FIELDS = [
   "rating",
@@ -176,10 +182,13 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
   return notes;
 }
 
-/** Parse shows.yaml: hand-written entries for shows not in the edfringe.com
- * CSV export (raw fields), plus hand-written notes - rating/dates/booking/
- * times/availability - for any show. A bad entry is skipped and reported
- * rather than aborting the whole file. */
+/** Parse shows.yaml: the single source of show data for the app - raw
+ * fields (title/venue/etc., synced from the CSV export or hand-written for
+ * a non-CSV show) plus hand-written notes - rating/dates/booking/times/
+ * availability - for any show. A bad entry is skipped and reported rather
+ * than aborting the whole file, and a "# PROBLEM: ..." comment already
+ * above an entry (see scripts/scrape-shared.ts) is surfaced as a warning
+ * too. */
 export function parseShows(text: string, problems: Problem[]): ParsedShows {
   const lineCount = text.split(/\r\n|\r|\n/).length;
 
@@ -207,7 +216,12 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
     };
   }
 
-  const entryLines = findEntryLines(text);
+  const entryMetadata = findEntryMetadata(text);
+  const entryLines = new Map<string, number>();
+  for (const [id, meta] of entryMetadata) {
+    entryLines.set(id, meta.line);
+  }
+
   const rawShows: RawShow[] = [];
   const notesById = new Map<string, ShowNotes>();
 
@@ -219,10 +233,27 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
       const entry = value as Record<string, unknown>;
       checkUnknownFields(entry);
 
+      let raw: RawShow | undefined;
       if (RAW_FIELDS.some((field) => entry[field] !== undefined)) {
-        rawShows.push(parseRawShow(id, entry));
+        raw = parseRawShow(id, entry);
+        rawShows.push(raw);
       }
       notesById.set(id, parseNotes(entry));
+
+      // A "# PROBLEM: ..." comment (written by fetch-dates.ts/
+      // fetch-free-fringe.ts/sync-csv.ts when a show can't be fully
+      // scraped/synced) is otherwise only visible by opening shows.yaml -
+      // surface it here too, so it shows up on the #problems page.
+      const problemComment = entryMetadata.get(id)?.problemComment;
+      if (problemComment !== undefined) {
+        problems.push(
+          warn(
+            `shows.yaml entry "${id}": ${problemComment}`,
+            raw ? { title: raw.title, url: raw.url } : undefined,
+            showsYamlEditLink(entryLines.get(id) ?? lineCount),
+          ),
+        );
+      }
     } catch (err) {
       problems.push(
         error(
@@ -237,22 +268,31 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
   return { rawShows, notesById, entryLines, lineCount };
 }
 
-/** Find the line each top-level id's entry starts on, for linking a problem
- * straight to it. Best-effort: text has already been parsed successfully
- * above, so this is just a second, position-tracking pass over it. */
-function findEntryLines(text: string): Map<string, number> {
-  const entryLines = new Map<string, number>();
+interface EntryMetadata {
+  line: number;
+  problemComment?: string;
+}
+
+/** Find the line each top-level id's entry starts on (for linking a problem
+ * straight to it) and any "# PROBLEM: ..." comment already above it.
+ * Best-effort: text has already been parsed successfully above, so this is
+ * just a second, position-tracking pass over it. */
+function findEntryMetadata(text: string): Map<string, EntryMetadata> {
+  const metadata = new Map<string, EntryMetadata>();
   const lineCounter = new LineCounter();
   const doc = parseDocument(text, { lineCounter });
   if (isMap(doc.contents)) {
     for (const pair of doc.contents.items) {
       if (isScalar(pair.key)) {
-        entryLines.set(
-          String(pair.key.value),
-          lineCounter.linePos(pair.key.range[0]).line,
+        const line = lineCounter.linePos(pair.key.range[0]).line;
+        const problemComment = extractProblemComment(
+          typeof pair.key.commentBefore === "string"
+            ? pair.key.commentBefore
+            : undefined,
         );
+        metadata.set(String(pair.key.value), { line, problemComment });
       }
     }
   }
-  return entryLines;
+  return metadata;
 }

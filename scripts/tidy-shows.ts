@@ -4,23 +4,16 @@
 //  - adds `rating: "?"` to any entry that doesn't have a "rating" field yet,
 //    unless it's booked - a booked show doesn't need one (see the app's
 //    own "don't report booked shows as unrated" behaviour)
-//  - adds/updates a "# Show Title" comment on the line after each entry's
-//    key, so the show's name is searchable even though entries are keyed
-//    by id
 //
 // Run with: npm run tidy-shows
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isScalar, parseDocument, YAMLMap, type Document } from "yaml";
-import { parseCsv } from "../src/data/parse-csv.ts";
 import { describeYamlError } from "../src/data/yaml-errors.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
-const CSV_PATH = `${REPO_ROOT}public/my_fringe_favourites.csv`;
-
-const WHATS_ON_URL = /\/whats-on\/([^/?#"'\s]+)/;
 
 function addMissingRatings(doc: Document, root: YAMLMap): void {
   for (const item of root.items) {
@@ -47,51 +40,8 @@ function sortEntries(root: YAMLMap): void {
   });
 }
 
-/** Show titles, keyed by id, from my_fringe_favourites.csv's "Show Name"
- * column - so entries that don't give their own "title" field (i.e. every
- * show sourced from the CSV) can still get a searchable title comment. */
-function titlesFromCsv(csvText: string): Map<string, string> {
-  const rows = parseCsv(csvText);
-  const titles = new Map<string, string>();
-  for (const row of rows) {
-    const title = row[0];
-    const url = row[row.length - 1];
-    const match = WHATS_ON_URL.exec(url);
-    if (title && match) {
-      titles.set(match[1], title);
-    }
-  }
-  return titles;
-}
-
-/** Adds/updates a "# Show Title" comment on the line after each entry's
- * key, so the file can be searched by show name despite being keyed by id.
- * An entry's own "title" field (for shows not in the CSV) wins over the
- * CSV; an id matching neither is left alone - there's nothing to show. */
-function addTitleComments(root: YAMLMap, titleById: Map<string, string>): void {
-  for (const item of root.items) {
-    if (!isScalar(item.key) || !(item.value instanceof YAMLMap)) {
-      continue;
-    }
-    const id = String(item.key);
-    const ownTitle: unknown = item.value.get("title");
-    const title =
-      typeof ownTitle === "string" ? ownTitle : titleById.get(id);
-    if (title) {
-      // Own line, before the entry's fields, rather than trailing on the
-      // id line - eemeli/yaml's parser reattaches a trailing comment there
-      // on any later round-trip anyway (e.g. by fetch-dates.ts), so writing
-      // it here from the start keeps the file stable instead of shifting
-      // on every run that isn't tidy-shows.
-      item.key.comment = undefined;
-      item.value.commentBefore = ` ${title}`;
-    }
-  }
-}
-
 function main(): void {
   const originalYamlText = readFileSync(SHOWS_YAML_PATH, "utf8");
-  const csvText = readFileSync(CSV_PATH, "utf8");
   const doc = parseDocument(originalYamlText);
   if (doc.errors.length > 0) {
     // parseDocument (unlike shows.ts's plain parse()) never throws on a bad
@@ -109,7 +59,6 @@ function main(): void {
   }
 
   addMissingRatings(doc, root);
-  addTitleComments(root, titlesFromCsv(csvText));
   sortEntries(root);
 
   const newYamlText = doc.toString({

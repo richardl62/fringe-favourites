@@ -28,6 +28,7 @@ import { fileURLToPath } from "node:url";
 import { parseDocument, YAMLMap, type Document } from "yaml";
 import {
   findOrCreateEntry,
+  formatDuration,
   hasExistingDates,
   REQUEST_DELAY_MS,
   sleep,
@@ -124,12 +125,6 @@ function parseTimeRange(
     startTime: `${startHour.padStart(2, "0")}:${startMin}`,
     durationMinutes: endMinutes - startMinutes,
   };
-}
-
-function formatDuration(minutes: number): string {
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return `${String(hours)}:${String(mins).padStart(2, "0")}`;
 }
 
 function scrapeShow(html: string, url: string): ScrapedShow {

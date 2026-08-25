@@ -1,7 +1,7 @@
 // Non-fatal issues found while loading show data, surfaced on the #problems page
 // rather than aborting the whole load - the source files are hand-edited and
 // occasional mistakes are expected.
-import { edfringeShowUrl } from "./edfringe-url";
+import { edfringeShowUrl } from "./edfringe-url.ts";
 
 export type ProblemSeverity =
   | "error"
