@@ -1,18 +1,23 @@
 # One entry per show, keyed by an id: the part of its URL after
 # "/whats-on/" for a show from my_fringe_favourites.csv, or one you choose
 # yourself for a show that isn't in the CSV export (e.g. a free-fringe
-# listing).
+# listing). This file is the app's only source of show data - it doesn't
+# read the CSV itself.
 #
 # Two kinds of field, both optional:
 #
 #   title, venue, duration, startTime, url:
-#     Only needed for a show that isn't in the CSV export - give all five or
-#     none.
+#     Every show has these (except startTime - see below). For a show in the
+#     CSV export, `npm run sync-csv` fills them in from there and overwrites
+#     them wholesale on every run - don't hand-edit them for a CSV-sourced
+#     show. For a show that isn't in the CSV (e.g. a free-fringe listing,
+#     scraped by fetch-free-fringe.ts, or a show from another festival,
+#     added by hand), give all of them that apply.
 #       title:     the show's name.
 #       venue:     free text.
 #       duration:  "H:MM", e.g. "1:15".
-#       startTime: "HH:MM", or "varies" if the show's start time changes by
-#                  performance (add per-date times for it below).
+#       startTime: "HH:MM" - omit entirely if the show's start time changes
+#                  by performance (add per-date times for it below).
 #       url:       link to the show's page.
 #
 #   rating, dates, booked, bookedTime, times, noAvailability:
@@ -38,797 +43,1284 @@
 #                                 shown as two separate entries on the page.
 #                 "many"          three or more performances that day - too
 #                                 many to record specific times for.
-#               Dates left out entirely are shown as "varies" with no
+#               Dates left out entirely are shown as "misc" with no
 #               specific time.
 #       noAvailability:
 #               day-of-month numbers with no allocation remaining on
 #               edfringe.com (shown there as a red bar under the date, with
 #               a "No allocation remaining" caption) - shown in red on this
 #               page's date/time too. Filled in automatically by fetch-dates.
+#
+# A "# PROBLEM: ..." comment directly above an entry means a script (sync-
+# csv/fetch-dates/fetch-free-fringe) couldn't fully process that show - it's
+# also shown as a warning on the #problems page. It's cleared automatically
+# once whatever caused it is resolved, except for "no longer in
+# my_fringe_favourites.csv", which sync-csv.ts never clears on its own -
+# delete the entry by hand once you're sure you don't want it any more.
 
 00-45-00:
-  # 00:45:00
+  title: 00:45:00
   rating: 0
   dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28]
   times: {17: "10:35", 18: "10:35", 19: "10:35", 20: "10:35", 21: "10:35", 22: "10:35", 24: "22:35", 25: "22:35", 26: "22:35", 27: "22:35", 28: "22:35"}
   noAvailability: [17, 18, 19, 20, 21, 22]
+  duration: 0:50
+  venue: Various spaces at Various venues
+  url: https://www.edfringe.com/tickets/whats-on/00-45-00
 
 1-dazzling-cabaret:
-  # 1 Dazzling Cabaret
+  title: 1 Dazzling Cabaret
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+  noAvailability: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  startTime: 20:00
+  duration: 1:00
+  venue: The Live Room at Laughing Horse @ The Three Sisters
+  url: https://www.edfringe.com/tickets/whats-on/1-dazzling-cabaret
 
 1-hour-straitjacket-escape-magic-show:
-  # 1 Hour Straitjacket Escape Magic Show
+  title: 1 Hour Straitjacket Escape Magic Show
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30]
+  startTime: 11:00
+  duration: 1:00
+  venue: Binkies Lounge at PBH's Free Fringe @ Whistlebinkies
+  url: https://www.edfringe.com/tickets/whats-on/1-hour-straitjacket-escape-magic-show
 
 1-king-2-princes-and-shakespeare-s-lie:
-  # 1 King, 2 Princes and Shakespeare's Lie
+  title: 1 King, 2 Princes and Shakespeare's Lie
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
-  noAvailability: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  noAvailability: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 28, 29]
+  startTime: 18:15
+  duration: 0:50
+  venue: Annexe at theSpace @ Symposium Hall
+  url: https://www.edfringe.com/tickets/whats-on/1-king-2-princes-and-shakespeare-s-lie
 
 1954-ella-etta-eartha:
-  # 1954: Ella, Etta, Eartha
+  title: "1954: Ella, Etta, Eartha"
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   noAvailability: [10]
+  startTime: 14:30
+  duration: 1:00
+  venue: Bijou at Assembly @ St Andrew Square
+  url: https://www.edfringe.com/tickets/whats-on/1954-ella-etta-eartha
 
 3-times-i-killed:
-  # 3 Times I Killed
+  title: 3 Times I Killed
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   booked: 17
+  startTime: 14:00
+  duration: 1:00
+  venue: Playground 1 at ZOO Playground
+  url: https://www.edfringe.com/tickets/whats-on/3-times-i-killed
 
 44-minutes:
-  # 44 Minutes
+  title: 44 Minutes
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  noAvailability: [9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23]
+  noAvailability: [9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25]
+  startTime: 21:05
+  duration: 1:00
+  venue: Front Room at Assembly @ St Andrew Square
+  url: https://www.edfringe.com/tickets/whats-on/44-minutes
 
 a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends:
-  # A Case for Magic: For Lovers of Magic and Their Ambivalent Friends
+  title: "A Case for Magic: For Lovers of Magic and Their Ambivalent Friends"
   rating: 0
   dates: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+  startTime: 16:35
+  duration: 0:50
+  venue: Stephenson Theatre at theSpace @ Surgeons' Hall
+  url: https://www.edfringe.com/tickets/whats-on/a-case-for-magic-for-lovers-of-magic-and-their-ambivalent-friends
 
 a-forgotten-woman-mrs-oscar-wilde:
-  # A Forgotten Woman: Mrs Oscar Wilde
+  title: "A Forgotten Woman: Mrs Oscar Wilde"
   rating: 1
   dates: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
-  noAvailability: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
+  noAvailability: [7, 9, 11, 13, 15, 17, 19, 21, 25, 29]
+  startTime: 17:05
+  duration: 1:00
+  venue: Annexe at theSpace @ Symposium Hall
+  url: https://www.edfringe.com/tickets/whats-on/a-forgotten-woman-mrs-oscar-wilde
 
 a-list-burlesque-and-cabaret:
-  # A-List Burlesque and Cabaret
+  title: A-List Burlesque and Cabaret
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 22:00
+  duration: 1:00
+  venue: The Ballroom at Laughing Horse @ The Counting House
+  url: https://www.edfringe.com/tickets/whats-on/a-list-burlesque-and-cabaret
 
 a-night-at-the-musicals:
-  # A Night at the Musicals
+  title: A Night at the Musicals
   rating: 0
   dates: [24, 25, 26, 27, 28, 29]
+  startTime: 17:45
+  duration: 0:55
+  venue: Big at theSpaceTriplex
+  url: https://www.edfringe.com/tickets/whats-on/a-night-at-the-musicals
 
 absolutely-magic-2026:
-  # Absolutely Magic 2026!
-  rating: 1
+  title: Absolutely Magic 2026!
+  rating: 0
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  times: {8: "15:45", 9: "15:45", 10: "15:45", 11: "15:45", 12: "15:45", 13: "15:45", 14: "15:45", 15: "15:45", 16: "15:45", 18: "15:45", 19: "15:45", 20: "15:45", 21: "15:45", 22: "15:45", 23: "15:45", 25: "15:45", 26: "15:45", 27: "15:45", 28: "15:45", 29: "15:45", 30: "15:45"}
+  duration: 0:50
+  venue: Room 2 at PBH's Free Fringe @ Carbon
+  url: https://www.edfringe.com/tickets/whats-on/absolutely-magic-2026
 
 afronauts:
-  # Afronauts
-  rating: "?"
+  title: Afronauts
+  rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
   noAvailability: [10, 11]
+  startTime: 13:55
+  duration: 1:00
+  venue: Udderbelly at Underbelly, George Square
+  url: https://www.edfringe.com/tickets/whats-on/afronauts
 
 after-party:
-  # After Party
+  title: After Party
   rating: 2
   dates: [14, 16, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {14: "11:30", 16: "17:30", 19: "14:45", 20: "17:30", 21: "11:30", 22: "14:45", 23: "17:30", 25: "11:30", 26: "14:45", 27: "17:30", 28: "11:30", 29: "14:45", 30: "17:30"}
   noAvailability: [14, 16, 19]
+  duration: 2:05
+  venue: Traverse 1 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/after-party
 
 after-shakespeare:
-  # After Shakespeare
+  title: After Shakespeare
   rating: 1
   dates: [8, 10, 12, 14, 18, 20, 22, 24, 26, 28]
   noAvailability: [10, 12, 18]
+  startTime: 17:05
+  duration: 1:00
+  venue: Annexe at theSpace @ Symposium Hall
+  url: https://www.edfringe.com/tickets/whats-on/after-shakespeare
 
 alan-bennett-s-talking-heads:
-  # Alan Bennett's Talking Heads
+  title: Alan Bennett's Talking Heads
   rating: 0
   dates: [10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23]
   noAvailability: [10]
+  startTime: 19:40
+  duration: 1:10
+  venue: The Speakeasy at The Speakeasy at The Royal Scots Club
+  url: https://www.edfringe.com/tickets/whats-on/alan-bennett-s-talking-heads
 
 ali-affleck-presents-the-louis-armstrong-duets-with-ella-fitzgerald-and-bing-crosby:
-  # Ali Affleck Presents the Louis Armstrong Duets with Ella Fitzgerald and Bing Crosby
+  title: Ali Affleck Presents the Louis Armstrong Duets with Ella Fitzgerald and Bing Crosby
   rating: 1
   dates: [11, 12, 17, 24, 27]
   times: {11: "20:30", 12: "13:00", 17: "17:30", 24: "21:00", 27: "16:00"}
   noAvailability: [11]
+  duration: 1:00
+  venue: Various spaces at Various venues
+  url: https://www.edfringe.com/tickets/whats-on/ali-affleck-presents-the-louis-armstrong-duets-with-ella-fitzgerald-and-bing-crosby
 
 alone:
-  # ALONE
+  title: ALONE
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {5: "13:35", 6: "13:35", 7: "13:35", 8: "13:35", 9: "13:35", 10: "13:35", 11: "13:35", 12: "13:35", 13: "13:35", 14: "13:35", 15: "13:35", 16: "13:35", 18: "13:35", 19: "13:35", 20: "13:35", 21: "13:35", 22: "13:35", 23: "13:35", 25: "13:35-17:40", 26: "13:35-17:40", 27: "13:35-17:40", 28: "13:35-17:40", 29: "13:35", 30: "13:35"}
-  noAvailability: [8, 9, 12, 13, 14, 15, 16, 19, 22, 25]
+  noAvailability: [8, 9, 12, 13, 14, 15, 16, 19, 22, 29]
+  duration: 1:00
+  venue: The Box at Assembly George Square
+  url: https://www.edfringe.com/tickets/whats-on/alone
 
 amy-tears-dry-on-their-own:
-  # Amy – Tears Dry on Their Own
+  title: Amy – Tears Dry on Their Own
   rating: 0
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
   noAvailability: [10, 11]
+  startTime: 14:00
+  duration: 1:00
+  venue: Dirty Martini at Le Monde
+  url: https://www.edfringe.com/tickets/whats-on/amy-tears-dry-on-their-own
 
 an-introvert-s-guide-to-magic:
-  # An Introvert's Guide to Magic
+  title: An Introvert's Guide to Magic
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 12:05
+  duration: 0:55
+  venue: Ballroom at PBH's Free Fringe @ Voodoo Rooms
+  url: https://www.edfringe.com/tickets/whats-on/an-introvert-s-guide-to-magic
 
 an-ode-to-the-casting-director:
-  # An Ode to the Casting Director
+  title: An Ode to the Casting Director
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29]
   noAvailability: [10]
+  startTime: 12:00
+  duration: 1:00
+  venue: Studio Four at Assembly George Square Studios
+  url: https://www.edfringe.com/tickets/whats-on/an-ode-to-the-casting-director
 
 andrew-frost-just-let-me-have-this:
-  # Andrew Frost: Just Let Me Have This
+  title: "Andrew Frost: Just Let Me Have This"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [12, 16, 22, 23]
+  startTime: 15:25
+  duration: 1:00
+  venue: Baby Grand at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/andrew-frost-just-let-me-have-this
 
 angels-in-america:
-  # Angels in America
-  url: "https://www.eif.co.uk/events/angels-in-america"
   title: "Angels in America"
-  venue: "King's Theatre"
   startTime: "18:00"
-  duration: "5:00"
   dates: [18]
   booked: 18
+  duration: "5:00"
+  venue: "King's Theatre"
+  url: "https://www.eif.co.uk/events/angels-in-america"
 
 apples-in-winter:
-  # Apples in Winter
+  title: Apples in Winter
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [11, 12, 14, 15, 17, 19]
+  startTime: 10:30
+  duration: 1:10
+  venue: The Annexe at Paradise in The Vault
+  url: https://www.edfringe.com/tickets/whats-on/apples-in-winter
 
 aquapella:
-  # Aquapella
+  title: Aquapella
   rating: 0
   dates: [17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29]
+  startTime: 13:00
+  duration: 1:00
+  venue: Doonstairs at Gilded Balloon Patter House
+  url: https://www.edfringe.com/tickets/whats-on/aquapella
 
 atomic-tales:
-  # Atomic Tales
+  title: Atomic Tales
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 15:15
+  duration: 1:00
+  venue: Playground 1 at ZOO Playground
+  url: https://www.edfringe.com/tickets/whats-on/atomic-tales
 
 avenue-q:
-  # Avenue Q
+  title: Avenue Q
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 20:50
+  duration: 2:05
+  venue: Lower Hall at Braw Venues @ Grand Lodge
+  url: https://www.edfringe.com/tickets/whats-on/avenue-q
 
 badgers:
-  # Badgers
+  title: Badgers
   rating: 0
   dates: [14, 15, 23, 25, 26, 27, 28, 29, 30]
   times: {14: "10:15", 15: "12:45", 23: "18:00", 25: "20:30", 26: "10:15", 27: "12:45", 28: "15:30", 29: "18:00", 30: "10:15"}
   noAvailability: [14, 15, 23, 26, 27, 28, 29, 30]
+  duration: 1:10
+  venue: Traverse 2 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/badgers
 
 best-of-cabaret-2026:
-  # Best of Cabaret 2026
+  title: Best of Cabaret 2026
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 19:30
+  duration: 1:00
+  venue: Just The Big Room at Just The Tonic at The Caves
+  url: https://www.edfringe.com/tickets/whats-on/best-of-cabaret-2026
 
 best-of-the-fest-daytime:
-  # Best of the Fest Daytime
+  title: Best of the Fest Daytime
   rating: 0
   dates: [7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
   noAvailability: [8, 22]
+  startTime: 13:30
+  duration: 1:00
+  venue: Studio Three at Assembly George Square Studios
+  url: https://www.edfringe.com/tickets/whats-on/best-of-the-fest-daytime
 
 bliss:
-  # Bliss
+  title: Bliss
   booked: 20
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
   noAvailability: [6, 8, 9, 10, 14, 15, 16, 17, 19, 20, 22, 23, 24]
+  startTime: 13:00
+  duration: 1:20
+  venue: Grand at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/bliss
 
 bob-dylan-on-piano:
-  # Bob Dylan On Piano
+  title: Bob Dylan On Piano
   rating: 0
   dates: [7, 9, 14, 25, 27]
   times: {7: "15:00", 9: "17:00", 14: "15:00", 25: "19:00", 27: "17:00"}
+  duration: 1:00
+  venue: Cellar Bar at Argyle Cellar Bar
+  url: https://www.edfringe.com/tickets/whats-on/bob-dylan-on-piano
 
 breathe-five-arias-that-saved-my-life:
-  # Breathe: Five Arias That Saved My Life
+  title: "Breathe: Five Arias That Saved My Life"
   rating: 0
   dates: [9, 10, 11, 12, 14, 17, 18, 19, 20, 21, 22]
   times: {9: "20:00", 10: "16:30", 11: "15:30", 12: "15:30", 14: "10:30", 17: "15:30", 18: "15:30", 19: "15:30", 20: "15:30", 21: "15:30", 22: "15:30"}
+  duration: 1:00
+  venue: Various spaces at Various venues
+  url: https://www.edfringe.com/tickets/whats-on/breathe-five-arias-that-saved-my-life
 
 brian-bilston-how-to-lay-an-egg-with-a-horse-inside:
-  # Brian Bilston: How to Lay an Egg with a Horse Inside 
+  title: "Brian Bilston: How to Lay an Egg with a Horse Inside"
   rating: 0
   dates: [24, 25, 26, 27, 28, 29, 30]
+  startTime: 16:40
+  duration: 1:00
+  venue: Ballroom at Assembly Rooms
+  url: https://www.edfringe.com/tickets/whats-on/brian-bilston-how-to-lay-an-egg-with-a-horse-inside
 
 buggers:
-  # Buggers
+  title: Buggers
   booked: 26
   bookedTime: 13:20
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  noAvailability: [14, 15, 16, 18, 22, 25, 27, 29]
+  noAvailability: [14, 15, 16, 18, 22, 25, 27, 28, 29]
   times: {5: "13:20", 6: "13:20", 7: "13:20", 8: "13:20", 9: "13:20", 10: "13:20", 11: "13:20", 12: "13:20", 13: "13:20", 14: "13:20", 15: "13:20", 16: "13:20", 18: "13:20", 19: "13:20", 20: "13:20", 21: "13:20", 22: "13:20", 23: "13:20", 25: "13:20", 26: "13:20-14:40", 27: "13:20", 28: "13:20", 29: "13:20", 30: "13:20"}
-
-# PROBLEM: HTTP 404 fetching https://www.edfringe.com/tickets/whats-on/burning-doEarwn-the-horse
-burning-doEarwn-the-horse:
-  # Burning Down the Horse
-  rating: 0
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [9, 10, 11, 12, 13, 15, 16]
+  duration: 1:00
+  venue: Upstairs at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/buggers
 
 burning-down-the-horse:
-  # Burning Down the Horse
-  rating: "?"
+  title: Burning Down the Horse
+  rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [9, 10, 11, 12, 13, 15, 16, 21, 22, 23]
+  startTime: 12:35
+  duration: 1:00
+  venue: Friesian at Underbelly, Bristo Square
+  url: https://www.edfringe.com/tickets/whats-on/burning-down-the-horse
 
 by-a-thread:
-  # By a Thread
+  title: By a Thread
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   noAvailability: [8, 10, 11, 15, 22]
+  startTime: 15:55
+  duration: 1:00
+  venue: Music Hall at Assembly Rooms
+  url: https://www.edfringe.com/tickets/whats-on/by-a-thread
 
 caspar-thomas-the-art-of-close-up-magic-volume-2:
-  # Caspar Thomas: The Art of Close-Up Magic (Volume 2)
+  title: "Caspar Thomas: The Art of Close-Up Magic (Volume 2)"
   booked: 19
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 21:10
+  duration: 1:00
+  venue: theatre at C ARTS | C venues | C alto
+  url: https://www.edfringe.com/tickets/whats-on/caspar-thomas-the-art-of-close-up-magic-volume-2
 
 casual-receptionist-of-the-quarter:
-  # Casual Receptionist of the Quarter
+  title: Casual Receptionist of the Quarter
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [18, 19, 20, 21, 22, 23, 24]
+  noAvailability: [18, 19, 20, 21, 22, 23, 24, 25, 26]
+  startTime: 17:20
+  duration: 1:00
+  venue: Bothie at Gilded Balloon Patter House
+  url: https://www.edfringe.com/tickets/whats-on/casual-receptionist-of-the-quarter
 
 cathy:
-  # Cathy
+  title: Cathy
   booked: 19
   dates: [14, 15, 21, 22, 26, 27, 28, 29, 30]
   times: {14: "18:30", 15: "11:30", 21: "18:30", 22: "11:30", 26: "11:30", 27: "14:30", 28: "18:30", 29: "11:30", 30: "14:30"}
   noAvailability: [14, 15, 21, 22, 26, 27, 28, 29, 30]
+  duration: 1:10
+  venue: Traverse 1 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/cathy
 
 charlie-caper-magical:
-  # Charlie Caper – Magical
+  title: Charlie Caper – Magical
   rating: 0
   dates: [8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
+  startTime: 18:30
+  duration: 1:00
+  venue: Liquid Room Warehouse at PBH's Free Fringe @ Liquid Room
+  url: https://www.edfringe.com/tickets/whats-on/charlie-caper-magical
 
 # PROBLEM: some dates have more than two performances
 coma:
-  # COMA
+  title: COMA
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {7: "many", 8: "many", 9: "many", 10: "many", 11: "many", 12: "many", 13: "many", 14: "many", 15: "many", 16: "many", 17: "many", 18: "many", 19: "many", 20: "many", 21: "many", 22: "many", 23: "many", 24: "many", 25: "many", 26: "many", 27: "many", 28: "many", 29: "many", 30: "many", 31: "many", 5: "many", 6: "many"}
+  duration: 0:30
+  venue: Darkfield COMA at Assembly George Square
+  url: https://www.edfringe.com/tickets/whats-on/coma
 
 dancing-shoes-wip:
-  # Dancing Shoes (WIP)
+  title: Dancing Shoes (WIP)
   rating: 0
   dates: [20]
+  startTime: 17:00
+  duration: 1:00
+  venue: Shedinburgh (Venue 322) at Shedinburgh @ Assembly Checkpoint
+  url: https://www.edfringe.com/tickets/whats-on/dancing-shoes-wip
 
 david-alnwick-magician-not-creepy:
-  # David Alnwick: Magician. Not Creepy.
+  title: "David Alnwick: Magician. Not Creepy."
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 16:50
+  duration: 1:00
+  venue: Chamber Room at PBH's Free Fringe @ Banshee Labyrinth
+  url: https://www.edfringe.com/tickets/whats-on/david-alnwick-magician-not-creepy
 
 david-alnwick-objectively-the-best-magician:
-  # David Alnwick: Objectively the Best Magician
+  title: "David Alnwick: Objectively the Best Magician"
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 13:30
+  duration: 1:00
+  venue: Liquid Room Studio at PBH's Free Fringe @ Liquid Room
+  url: https://www.edfringe.com/tickets/whats-on/david-alnwick-objectively-the-best-magician
 
 david-alnwick-the-haunted-magician:
-  # David Alnwick: The Haunted Magician
+  title: "David Alnwick: The Haunted Magician"
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   booked: 19
+  startTime: 19:40
+  duration: 1:00
+  venue: Speakeasy at PBH's Free Fringe @ Voodoo Rooms
+  url: https://www.edfringe.com/tickets/whats-on/david-alnwick-the-haunted-magician
 
 delusions-and-grandeur:
-  # Delusions and Grandeur
+  title: Delusions and Grandeur
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 13:05
+  duration: 1:00
+  venue: Playground 2 at ZOO Playground
+  url: https://www.edfringe.com/tickets/whats-on/delusions-and-grandeur
 
 doom-and-glitter-a-tribute-to-tom-waits:
-  # Doom and Glitter: A Tribute To Tom Waits
+  title: "Doom and Glitter: A Tribute To Tom Waits"
   rating: 1
   dates: [9, 11, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25, 27, 29, 30]
   times: {9: "21:00", 13: "21:00", 15: "21:00", 23: "21:00", 25: "21:00", 27: "21:00", 29: "21:00", 30: "21:00", 16: "17:30", 17: "17:30", 18: "17:30", 19: "17:30", 20: "17:30", 21: "17:30", 22: "17:30", 11: "21:00"}
+  duration: 1:00
+  venue: Various spaces at Various venues
+  url: https://www.edfringe.com/tickets/whats-on/doom-and-glitter-a-tribute-to-tom-waits
 
 dracula-lucy-s-dream:
-  # Dracula: Lucy's Dream
+  title: "Dracula: Lucy's Dream"
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29]
+  startTime: 17:30
+  duration: 1:00
+  venue: Lennox Theatre at Pleasance at EICC
+  url: https://www.edfringe.com/tickets/whats-on/dracula-lucy-s-dream
 
 dune-the-musical:
-  # Dune! The Musical
+  title: Dune! The Musical
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 13:25
+  duration: 1:00
+  venue: Ballroom at PBH's Free Fringe @ Voodoo Rooms
+  url: https://www.edfringe.com/tickets/whats-on/dune-the-musical
 
 earnest:
-  # ...Earnest?
+  title: ...Earnest?
   booked: 19
   dates: [6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [15, 22]
+  startTime: 15:45
+  duration: 1:15
+  venue: Udderbelly at Underbelly, George Square
+  url: https://www.edfringe.com/tickets/whats-on/earnest
 
 eight:
-  # Eight
+  title: Eight
   rating: 0
   dates: [17, 18, 19, 20, 21, 22]
+  startTime: 11:35
+  duration: 0:50
+  venue: Studio at theSpace @ Niddry St
+  url: https://www.edfringe.com/tickets/whats-on/eight
 
 elf-lyons-is-the-woman-on-the-edge:
-  # Elf Lyons is The Woman on the Edge
+  title: Elf Lyons is The Woman on the Edge
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   noAvailability: [11, 12, 14, 15, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   times: {24: "21:30-23:15", 31: "17:00-21:30", 5: "21:30", 6: "21:30", 7: "21:30", 8: "21:30", 9: "21:30", 10: "21:30", 11: "21:30", 12: "21:30", 13: "21:30", 14: "21:30", 15: "21:30", 16: "21:30", 18: "21:30", 19: "21:30", 20: "21:30", 21: "21:30", 22: "21:30", 23: "21:30", 25: "21:30", 26: "21:30", 27: "21:30", 28: "21:30", 29: "21:30", 30: "21:30"}
+  duration: 1:00
+  venue: Beyond at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/elf-lyons-is-the-woman-on-the-edge
 
 flop-the-best-songs-from-the-worst-musicals:
-  # FLOP! The Best Songs From The Worst Musicals
+  title: FLOP! The Best Songs From The Worst Musicals
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
   noAvailability: [10, 11]
+  startTime: 18:45
+  duration: 1:00
+  venue: Wine Bar at Gilded Balloon Teviot
+  url: https://www.edfringe.com/tickets/whats-on/flop-the-best-songs-from-the-worst-musicals
 
 forest-fringe-vincent-gambini-this-is-not-a-magic-show:
-  # Forest Fringe: Vincent Gambini: This Is Not a Magic Show
+  title: "Forest Fringe: Vincent Gambini: This Is Not a Magic Show"
   rating: 0
   dates: [26]
+  startTime: 22:00
+  duration: 1:00
+  venue: Shedinburgh (Venue 322) at Shedinburgh @ Assembly Checkpoint
+  url: https://www.edfringe.com/tickets/whats-on/forest-fringe-vincent-gambini-this-is-not-a-magic-show
 
 full-score-barbershop-choir-presents-brace-for-impact:
-  # Full Score Barbershop Choir Presents: Brace for Impact!
+  title: "Full Score Barbershop Choir Presents: Brace for Impact!"
   rating: 0
   dates: [17, 18, 19, 20, 21, 22]
   booked: 19
+  startTime: 17:45
+  duration: 0:50
+  venue: Big at theSpaceTriplex
+  url: https://www.edfringe.com/tickets/whats-on/full-score-barbershop-choir-presents-brace-for-impact
 
 giraffe:
-  # Giraffe
+  title: Giraffe
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [12, 14, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [12, 14, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28]
+  startTime: 13:45
+  duration: 1:00
+  venue: Cellar at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/giraffe
 
 good-with-faces:
-  # Good With Faces
-  rating: 1
+  title: Good With Faces
+  booked: 21
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
   noAvailability: [17]
+  startTime: 16:20
+  duration: 1:00
+  venue: TechCube 0 at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/good-with-faces
 
 ham:
-  # HAM
+  title: HAM
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
-  noAvailability: [10, 11, 13, 14, 15, 16, 17, 19, 20, 22, 23, 24, 26, 27, 28, 29]
+  noAvailability: [10, 11, 13, 14, 15, 16, 17, 19, 20, 22, 23, 24, 26, 27, 28, 29, 30]
+  startTime: 19:30
+  duration: 1:00
+  venue: Old Lab at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/ham
 
 hess:
-  # HESS
+  title: HESS
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  startTime: 13:00
+  duration: 1:00
+  venue: Billiard Room at Gilded Balloon Teviot
+  url: https://www.edfringe.com/tickets/whats-on/hess
 
 how-not-to-make-it-in-america:
-  # How Not to Make it in America
+  title: How Not to Make it in America
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
   noAvailability: [8, 9, 13, 14, 15, 18, 21]
+  startTime: 21:20
+  duration: 1:00
+  venue: Former Gents Locker Room at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/how-not-to-make-it-in-america
 
 irrational:
-  # Irrational
+  title: Irrational
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   times: {6: "18:15", 7: "18:15", 8: "18:15", 9: "18:15", 10: "18:15", 12: "18:15", 14: "18:15", 16: "18:15", 11: "20:00", 13: "20:00", 15: "20:00"}
   noAvailability: [16]
+  duration: 1:00
+  venue: George Mackay Brown Library at Scottish Storytelling Centre
+  url: https://www.edfringe.com/tickets/whats-on/irrational
 
 jamie-wolf-psycho:
-  # Jamie Wolf: Psycho
+  title: "Jamie Wolf: Psycho"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [22]
+  startTime: 21:40
+  duration: 1:00
+  venue: Wee Room at Gilded Balloon Teviot
+  url: https://www.edfringe.com/tickets/whats-on/jamie-wolf-psycho
 
 joni-mitchell-take-me-as-i-am:
-  # Joni Mitchell: Take Me As I Am
+  title: "Joni Mitchell: Take Me As I Am"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  startTime: 13:45
+  duration: 1:00
+  venue: Studio Two at Assembly George Square Studios
+  url: https://www.edfringe.com/tickets/whats-on/joni-mitchell-take-me-as-i-am
 
 kate-smurthwaite-writes-and-performs-a-brand-new-full-length-stand-up-show-every-single-day-for-the-entire-edinburgh-fringe-based-on-audience-suggestions-from-the-previous-day-not-tuesdays:
-  # Kate Smurthwaite Writes and Performs a Brand-New Full-Length Stand-Up Show Every Single Day for the Entire Edinburgh Fringe Based on Audience Suggestions from the Previous Day (Not Tuesdays)
+  title: Kate Smurthwaite Writes and Performs a Brand-New Full-Length Stand-Up Show Every Single Day for the Entire Edinburgh Fringe Based on Audience Suggestions from the Previous Day (Not Tuesdays)
   rating: 1
   dates: [8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
+  startTime: 19:40
+  duration: 1:00
+  venue: Cinema Room at PBH's Free Fringe @ Banshee Labyrinth
+  url: https://www.edfringe.com/tickets/whats-on/kate-smurthwaite-writes-and-performs-a-brand-new-full-length-stand-up-show-every-single-day-for-the-entire-edinburgh-fringe-based-on-audience-suggestions-from-the-previous-day-not-tuesdays
 
 lara-ricote-inkling:
-  # Lara Ricote: INKLING
+  title: "Lara Ricote: INKLING"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   times: {5: "17:40", 6: "17:40", 7: "17:40", 8: "17:40", 9: "17:40", 10: "17:40", 11: "17:40", 12: "17:40", 13: "17:40", 14: "17:40", 15: "17:40", 18: "13:25-17:40", 19: "17:40", 20: "17:40", 21: "17:40", 22: "17:40", 23: "13:25-17:40", 24: "17:40", 25: "17:40", 26: "17:40", 27: "17:40", 28: "17:40", 29: "17:40", 30: "17:40"}
-  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 19, 21, 22, 24]
+  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 19, 21, 22, 24, 25, 26, 27, 28, 29]
+  duration: 1:00
+  venue: Monkey Barrel 3 at Monkey Barrel Comedy
+  url: https://www.edfringe.com/tickets/whats-on/lara-ricote-inkling
 
 lawrence-dodd-this-can-t-be-it:
-  # Lawrence Dodd: This Can't Be It
+  title: "Lawrence Dodd: This Can't Be It"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  startTime: 20:40
+  duration: 1:00
+  venue: Nook at Gilded Balloon Teviot
+  url: https://www.edfringe.com/tickets/whats-on/lawrence-dodd-this-can-t-be-it
 
 lear-s-fool:
-  # Lear's Fool
+  title: Lear's Fool
   rating: 0
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
+  startTime: 13:45
+  duration: 1:00
+  venue: Lime Studio at Greenside @ George Street
+  url: https://www.edfringe.com/tickets/whats-on/lear-s-fool
 
 linus-karp-was-hit-with-an-umbrella:
-  # Linus Karp Was Hit With An Umbrella
+  title: Linus Karp Was Hit With An Umbrella
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [7, 10, 14, 15]
+  startTime: 20:20
+  duration: 1:00
+  venue: Friesian at Underbelly, Bristo Square
+  url: https://www.edfringe.com/tickets/whats-on/linus-karp-was-hit-with-an-umbrella
 
 lost-the-plot-an-improvised-musical:
-  # Lost the Plot: An Improvised Musical
+  title: "Lost the Plot: An Improvised Musical"
   rating: 0
   dates: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  startTime: 20:30
+  duration: 1:00
+  venue: Doonstairs at Gilded Balloon Patter House
+  url: https://www.edfringe.com/tickets/whats-on/lost-the-plot-an-improvised-musical
 
 loud-poets:
-  # Loud Poets
+  title: Loud Poets
   rating: 0
   dates: [13, 20, 27]
+  startTime: 20:30
+  duration: 1:20
+  venue: Netherbow Theatre at Scottish Storytelling Centre
+  url: https://www.edfringe.com/tickets/whats-on/loud-poets
 
 madeleine-brettingham-legend:
-  # Madeleine Brettingham: Legend
+  title: "Madeleine Brettingham: Legend"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 8, 9, 10, 11, 13, 15, 16, 18, 20, 21, 22, 24, 25, 26]
+  noAvailability: [7, 8, 9, 10, 11, 13, 15, 16, 18, 20, 21, 22, 24, 25, 28, 29]
   times: {5: "20:20", 6: "20:20", 7: "20:20", 8: "20:20", 9: "20:20", 10: "20:20", 11: "20:20", 12: "20:20", 13: "20:20", 14: "20:20", 15: "20:20", 16: "20:20", 18: "20:20", 19: "20:20", 20: "20:20", 21: "20:20", 22: "20:20", 23: "20:20", 24: "20:20", 25: "20:20", 26: "20:20", 27: "20:20-21:45", 28: "20:20", 29: "20:20", 30: "20:20", 31: "20:20"}
+  duration: 1:00
+  venue: Various spaces at Gilded Balloon Teviot
+  url: https://www.edfringe.com/tickets/whats-on/madeleine-brettingham-legend
 
 man-sings-the-same-song-over-and-over-again-for-an-hour:
-  # Man Sings the Same Song Over and Over Again for an Hour
+  title: Man Sings the Same Song Over and Over Again for an Hour
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
   times: {6: "19:45", 7: "19:45", 8: "19:45", 9: "19:45", 10: "19:45", 11: "19:45", 12: "19:45", 13: "19:45", 14: "19:45", 15: "19:45", 16: "19:45", 18: "19:45", 19: "19:45", 20: "19:45", 21: "15:00-19:45", 22: "15:00-19:45", 23: "19:45", 25: "19:45", 26: "19:45", 27: "19:45", 28: "15:00-19:45", 29: "15:00-19:45", 30: "19:45", 31: "19:45"}
   noAvailability: [8, 11, 12, 13, 14, 16, 18, 20, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  duration: 1:00
+  venue: Various spaces at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/man-sings-the-same-song-over-and-over-again-for-an-hour
 
 mark-thomas-40-in-stand-up-years:
-  # Mark Thomas: 40 in Stand-Up Years
+  title: "Mark Thomas: 40 in Stand-Up Years"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24]
+  noAvailability: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26]
+  startTime: 18:05
+  duration: 1:00
+  venue: Stand 1 at The Stand Comedy Club
+  url: https://www.edfringe.com/tickets/whats-on/mark-thomas-40-in-stand-up-years
 
 midday-cabaret:
-  # Midday Cabaret
+  title: Midday Cabaret
   rating: 0
   dates: [7, 8, 9, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 26, 27, 28, 29]
+  startTime: 12:00
+  duration: 1:00
+  venue: Just The Big Room at Just The Tonic at The Caves
+  url: https://www.edfringe.com/tickets/whats-on/midday-cabaret
 
 miscast-sondheim:
-  # Miscast Sondheim
+  title: Miscast Sondheim
   rating: 0
   dates: [7, 8, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22]
+  startTime: 17:20
+  duration: 0:50
+  venue: Forest Theatre at Greenside @ George Street
+  url: https://www.edfringe.com/tickets/whats-on/miscast-sondheim
 
 miscellaneous-shite-2026:
-  # MISCELLANEOUS SHITE 2026
-  rating: 1
   title: MISCELLANEOUS SHITE 2026
-  venue: Canons’ Gait (venue 78)
-  duration: 0:55
+  rating: 1
   startTime: 19:00
-  url: https://freefringe.org.uk/shows/miscellaneous-shite-2026/
   dates: [8, 11, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
+  duration: 0:55
+  venue: Canons’ Gait (venue 78)
+  url: https://freefringe.org.uk/shows/miscellaneous-shite-2026/
 
 mohan-a-partition-story:
-  # Mohan: A Partition Story
+  title: "Mohan: A Partition Story"
   rating: 1
   dates: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  startTime: 15:25
+  duration: 1:00
+  venue: Above at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/mohan-a-partition-story
 
 mrs-stern-wanders-the-prussian-state-library:
-  # Mrs Stern Wanders the Prussian State Library
+  title: Mrs Stern Wanders the Prussian State Library
   booked: 27
-  dates: [14, 18, 26, 27, 28, 29, 30]
-  times: {14: "15:15", 18: "10:15", 26: "15:15", 27: "18:00", 28: "20:30", 29: "10:15", 30: "12:45"}
-  noAvailability: [14, 18, 26, 27, 28, 29, 30]
+  dates: [14, 18, 27, 28, 29, 30]
+  times: {14: "15:15", 18: "10:15", 27: "18:00", 28: "20:30", 29: "10:15", 30: "12:45"}
+  noAvailability: [14, 18, 27, 28, 29, 30]
+  duration: 1:20
+  venue: Traverse 2 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/mrs-stern-wanders-the-prussian-state-library
 
 only-bones-daniel-nodder:
-  # Only Bones – Daniel Nodder
+  title: Only Bones – Daniel Nodder
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [5, 8]
+  startTime: 20:20
+  duration: 1:00
+  venue: Downstairs at Assembly Roxy
+  url: https://www.edfringe.com/tickets/whats-on/only-bones-daniel-nodder
 
 pace:
-  # PACE
+  title: PACE
   rating: 0
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29]
+  startTime: 11:10
+  duration: 1:00
+  venue: The Beauty at Underbelly’s Circus Hub on the Meadows
+  url: https://www.edfringe.com/tickets/whats-on/pace
 
 patient-13:
-  # Patient 13
+  title: Patient 13
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
   booked: 18
+  startTime: 14:20
+  duration: 1:00
+  venue: Playground 2 at ZOO Playground
+  url: https://www.edfringe.com/tickets/whats-on/patient-13
 
 paul-merton-and-suki-webster-s-improv-show:
-  # Paul Merton and Suki Webster's Improv Show
+  title: Paul Merton and Suki Webster's Improv Show
   rating: 1
   dates: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
   noAvailability: [14, 15, 22]
+  startTime: 15:30
+  duration: 1:00
+  venue: Grand at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/paul-merton-and-suki-webster-s-improv-show
 
 pilate-the-lost-gospel:
-  # Pilate: The Lost Gospel
+  title: "Pilate: The Lost Gospel"
   booked: 20
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30]
+  startTime: 10:45
+  duration: 1:15
+  venue: Above at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/pilate-the-lost-gospel
 
 pink-rabbit:
-  # Pink Rabbit
+  title: Pink Rabbit
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [9, 10, 11, 13, 15, 16, 17, 19, 20, 21, 23, 24, 26, 27, 29, 30]
+  noAvailability: [9, 10, 11, 13, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30]
   times: {5: "16:15", 6: "16:15", 7: "16:15", 8: "16:15", 9: "16:15", 10: "16:15", 11: "16:15", 12: "16:15", 13: "16:15", 14: "16:15", 15: "16:15", 16: "16:15", 17: "16:15", 19: "16:15", 20: "16:15", 21: "16:15", 22: "16:15", 23: "16:15", 24: "16:15", 25: "16:15", 26: "16:15", 27: "16:15", 28: "16:15-19:15", 29: "16:15", 30: "16:15"}
+  duration: 1:00
+  venue: Daisy at Underbelly, Bristo Square
+  url: https://www.edfringe.com/tickets/whats-on/pink-rabbit
 
 pip-utton-s-farewell-to-edinburgh-fringe-bacon:
-  # Pip Utton's Farewell to Edinburgh Fringe: Bacon
+  title: "Pip Utton's Farewell to Edinburgh Fringe: Bacon"
   rating: 0
   dates: [19, 22, 26, 29]
+  startTime: 12:15
+  duration: 1:00
+  venue: The Green at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/pip-utton-s-farewell-to-edinburgh-fringe-bacon
 
 pip-utton-s-farewell-to-edinburgh-fringe-before-i-forget-i-love-you-i-love-you:
-  # Pip Utton's Farewell to Edinburgh Fringe: Before I Forget I Love You, I Love You
+  title: "Pip Utton's Farewell to Edinburgh Fringe: Before I Forget I Love You, I Love You"
   booked: 21
   dates: [21, 25, 28, 30]
+  startTime: 12:15
+  duration: 1:00
+  venue: The Green at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/pip-utton-s-farewell-to-edinburgh-fringe-before-i-forget-i-love-you-i-love-you
 
 planetarium-lates-pink-floyd-s-dark-side-of-the-moon:
-  # Planetarium Lates: Pink Floyd’s Dark Side of the Moon
+  title: "Planetarium Lates: Pink Floyd’s Dark Side of the Moon"
   rating: 0
   dates: [6, 7, 8, 9, 13, 14, 15, 16, 20, 21, 22, 23, 27, 28, 29, 30]
   times: {6: "18:00-19:00", 7: "18:00-19:00", 8: "18:00-19:00", 9: "18:00-19:00", 13: "18:00-19:00", 14: "18:00-19:00", 15: "18:00-19:00", 16: "18:00-19:00", 20: "18:00-19:00", 21: "18:00-19:00", 22: "18:00-19:00", 23: "18:00-19:00", 27: "18:00-19:00", 28: "18:00-19:00", 29: "18:00-19:00", 30: "18:00-19:00"}
   noAvailability: [15, 20, 22]
+  duration: 0:45
+  venue: Planetarium at Dynamic Earth
+  url: https://www.edfringe.com/tickets/whats-on/planetarium-lates-pink-floyd-s-dark-side-of-the-moon
 
 reuben-kaye-hard-to-swallow:
-  # Reuben Kaye: Hard to Swallow
+  title: "Reuben Kaye: Hard to Swallow"
   rating: 1
   dates: [6, 7, 8, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29]
   noAvailability: [8, 11, 14, 15, 21, 22]
+  startTime: 20:00
+  duration: 1:05
+  venue: Palais du Variété at Assembly George Square Gardens
+  url: https://www.edfringe.com/tickets/whats-on/reuben-kaye-hard-to-swallow
 
 sanctuary:
-  # Sanctuary
+  title: Sanctuary
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   noAvailability: [10, 22]
+  startTime: 16:00
+  duration: 1:00
+  venue: Ace Dome at Pleasance Dome
+  url: https://www.edfringe.com/tickets/whats-on/sanctuary
 
 sarah-mcguinness-grit-glitter-and-gaslight:
-  # Sarah McGuinness: Grit, Glitter and Gaslight
+  title: "Sarah McGuinness: Grit, Glitter and Gaslight"
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
+  startTime: 22:00
+  duration: 1:00
+  venue: Billiard Room at Gilded Balloon Teviot
+  url: https://www.edfringe.com/tickets/whats-on/sarah-mcguinness-grit-glitter-and-gaslight
 
 scottish-comedy-legends-jack-docherty:
-  # Scottish Comedy Legends: Jack Docherty
+  title: "Scottish Comedy Legends: Jack Docherty"
   rating: 0
   dates: [28]
+  startTime: 12:15
+  duration: 1:00
+  venue: Stand 3 at The Stand Comedy Club 3 & 4
+  url: https://www.edfringe.com/tickets/whats-on/scottish-comedy-legends-jack-docherty
 
 see-you-tomorrow:
-  # See You Tomorrow
+  title: See You Tomorrow
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 20, 21, 22, 24, 25, 26, 27, 28, 29]
   times: {7: "17:15", 8: "17:15", 9: "17:15", 10: "17:15", 11: "17:15", 12: "17:15", 13: "17:15", 14: "17:15", 15: "17:15", 17: "11:25", 20: "11:25", 21: "11:25", 22: "11:25", 24: "11:25", 25: "11:25", 26: "11:25", 27: "11:25", 28: "11:25", 29: "11:25"}
   noAvailability: [15, 17, 22]
+  duration: 0:55
+  venue: Sprout Studio at Greenside @ George Street
+  url: https://www.edfringe.com/tickets/whats-on/see-you-tomorrow
 
 shotgunned:
-  # Shotgunned
+  title: Shotgunned
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  startTime: 15:10
+  duration: 1:00
+  venue: Studio Five at Assembly George Square Studios
+  url: https://www.edfringe.com/tickets/whats-on/shotgunned
 
 simon-garfunkel-and-beyond:
-  # Simon & Garfunkel and Beyond
+  title: Simon & Garfunkel and Beyond
   rating: 0
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
   noAvailability: [10, 11, 12, 21, 22]
+  startTime: 15:15
+  duration: 0:50
+  venue: Big at theSpaceTriplex
+  url: https://www.edfringe.com/tickets/whats-on/simon-garfunkel-and-beyond
 
 sinatra-one-last-shot:
-  # Sinatra: One Last Shot
+  title: "Sinatra: One Last Shot"
   rating: 0
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+  startTime: 15:30
+  duration: 1:00
+  venue: Dirty Martini at Le Monde
+  url: https://www.edfringe.com/tickets/whats-on/sinatra-one-last-shot
 
 soness-sumo-injury-comeback-tour:
-  # Soness: Sumo Injury Comeback Tour
+  title: "Soness: Sumo Injury Comeback Tour"
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30]
+  startTime: 19:30
+  duration: 1:00
+  venue: The Attic at Laughing Horse @ The Counting House
+  url: https://www.edfringe.com/tickets/whats-on/soness-sumo-injury-comeback-tour
 
 spring-awakening:
-  # Spring Awakening
+  title: Spring Awakening
   rating: 0
   dates: [24, 25, 26, 27, 28, 29]
+  startTime: 10:00
+  duration: 1:40
+  venue: Grand Theatre at theSpace @ Surgeons' Hall
+  url: https://www.edfringe.com/tickets/whats-on/spring-awakening
 
 strange-face-adventures-with-a-lost-nick-drake-recording-the-story-continues:
-  # Strange Face: Adventures with a Lost Nick Drake Recording... The Story Continues
+  title: "Strange Face: Adventures with a Lost Nick Drake Recording... The Story Continues"
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  startTime: 16:00
+  duration: 1:00
+  venue: 10 Dome at Pleasance Dome
+  url: https://www.edfringe.com/tickets/whats-on/strange-face-adventures-with-a-lost-nick-drake-recording-the-story-continues
 
 sunshine-on-leith:
-  # Sunshine on Leith
+  title: Sunshine on Leith
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   noAvailability: [10, 11]
+  startTime: 19:10
+  duration: 1:30
+  venue: Music Hall at Assembly Rooms
+  url: https://www.edfringe.com/tickets/whats-on/sunshine-on-leith
 
 supposing:
-  # Supposing:
+  title: "Supposing:"
   booked: 20
-  dates: [14, 22, 26, 27, 28, 29, 30]
-  times: {14: "18:00", 22: "10:30", 26: "18:00", 27: "20:30", 28: "10:30", 29: "12:45", 30: "20:30"}
-  noAvailability: [14, 22, 26, 27, 28, 29, 30]
+  dates: [14, 22, 27, 28, 29, 30]
+  times: {14: "18:00", 22: "10:30", 27: "20:30", 28: "10:30", 29: "12:45", 30: "20:30"}
+  noAvailability: [14, 22, 27, 28, 29, 30]
+  duration: 1:20
+  venue: Traverse 2 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/supposing
 
 ten-thousand-hours:
-  # Ten Thousand Hours
+  title: Ten Thousand Hours
   rating: 0
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
   noAvailability: [10, 11, 15, 22]
+  startTime: 17:30
+  duration: 1:00
+  venue: Main Hall at Assembly Hall
+  url: https://www.edfringe.com/tickets/whats-on/ten-thousand-hours
 
 the-bbc-s-first-homosexual:
-  # The BBC's First Homosexual
+  title: The BBC's First Homosexual
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
   noAvailability: [9, 10, 11, 12, 13, 14, 15, 16]
+  startTime: 13:00
+  duration: 1:00
+  venue: The Crate at Assembly George Square
+  url: https://www.edfringe.com/tickets/whats-on/the-bbc-s-first-homosexual
 
 the-big-bite-size-breakfast-show:
-  # The Big Bite-Size Breakfast Show
+  title: The Big Bite-Size Breakfast Show
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {5: "10:30", 6: "10:30-12:30", 7: "10:30", 8: "10:30", 9: "10:30", 10: "10:30", 11: "10:30", 12: "10:30", 13: "10:30", 14: "10:30", 15: "10:30", 16: "10:30", 17: "10:30", 18: "10:30", 20: "10:30", 21: "10:30", 22: "10:30", 23: "10:30", 24: "10:30", 25: "10:30", 26: "10:30", 27: "10:30", 28: "10:30", 29: "10:30", 30: "10:30", 31: "10:30"}
+  duration: 1:10
+  venue: Pleasance One at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/the-big-bite-size-breakfast-show
 
 the-bob-ross-effect:
-  # The Bob Ross Effect
+  title: The Bob Ross Effect
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   booked: 17
+  startTime: 16:05
+  duration: 1:10
+  venue: Piccolo Tent at Assembly George Square Gardens
+  url: https://www.edfringe.com/tickets/whats-on/the-bob-ross-effect
 
 the-crimes-of-pete:
-  # The Crimes of Pete
-  rating: "?"
+  title: The Crimes of Pete
+  rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 12:50
+  duration: 1:00
+  venue: Beside at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/the-crimes-of-pete
 
 the-event:
-  # The Event
+  title: The Event
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  startTime: 12:30
+  duration: 1:00
+  venue: Above at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/the-event
 
 the-jolly-fisherman:
-  # The Jolly Fisherman
+  title: The Jolly Fisherman
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   noAvailability: [7, 8, 9, 10, 11, 12, 14, 15, 16, 19, 21, 22, 26, 27, 28, 29, 30, 31]
   times: {5: "12:45", 6: "12:45", 7: "12:45", 8: "12:45", 9: "12:45", 10: "12:45", 11: "12:45", 12: "12:45", 13: "12:45", 14: "12:45", 15: "12:45", 16: "12:45", 18: "12:45", 19: "12:45", 20: "12:45", 21: "12:45", 22: "12:45", 23: "12:45-14:15", 24: "12:45", 25: "12:45", 26: "12:45", 27: "12:45", 28: "12:45", 29: "12:45", 30: "12:45", 31: "12:45"}
+  duration: 1:00
+  venue: Buttercup at Underbelly, George Square
+  url: https://www.edfringe.com/tickets/whats-on/the-jolly-fisherman
 
 the-librarians-a-very-serious-comedy:
-  # The Librarians: A Very Serious Comedy!
+  title: "The Librarians: A Very Serious Comedy!"
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
   noAvailability: [11, 15, 19]
+  startTime: 15:15
+  duration: 1:00
+  venue: Pleasance Two at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/the-librarians-a-very-serious-comedy
 
 the-misfortunes-of-a-spy-and-her-mystic:
-  # The Misfortunes of a Spy and Her Mystic
+  title: The Misfortunes of a Spy and Her Mystic
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
   booked: 17
+  startTime: 18:20
+  duration: 1:00
+  venue: Olive Studio at Greenside @ George Street
+  url: https://www.edfringe.com/tickets/whats-on/the-misfortunes-of-a-spy-and-her-mystic
 
 the-oxford-gargoyles-jazz-a-cappella:
-  # The Oxford Gargoyles: Jazz A Cappella
+  title: "The Oxford Gargoyles: Jazz A Cappella"
   rating: 0
   dates: [18, 19, 20, 21, 22, 23, 24]
+  startTime: 12:05
+  duration: 1:00
+  venue: Other Yin at Gilded Balloon Patter House
+  url: https://www.edfringe.com/tickets/whats-on/the-oxford-gargoyles-jazz-a-cappella
 
 the-palestinian-circus-step-and-a-half:
-  # The Palestinian Circus: Step and a Half
+  title: "The Palestinian Circus: Step and a Half"
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29]
   noAvailability: [10, 15, 16, 23]
+  startTime: 14:05
+  duration: 1:00
+  venue: The Lafayette at Underbelly’s Circus Hub on the Meadows
+  url: https://www.edfringe.com/tickets/whats-on/the-palestinian-circus-step-and-a-half
 
 the-pitch:
-  # The Pitch
+  title: The Pitch
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31]
-  noAvailability: [6, 11, 17, 18, 21, 22, 23, 24, 25]
+  noAvailability: [6, 11, 17, 18, 21, 22, 23, 24]
+  startTime: 14:00
+  duration: 1:10
+  venue: Baby Grand at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/the-pitch
 
 the-problem:
-  # The Problem
+  title: The Problem
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  startTime: 14:10
+  duration: 1:00
+  venue: Front Room at Assembly @ St Andrew Square
+  url: https://www.edfringe.com/tickets/whats-on/the-problem
 
 the-singer:
-  # The Singer
+  title: The Singer
   rating: 1
-  dates: [14, 18, 26, 27, 28, 29, 30]
-  times: {14: "21:15", 18: "21:15", 26: "21:15", 27: "21:00", 28: "21:15", 29: "21:15", 30: "21:00"}
-  noAvailability: [14, 18, 26, 27, 28, 29, 30]
+  dates: [14, 18, 27, 28, 29, 30]
+  times: {14: "21:15", 18: "21:15", 27: "21:00", 28: "21:15", 29: "21:15", 30: "21:00"}
+  noAvailability: [14, 18, 27, 28, 29]
+  duration: 1:20
+  venue: Traverse 1 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/the-singer
 
 the-speakeasy-experience:
-  # The Speakeasy Experience
+  title: The Speakeasy Experience
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {6: "17:45-19:45", 7: "17:45-19:45", 8: "17:45-19:45", 9: "17:45-19:45", 10: "17:45-19:45", 11: "17:45-19:45", 12: "17:45-19:45", 13: "17:45-19:45", 14: "17:45-19:45", 15: "17:45-19:45", 16: "17:45-19:45", 17: "17:45-19:45", 18: "17:45-19:45", 19: "17:45-19:45", 20: "17:45-19:45", 21: "17:45-19:45", 22: "17:45-19:45", 23: "17:45-19:45", 24: "17:45-19:45", 25: "17:45-19:45", 26: "17:45-19:45", 27: "17:45-19:45", 28: "17:45-19:45", 29: "17:45-19:45", 30: "17:45-19:45", 31: "17:45-19:45"}
   noAvailability: [10, 11, 12, 14, 15, 16, 18, 20]
+  duration: 1:00
+  venue: Summerhall Lobby at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/the-speakeasy-experience
 
 the-sumo-show-hirakuza:
-  # The Sumo Show HIRAKUZA
+  title: The Sumo Show HIRAKUZA
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   booked: 26
   noAvailability: [8, 10, 11, 15, 19, 22]
+  startTime: 18:00
+  duration: 1:00
+  venue: Udderbelly at Underbelly, George Square
+  url: https://www.edfringe.com/tickets/whats-on/the-sumo-show-hirakuza
 
 the-vagina-monologues:
-  # The Vagina Monologues
+  title: The Vagina Monologues
   rating: 0
   dates: [17, 18, 19, 20, 21, 22]
+  startTime: 12:35
+  duration: 0:50
+  venue: Studio at theSpace @ Niddry St
+  url: https://www.edfringe.com/tickets/whats-on/the-vagina-monologues
 
 this-is-not-america-a-razor-edge-new-play-to-start-your-day:
-  # THIS IS NOT AMERICA: A Razor-Edge New Play To Start Your Day!
+  title: "THIS IS NOT AMERICA: A Razor-Edge New Play To Start Your Day!"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {5: "11:05", 6: "11:05", 7: "11:05", 8: "11:05", 9: "11:05", 10: "11:05", 11: "11:05", 12: "11:05-12:20", 13: "11:05", 14: "11:05", 15: "11:05", 16: "11:05", 17: "11:05", 18: "11:05-12:20", 20: "11:05", 21: "11:05", 22: "11:05", 23: "11:05", 24: "11:05", 25: "11:05-12:20", 26: "11:05", 27: "11:05", 28: "11:05", 29: "11:05", 30: "11:05", 31: "11:05"}
   noAvailability: [9, 10, 11, 13, 15]
   booked: 18
   bookedTime: "12:20"
+  duration: 1:00
+  venue: Bunker Two at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/this-is-not-america-a-razor-edge-new-play-to-start-your-day
 
 thunderstruck:
-  # Thunderstruck
+  title: Thunderstruck
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
   noAvailability: [18]
+  startTime: 18:40
+  duration: 1:20
+  venue: Netherbow Theatre at Scottish Storytelling Centre
+  url: https://www.edfringe.com/tickets/whats-on/thunderstruck
 
 toast:
-  # Toast
+  title: Toast
   booked: 16
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 26, 27, 28, 29, 30, 31]
   noAvailability: [16]
   times: {6: "12:10", 7: "12:10", 8: "12:10", 9: "12:10", 10: "12:10", 11: "12:10", 12: "12:10", 13: "12:10", 14: "12:10", 15: "12:10", 16: "12:10", 26: "12:00", 27: "12:00", 28: "12:00", 29: "12:00", 30: "12:00", 31: "12:00"}
+  duration: 1:00
+  venue: Various spaces at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/toast
 
 trans-people-are-awful:
-  # Trans People Are Awful
+  title: Trans People Are Awful
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [7, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 27, 28, 29, 30, 31]
   times: {5: "15:20", 6: "15:20", 7: "15:20", 8: "15:20", 9: "15:20", 10: "15:20", 11: "15:20", 12: "15:20", 13: "15:20", 14: "15:20", 15: "15:20", 16: "15:20", 18: "15:20", 19: "15:20", 20: "15:20", 21: "15:20", 22: "15:20", 23: "15:20", 25: "15:20-23:00", 26: "15:20-23:00", 27: "15:20", 28: "15:20", 29: "15:20", 30: "15:20", 31: "15:20"}
+  duration: 1:00
+  venue: Bunker One at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/trans-people-are-awful
 
 trial-by-jury:
-  # Trial by Jury
+  title: Trial by Jury
   rating: 0
   dates: [24, 25, 26, 27, 28, 29, 30]
+  startTime: 13:20
+  duration: 0:45
+  venue: Studio at Paradise in Augustines
+  url: https://www.edfringe.com/tickets/whats-on/trial-by-jury
 
 via-dolorosa-by-david-hare:
-  # Via Dolorosa by David Hare
+  title: Via Dolorosa by David Hare
   rating: 0
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22]
+  startTime: 10:40
+  duration: 1:20
+  venue: Studio at theSpaceTriplex
+  url: https://www.edfringe.com/tickets/whats-on/via-dolorosa-by-david-hare
 
 wagner-s-ring-for-people-who-can-t-be-bothered-to-sit-through-it:
-  # Wagner’s Ring for people who can’t be bothered to sit through it
+  title: Wagner’s Ring for people who can’t be bothered to sit through it
   rating: 0
   dates: [17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  startTime: 13:50
+  duration: 1:00
+  venue: The Hepburn Suite at The Royal Scots Club
+  url: https://www.edfringe.com/tickets/whats-on/wagner-s-ring-for-people-who-can-t-be-bothered-to-sit-through-it
 
 water-colour:
-  # Water Colour
+  title: Water Colour
   booked: 16
-  dates: [6, 14, 20, 23, 26, 27, 28, 29, 30]
-  times: {6: "20:30", 14: "12:45", 20: "12:45", 23: "20:30", 26: "12:45", 27: "15:15", 28: "18:00", 29: "20:30", 30: "15:15"}
-  noAvailability: [14, 20, 26, 27, 28, 30]
+  dates: [6, 14, 20, 23, 27, 28, 29, 30]
+  times: {6: "20:30", 14: "12:45", 20: "12:45", 23: "20:30", 27: "15:15", 28: "18:00", 29: "20:30", 30: "15:15"}
+  noAvailability: [14, 20, 27, 28, 30]
+  duration: 1:15
+  venue: Traverse 2 at Traverse Theatre
+  url: https://www.edfringe.com/tickets/whats-on/water-colour
 
 when-we-were-young:
-  # When We Were Young
-  rating: "?"
+  title: When We Were Young
+  rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
   times: {7: "18:15", 8: "18:15", 9: "18:15", 10: "18:15", 11: "18:15", 12: "18:15", 13: "18:15", 14: "18:15", 15: "18:15", 17: "17:15", 18: "17:15", 19: "17:15", 20: "17:15", 21: "17:15", 22: "17:15", 24: "18:15", 25: "18:15", 26: "18:15", 27: "18:15", 28: "18:15", 29: "18:15"}
-  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 28, 29]
+  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  duration: 0:50
+  venue: Space 2 at theSpace on the Mile
+  url: https://www.edfringe.com/tickets/whats-on/when-we-were-young
 
 will-adamsdale-ai-ai-oh-or-how-i-wrote-a-hit-sitcom-with-chatgpt-but-we-re-not-talking-now:
-  # Will Adamsdale: AI, AI, Oh... (Or How I Wrote a Hit Sitcom with ChatGPT But We're Not Talking Now)
+  title: "Will Adamsdale: AI, AI, Oh... (Or How I Wrote a Hit Sitcom with ChatGPT But We're Not Talking Now)"
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
   noAvailability: [11, 12, 15, 16, 21, 22]
+  startTime: 13:45
+  duration: 1:00
+  venue: Bluebell at Underbelly, George Square
+  url: https://www.edfringe.com/tickets/whats-on/will-adamsdale-ai-ai-oh-or-how-i-wrote-a-hit-sitcom-with-chatgpt-but-we-re-not-talking-now
 
 witch-women-on-trial:
-  # Witch? Women on Trial
+  title: Witch? Women on Trial
   rating: 0
   dates: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27]
   noAvailability: [10, 11, 12, 15, 17, 21, 22, 23]
   times: {10: "18:30", 11: "18:30", 12: "18:30", 13: "18:30", 14: "18:30", 15: "18:30", 16: "18:30", 17: "18:30", 18: "18:30", 19: "18:30", 20: "18:30", 21: "18:30", 22: "18:30", 23: "18:30", 26: "19:00", 27: "19:00"}
+  duration: 1:00
+  venue: Tarot Room at Museum of Magic, Fortune-Telling and Witchcraft
+  url: https://www.edfringe.com/tickets/whats-on/witch-women-on-trial
 
 woodcutter:
-  # Woodcutter
+  title: Woodcutter
   booked: 26
   dates: [7, 8, 9, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 26, 27, 28, 29]
+  startTime: 16:05
+  duration: 0:50
+  venue: Studio at theSpaceTriplex
+  url: https://www.edfringe.com/tickets/whats-on/woodcutter
 
 you-and-me-and-whoever-comes-next:
-  # You and Me (and Whoever Comes Next)
+  title: You and Me (and Whoever Comes Next)
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29]
   noAvailability: [17]
+  startTime: 15:00
+  duration: 1:00
+  venue: Old Lab at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/you-and-me-and-whoever-comes-next
 
 youth-in-flames-winner-scotsman-fringe-first-award:
-  # Youth in Flames – Winner: Scotsman Fringe First Award
+  title: "Youth in Flames – Winner: Scotsman Fringe First Award"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {5: "11:30", 6: "11:30", 7: "11:30", 8: "11:30", 9: "11:30", 10: "11:30", 11: "11:30", 12: "11:30-14:10", 13: "11:30", 14: "11:30", 15: "11:30", 16: "11:30", 17: "11:30", 18: "11:30-14:10", 20: "11:30", 21: "11:30", 22: "11:30", 23: "11:30", 24: "11:30", 25: "11:30-14:10", 26: "11:30", 27: "11:30", 28: "11:30", 29: "11:30", 30: "11:30", 31: "11:30"}
+  noAvailability: [27]
+  duration: 1:05
+  venue: Bunker One at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/youth-in-flames-winner-scotsman-fringe-first-award
