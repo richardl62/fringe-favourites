@@ -46,11 +46,14 @@ export function formatStartTime(startTime: string | null): string {
   return startTime ?? "varies";
 }
 
+// Field write order, so a brand-new entry already comes out in the
+// canonical shape tidy-shows.ts otherwise has to fix up: "title" first,
+// then "duration"/"venue"/"url" last, in that order.
 function applyRawFields(entry: YAMLMap, show: RawShow): void {
   entry.set("title", show.title);
-  entry.set("venue", show.venue);
-  entry.set("duration", formatDuration(show.durationMinutes));
   entry.set("startTime", formatStartTime(show.startTime));
+  entry.set("duration", formatDuration(show.durationMinutes));
+  entry.set("venue", show.venue);
   entry.set("url", show.url);
 }
 

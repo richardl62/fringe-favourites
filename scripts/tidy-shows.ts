@@ -7,6 +7,8 @@
 //  - moves "title" to be the first field in any entry that has one -
 //    sync-csv.ts appends it after existing fields for an entry that
 //    already had notes, so this is what actually keeps it first
+//  - moves "duration", "venue", "url" (in that order) to be the last three
+//    fields in any entry that has them
 //  - removes an entry's freestanding comment when it just duplicates its
 //    own "title" field (a leftover from before "title" was a real field)
 //
@@ -43,6 +45,31 @@ function moveTitleFirst(root: YAMLMap): void {
     if (titleIndex > 0) {
       const [titlePair] = items.splice(titleIndex, 1);
       items.unshift(titlePair);
+    }
+  }
+}
+
+// Processed in this order so each one lands after the last, leaving the
+// final field order "..., duration, venue, url".
+const FIELDS_LAST = ["duration", "venue", "url"];
+
+/** Moves "duration", "venue", "url" (in that order) to be the last fields
+ * in every entry that has them - an entry missing one (e.g. a show with a
+ * single fixed start time recorded via "startTime" but no url) just skips
+ * it. */
+function moveFieldsLast(root: YAMLMap): void {
+  for (const item of root.items) {
+    if (!(item.value instanceof YAMLMap)) {
+      continue;
+    }
+    const items = item.value.items;
+    for (const fieldName of FIELDS_LAST) {
+      const index = items.findIndex((pair) => String(pair.key) === fieldName);
+      if (index === -1) {
+        continue;
+      }
+      const [pair] = items.splice(index, 1);
+      items.push(pair);
     }
   }
 }
@@ -100,6 +127,7 @@ function main(): void {
 
   addMissingRatings(doc, root);
   moveTitleFirst(root);
+  moveFieldsLast(root);
   removeRedundantTitleComment(root);
   sortEntries(root);
 
