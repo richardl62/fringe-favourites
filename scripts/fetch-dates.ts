@@ -77,7 +77,7 @@ function discoverShowIds(
 // https://www.edfringe.com/tickets/whats-on/the-bbc-s-first-homosexual.
 const NO_ALLOCATION_STATUS = "NO_ALLOCATION_CONTACT_VENUE";
 
-interface Performance {
+export interface Performance {
   dateTime: string;
   cancelled: boolean;
   ticketStatus: string;
@@ -198,14 +198,18 @@ function toLondonDayAndTime(isoUtc: string): { day: number; time: string } {
   };
 }
 
-interface Schedule {
+export interface Schedule {
   dates: number[];
-  /** null means no "times" field is needed (a single fixed time covers every
-   * date). Otherwise a map of day -> "HH:MM" (one performance), "HH:MM-HH:MM"
-   * (two performances, both known times) or "many" (three or more - too many
-   * to record specific times for). A date can be missing from it entirely
-   * (shown as "varies" with no specific time - see shows.yaml's header) when
-   * even a single performance's time couldn't be determined. */
+  /** Map of day -> "HH:MM" (one performance), "HH:MM-HH:MM" (two
+   * performances, both known times) or "many" (three or more - too many to
+   * record specific times for). null only when there's no schedule at all
+   * (no non-cancelled performances found). Whether this actually needs
+   * writing to shows.yaml's "times" field depends on the show's own
+   * "startTime" - see applyOutcome - not on whether every date happens to
+   * share the same time: a show whose "startTime" is a fixed time already
+   * covers every date on its own, but one whose "startTime" is "varies"
+   * needs somewhere to record what each date's time actually is, even if
+   * that turns out to be the same time throughout. */
   times: Map<number, string> | null;
   /** Dates where every performance has no allocation remaining. */
   noAvailability: number[];
@@ -215,7 +219,7 @@ interface Schedule {
 /** Never throws: a show with no performances, or with performances whose
  * times can't be reconciled, still gets as complete a schedule as possible,
  * with the rest reported in `problems`. */
-function buildSchedule(performances: Performance[]): Schedule {
+export function buildSchedule(performances: Performance[]): Schedule {
   const active = performances.filter((p) => !p.cancelled);
   if (active.length === 0) {
     return {
@@ -242,23 +246,18 @@ function buildSchedule(performances: Performance[]): Schedule {
 
   const problems: string[] = [];
   const byDay = new Map<number, string>();
-  const singleTimes = new Set<string>();
   const noAvailability: number[] = [];
-  let hasMultiplePerformanceDay = false;
   let hasManyPerformancesDay = false;
   for (const [day, dayPerformances] of performancesByDay) {
     const times = new Set(dayPerformances.map((p) => p.time));
     const sorted = [...times].sort();
     if (sorted.length === 1) {
       byDay.set(day, sorted[0]);
-      singleTimes.add(sorted[0]);
     } else if (sorted.length === 2) {
       // shows.yaml's "times" can hold two hyphen-separated times per day -
       // see types.ts's PerformanceTime.
-      hasMultiplePerformanceDay = true;
       byDay.set(day, sorted.join("-"));
     } else {
-      hasMultiplePerformanceDay = true;
       hasManyPerformancesDay = true;
       byDay.set(day, "many");
     }
@@ -273,13 +272,9 @@ function buildSchedule(performances: Performance[]): Schedule {
   }
 
   const dates = [...performancesByDay.keys()].sort((a, b) => a - b);
-  const times =
-    !hasMultiplePerformanceDay && problems.length === 0 && singleTimes.size <= 1
-      ? null
-      : byDay;
   noAvailability.sort((a, b) => a - b);
 
-  return { dates, times, noAvailability, problems };
+  return { dates, times: byDay, noAvailability, problems };
 }
 
 // --- Scrape a single show ---------------------------------------------------
@@ -309,6 +304,19 @@ async function scrapeShow(id: string): Promise<ScrapeOutcome> {
 
 // --- Apply an outcome into the YAML document -------------------------------
 
+/** A fixed "startTime" already covers every date on its own - a "times"
+ * field there would be redundant (and the app ignores/warns about one
+ * regardless, see build-favourites.ts's resolveTimes). Only a "varies"
+ * startTime needs one, and needs it fully populated even when every date
+ * happens to share the same time - that's the only place such a show's
+ * actual time is recorded at all. */
+export function resolveTimesToWrite(
+  times: Map<number, string> | null,
+  startTime: unknown,
+): Map<number, string> | null {
+  return times && startTime === "varies" ? times : null;
+}
+
 function applyOutcome(
   doc: Document,
   root: YAMLMap,
@@ -324,10 +332,12 @@ function applyOutcome(
     datesNode.flow = true;
     entry.set("dates", datesNode);
 
-    if (times) {
+    const startTime: unknown = entry.get("startTime");
+    const timesToWrite = resolveTimesToWrite(times, startTime);
+    if (timesToWrite) {
       const timesMap = new YAMLMap();
       timesMap.flow = true;
-      for (const [day, time] of times) {
+      for (const [day, time] of timesToWrite) {
         const value = doc.createNode(time);
         value.type = "QUOTE_DOUBLE";
         timesMap.set(day, value);
@@ -403,7 +413,14 @@ async function main(): Promise<void> {
   // `fetch-dates && tidy-shows` chain on the (common) case of any problem.
 }
 
-main().catch((err: unknown) => {
-  console.error(err);
-  process.exitCode = 1;
-});
+// Only run main() when this file is executed directly (`node
+// scripts/fetch-dates.ts`), not when fetch-dates.test.ts imports its
+// exported pure functions - otherwise importing it for testing would
+// scrape the real edfringe.com and read/write the real shows.yaml as a
+// side effect.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((err: unknown) => {
+    console.error(err);
+    process.exitCode = 1;
+  });
+}
