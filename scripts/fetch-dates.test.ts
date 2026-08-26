@@ -87,19 +87,15 @@ describe("buildSchedule", () => {
 describe("resolveTimesToWrite", () => {
   const times = new Map([[10, "20:00"]]);
 
-  it("writes times when startTime is 'varies', even if uniform", () => {
-    expect(resolveTimesToWrite(times, "varies")).toBe(times);
+  it("writes times when startTime is missing (variable), even if uniform", () => {
+    expect(resolveTimesToWrite(times, undefined)).toBe(times);
   });
 
   it("doesn't write times when startTime is a fixed time", () => {
     expect(resolveTimesToWrite(times, "20:00")).toBeNull();
   });
 
-  it("doesn't write times when startTime hasn't been synced yet", () => {
-    expect(resolveTimesToWrite(times, undefined)).toBeNull();
-  });
-
   it("stays null when there's no schedule to write at all", () => {
-    expect(resolveTimesToWrite(null, "varies")).toBeNull();
+    expect(resolveTimesToWrite(null, undefined)).toBeNull();
   });
 });

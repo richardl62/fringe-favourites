@@ -39,8 +39,21 @@ free-fringe-show:
     ]);
   });
 
-  it("treats a raw-fields startTime of 'varies' as null", () => {
-    const { rawShows } = parse(`
+  it("treats a missing startTime as null (variable)", () => {
+    const { rawShows, problems } = parse(`
+free-fringe-show:
+  title: Free Fringe Show
+  venue: A Cellar
+  duration: "1:00"
+  url: https://example.com/free-fringe-show
+`);
+
+    expect(problems).toHaveLength(0);
+    expect(rawShows[0].startTime).toBeNull();
+  });
+
+  it("rejects the literal string 'varies' for startTime", () => {
+    const { rawShows, problems } = parse(`
 free-fringe-show:
   title: Free Fringe Show
   venue: A Cellar
@@ -49,7 +62,12 @@ free-fringe-show:
   url: https://example.com/free-fringe-show
 `);
 
-    expect(rawShows[0].startTime).toBeNull();
+    expect(rawShows).toHaveLength(0);
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes('"startTime" should be "HH:MM", got "varies"'),
+      ),
+    ).toBe(true);
   });
 
   it("parses rating/dates/booked/times notes", () => {

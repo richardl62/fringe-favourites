@@ -1,9 +1,10 @@
 import { parseDocument, YAMLMap, type Pair } from "yaml";
 import { describe, expect, it } from "vitest";
+import type { RawShow } from "../src/data/types.ts";
 import {
+  applyRawFields,
   clearRemovedFlagIfPresent,
   findRemovedCsvShows,
-  formatStartTime,
   isCsvOwnedEntry,
 } from "./sync-csv.ts";
 
@@ -126,12 +127,39 @@ a-show:
   });
 });
 
-describe("formatStartTime", () => {
-  it("returns 'varies' for null", () => {
-    expect(formatStartTime(null)).toBe("varies");
+function rawShow(overrides: Partial<RawShow> = {}): RawShow {
+  return {
+    id: "a-show",
+    title: "A Show",
+    venue: "A Venue",
+    url: "https://www.edfringe.com/tickets/whats-on/a-show",
+    durationMinutes: 60,
+    startTime: "20:00",
+    ...overrides,
+  };
+}
+
+describe("applyRawFields", () => {
+  it("writes startTime when the show has a fixed one", () => {
+    const entry = new YAMLMap();
+    applyRawFields(entry, rawShow({ startTime: "20:00" }));
+
+    expect(entry.get("startTime")).toBe("20:00");
   });
 
-  it("passes a specific time through unchanged", () => {
-    expect(formatStartTime("20:00")).toBe("20:00");
+  it("omits startTime entirely when the show's time varies", () => {
+    const entry = new YAMLMap();
+    applyRawFields(entry, rawShow({ startTime: null }));
+
+    expect(entry.has("startTime")).toBe(false);
+  });
+
+  it("removes a stale startTime if the show's time now varies", () => {
+    const entry = new YAMLMap();
+    entry.set("startTime", "20:00");
+
+    applyRawFields(entry, rawShow({ startTime: null }));
+
+    expect(entry.has("startTime")).toBe(false);
   });
 });

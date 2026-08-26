@@ -206,10 +206,11 @@ export interface Schedule {
    * (no non-cancelled performances found). Whether this actually needs
    * writing to shows.yaml's "times" field depends on the show's own
    * "startTime" - see applyOutcome - not on whether every date happens to
-   * share the same time: a show whose "startTime" is a fixed time already
-   * covers every date on its own, but one whose "startTime" is "varies"
-   * needs somewhere to record what each date's time actually is, even if
-   * that turns out to be the same time throughout. */
+   * share the same time: a show with a fixed "startTime" already covers
+   * every date on its own, but one with no "startTime" at all (meaning it
+   * varies by performance - see shows.ts's parseRawShow) needs somewhere to
+   * record what each date's time actually is, even if that turns out to be
+   * the same time throughout. */
   times: Map<number, string> | null;
   /** Dates where every performance has no allocation remaining. */
   noAvailability: number[];
@@ -306,15 +307,17 @@ async function scrapeShow(id: string): Promise<ScrapeOutcome> {
 
 /** A fixed "startTime" already covers every date on its own - a "times"
  * field there would be redundant (and the app ignores/warns about one
- * regardless, see build-favourites.ts's resolveTimes). Only a "varies"
- * startTime needs one, and needs it fully populated even when every date
- * happens to share the same time - that's the only place such a show's
- * actual time is recorded at all. */
+ * regardless, see build-favourites.ts's resolveTimes). Only a show with no
+ * "startTime" at all (meaning it varies by performance - there's no
+ * sentinel value for that, see shows.ts's parseRawShow) needs one, and
+ * needs it fully populated even when every date happens to share the same
+ * time - that's the only place such a show's actual time is recorded at
+ * all. */
 export function resolveTimesToWrite(
   times: Map<number, string> | null,
   startTime: unknown,
 ): Map<number, string> | null {
-  return times && startTime === "varies" ? times : null;
+  return times && startTime === undefined ? times : null;
 }
 
 function applyOutcome(

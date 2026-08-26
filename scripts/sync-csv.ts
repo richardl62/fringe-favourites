@@ -42,16 +42,19 @@ const CSV_PATH = `${REPO_ROOT}public/my_fringe_favourites.csv`;
 const REMOVED_MESSAGE =
   "no longer in my_fringe_favourites.csv - raw fields left as they are; delete this entry by hand if you no longer want it";
 
-export function formatStartTime(startTime: string | null): string {
-  return startTime ?? "varies";
-}
-
 // Field write order, so a brand-new entry already comes out in the
 // canonical shape tidy-shows.ts otherwise has to fix up: "title" first,
 // then "duration"/"venue"/"url" last, in that order.
-function applyRawFields(entry: YAMLMap, show: RawShow): void {
+export function applyRawFields(entry: YAMLMap, show: RawShow): void {
   entry.set("title", show.title);
-  entry.set("startTime", formatStartTime(show.startTime));
+  // No "startTime" at all means the show's start time varies by
+  // performance (see shows.ts's parseRawShow) - there's no sentinel value
+  // for that, so a variable-time show just omits the field entirely.
+  if (show.startTime === null) {
+    entry.delete("startTime");
+  } else {
+    entry.set("startTime", show.startTime);
+  }
   entry.set("duration", formatDuration(show.durationMinutes));
   entry.set("venue", show.venue);
   entry.set("url", show.url);

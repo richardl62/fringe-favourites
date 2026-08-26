@@ -73,14 +73,11 @@ function parseHoursMinutes(raw: string): number {
   return parseInt(match[1], 10) * 60 + parseInt(match[2], 10);
 }
 
-function parseRawStartTime(raw: string): string | null {
-  if (raw.toLowerCase() === "varies") {
-    return null;
+function parseRawStartTime(raw: string): string {
+  if (!/^\d{1,2}:\d{2}$/.test(raw)) {
+    throw new Error(`"startTime" should be "HH:MM", got "${raw}"`);
   }
-  if (/^\d{1,2}:\d{2}$/.test(raw)) {
-    return raw;
-  }
-  throw new Error(`"startTime" should be "HH:MM" or "varies", got "${raw}"`);
+  return raw;
 }
 
 function parseRawShow(id: string, entry: Record<string, unknown>): RawShow {
@@ -90,7 +87,13 @@ function parseRawShow(id: string, entry: Record<string, unknown>): RawShow {
     venue: asString(entry.venue, "venue"),
     url: asString(entry.url, "url"),
     durationMinutes: parseHoursMinutes(asString(entry.duration, "duration")),
-    startTime: parseRawStartTime(asString(entry.startTime, "startTime")),
+    // Omitted entirely means the show's start time varies by performance
+    // (add per-date times for it instead) - there's no separate sentinel
+    // value for that, so an explicit "startTime" is always a real time.
+    startTime:
+      entry.startTime === undefined
+        ? null
+        : parseRawStartTime(asString(entry.startTime, "startTime")),
   };
 }
 
