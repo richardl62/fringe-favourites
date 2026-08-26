@@ -4,6 +4,11 @@
 //  - adds `rating: "?"` to any entry that doesn't have a "rating" field yet,
 //    unless it's booked - a booked show doesn't need one (see the app's
 //    own "don't report booked shows as unrated" behaviour)
+//  - moves "title" to be the first field in any entry that has one -
+//    sync-csv.ts appends it after existing fields for an entry that
+//    already had notes, so this is what actually keeps it first
+//  - removes an entry's freestanding comment when it just duplicates its
+//    own "title" field (a leftover from before "title" was a real field)
 //
 // Run with: npm run tidy-shows
 
@@ -23,6 +28,41 @@ function addMissingRatings(doc: Document, root: YAMLMap): void {
     }
     if (!item.value.has("rating") && !item.value.has("booked")) {
       item.value.items.unshift(doc.createPair("rating", "?"));
+    }
+  }
+}
+
+/** Moves "title" to be the first field in every entry that has one. */
+function moveTitleFirst(root: YAMLMap): void {
+  for (const item of root.items) {
+    if (!(item.value instanceof YAMLMap)) {
+      continue;
+    }
+    const items = item.value.items;
+    const titleIndex = items.findIndex((pair) => String(pair.key) === "title");
+    if (titleIndex > 0) {
+      const [titlePair] = items.splice(titleIndex, 1);
+      items.unshift(titlePair);
+    }
+  }
+}
+
+/** Removes an entry's freestanding comment when it just duplicates its own
+ * "title" field. An entry with no "title" field at all is left alone - the
+ * comment may be the only readable name left for a broken/orphaned entry
+ * (e.g. one sync-csv.ts can no longer match up with the CSV). */
+function removeRedundantTitleComment(root: YAMLMap): void {
+  for (const item of root.items) {
+    if (!(item.value instanceof YAMLMap)) {
+      continue;
+    }
+    const comment = item.value.commentBefore;
+    if (typeof comment !== "string") {
+      continue;
+    }
+    const title: unknown = item.value.get("title");
+    if (typeof title === "string" && comment.trim() === title.trim()) {
+      item.value.commentBefore = undefined;
     }
   }
 }
@@ -59,6 +99,8 @@ function main(): void {
   }
 
   addMissingRatings(doc, root);
+  moveTitleFirst(root);
+  removeRedundantTitleComment(root);
   sortEntries(root);
 
   const newYamlText = doc.toString({

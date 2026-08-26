@@ -93,10 +93,13 @@ function normalizeTitleForMatching(title: string): string {
     .trim();
 }
 
-/** Every show title already in shows.yaml, read from the "# Show Title"
- * comment tidy-shows.ts adds above each entry - good enough to spot a
- * match without needing to replicate the app's own title resolution (CSV
- * cross-referencing, raw "title" fields, etc.). */
+/** Every show title already in shows.yaml, read from each entry's own
+ * "title" field - good enough to spot a match without needing to replicate
+ * the app's own title resolution. Falls back to a legacy "# Show Title"
+ * comment (as tidy-shows.ts used to add above every entry, before "title"
+ * was a real field for every show) for the rare entry that still has one
+ * but no "title" field of its own - typically a broken/orphaned entry
+ * where the comment is the only readable name left. */
 function readShowTitles(path: string): Set<string> {
   if (!existsSync(path)) {
     return new Set();
@@ -107,7 +110,13 @@ function readShowTitles(path: string): Set<string> {
   }
   const titles = new Set<string>();
   for (const item of root.items) {
-    if (isMap(item.value) && typeof item.value.commentBefore === "string") {
+    if (!isMap(item.value)) {
+      continue;
+    }
+    const title = item.value.get("title");
+    if (typeof title === "string") {
+      titles.add(normalizeTitleForMatching(title));
+    } else if (typeof item.value.commentBefore === "string") {
       titles.add(normalizeTitleForMatching(item.value.commentBefore));
     }
   }
