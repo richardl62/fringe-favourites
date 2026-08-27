@@ -74,7 +74,7 @@ export function buildFavourites(
     if (!consumedIds.has(id)) {
       problems.push(
         warn(
-          `shows.yaml entry "${id}" has notes but no raw show details (title/venue/etc.) - run "npm run sync-csv" or add them by hand`,
+          `shows.yaml entry "${id}" has notes but no raw show details (title/venue/etc.) - run the appropriate sync script or add them by hand`,
           undefined,
           showsYamlEditLink(entryLines.get(id) ?? lineCount),
         ),

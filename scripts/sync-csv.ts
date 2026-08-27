@@ -23,7 +23,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isScalar, parseDocument, YAMLMap, type Pair } from "yaml";
-import { idFromUrl, parseFringeCsv } from "../src/data/fringe-csv.ts";
+import { idFromUrl, parseFringeCsv } from "./fringe-csv.ts";
 import { extractProblemComment } from "../src/data/problem-comment.ts";
 import type { Problem } from "../src/data/problems.ts";
 import type { RawShow } from "../src/data/types.ts";

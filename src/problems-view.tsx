@@ -42,12 +42,12 @@ function ProblemList({ problems }: { problems: Problem[] }) {
               [<a href={problem.editLink}>edit</a>]
             </>
           )}
-          {problem.edfringeUrl && (
+          {problem.sourceUrl && (
             <>
               {" "}
               [
-              <a href={problem.edfringeUrl} target="_blank" rel="noreferrer">
-                edfringe
+              <a href={problem.sourceUrl} target="_blank" rel="noreferrer">
+                {new URL(problem.sourceUrl).hostname}
               </a>
               ]
             </>

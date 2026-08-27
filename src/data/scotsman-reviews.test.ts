@@ -24,12 +24,12 @@ describe("scotsmanReviewProblems", () => {
         link: { title: "A Show", url: "https://example.com/a-show" },
         editLink: undefined,
         rating: 5,
-        edfringeUrl: "https://www.edfringe.com/tickets/whats-on/a-show",
+        sourceUrl: "https://www.edfringe.com/tickets/whats-on/a-show",
       },
     ]);
   });
 
-  it("leaves edfringeUrl undefined when guessedShowUrl isn't set", () => {
+  it("leaves sourceUrl undefined when guessedShowUrl isn't set", () => {
     const problems = scotsmanReviewProblems(`
 - title: A Show
   rating: 5
@@ -37,7 +37,7 @@ describe("scotsmanReviewProblems", () => {
   reviewUrl: https://example.com/a-show
 `);
 
-    expect(problems[0]).toMatchObject({ edfringeUrl: undefined });
+    expect(problems[0]).toMatchObject({ sourceUrl: undefined });
   });
 
   it("doesn't report a 'considered: yes' show", () => {

@@ -14,8 +14,9 @@ export type PerformanceTime =
 // of date -> performance time(s) for shows whose time varies by performance.
 export type TimesT = string | Record<number, PerformanceTime>;
 
-/** A show as read from its source (edfringe.com CSV or shows.yaml),
- * before shows.yaml's notes have been applied. */
+/** A show as read from its source - a sync script's external source (e.g.
+ * an edfringe.com CSV export), or shows.yaml itself for a hand-written
+ * show - before shows.yaml's notes have been applied. */
 export interface RawShow {
   id: string;
   title: string;
@@ -40,7 +41,8 @@ export interface Show {
   unrated: boolean;
   booked: boolean;
   times: TimesT;
-  // Day-of-month numbers with no allocation remaining, per edfringe.com's
-  // own "no allocation remaining" date indicator.
+  // Day-of-month numbers with no allocation remaining, per the show's
+  // source site's own "no allocation remaining" date indicator (e.g.
+  // edfringe.com's).
   noAvailability: number[];
 }

@@ -1,18 +1,19 @@
-# One entry per show, keyed by an id: the part of its URL after
-# "/whats-on/" for a show from my_fringe_favourites.csv, or one you choose
-# yourself for a show that isn't in the CSV export (e.g. a free-fringe
-# listing). This file is the app's only source of show data - it doesn't
-# read the CSV itself.
+# One entry per show, keyed by an id: for a show synced from an external
+# source (e.g. an edfringe.com CSV export, via scripts/sync-csv.ts), the id
+# matches the "/whats-on/" part of its URL there; for a show you add by
+# hand (e.g. a free-fringe listing), choose your own id. This file is the
+# app's only source of show data - it doesn't read any external source
+# itself.
 #
 # Two kinds of field, both optional:
 #
 #   title, venue, duration, startTime, url:
-#     Every show has these (except startTime - see below). For a show in the
-#     CSV export, `npm run sync-csv` fills them in from there and overwrites
-#     them wholesale on every run - don't hand-edit them for a CSV-sourced
-#     show. For a show that isn't in the CSV (e.g. a free-fringe listing,
-#     scraped by fetch-free-fringe.ts, or a show from another festival,
-#     added by hand), give all of them that apply.
+#     Every show has these (except startTime - see below). For a show synced
+#     from an external source, the relevant sync script (e.g. `npm run
+#     sync-csv`) fills them in and overwrites them wholesale on every run -
+#     don't hand-edit them for a synced show. For a show with no sync
+#     script (added by hand, or scraped by a script that doesn't own these
+#     fields, e.g. fetch-free-fringe.ts), give all of them that apply.
 #       title:     the show's name.
 #       venue:     free text.
 #       duration:  "H:MM", e.g. "1:15".
@@ -35,9 +36,9 @@
 #               performance (a "HH:MM-HH:MM" or "many" entry below for it),
 #               to say which one you're booked for. Requires "booked".
 #       times:  only needed when the show's start time varies by performance
-#               (my_fringe_favourites.csv says "Various times" for it). A map
-#               of day-of-month number to a value for the dates you know
-#               something about:
+#               (e.g. an edfringe.com CSV export says "Various times" for
+#               it). A map of day-of-month number to a value for the dates
+#               you know something about:
 #                 "HH:MM"         one performance that day.
 #                 "HH:MM-HH:MM"   two performances that day, at these times -
 #                                 shown as two separate entries on the page.
@@ -46,17 +47,18 @@
 #               Dates left out entirely are shown as "misc" with no
 #               specific time.
 #       noAvailability:
-#               day-of-month numbers with no allocation remaining on
-#               edfringe.com (shown there as a red bar under the date, with
-#               a "No allocation remaining" caption) - shown in red on this
-#               page's date/time too. Filled in automatically by fetch-dates.
+#               day-of-month numbers with no allocation remaining on the
+#               show's source site (e.g. edfringe.com shows this as a red
+#               bar under the date, captioned "No allocation remaining") -
+#               shown in red on this page's date/time too. Filled in
+#               automatically by fetch-dates.
 #
-# A "# PROBLEM: ..." comment directly above an entry means a script (sync-
-# csv/fetch-dates/fetch-free-fringe) couldn't fully process that show - it's
-# also shown as a warning on the #problems page. It's cleared automatically
-# once whatever caused it is resolved, except for "no longer in
-# my_fringe_favourites.csv", which sync-csv.ts never clears on its own -
-# delete the entry by hand once you're sure you don't want it any more.
+# A "# PROBLEM: ..." comment directly above an entry means a sync script
+# couldn't fully process that show - it's also shown as a warning on the
+# #problems page. It's cleared automatically once whatever caused it is
+# resolved, except for a show no longer present in its external source,
+# which is never cleared automatically - delete the entry by hand once
+# you're sure you don't want it any more.
 
 00-45-00:
   title: 00:45:00

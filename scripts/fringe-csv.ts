@@ -1,6 +1,6 @@
 import { parseCsv } from "./parse-csv.ts";
-import { error, type Problem } from "./problems.ts";
-import type { RawShow } from "./types.ts";
+import { error, type Problem } from "../src/data/problems.ts";
+import type { RawShow } from "../src/data/types.ts";
 
 const EXPECTED_HEADER = [
   "Show Name",

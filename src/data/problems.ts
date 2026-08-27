@@ -25,9 +25,9 @@ export interface Problem {
   /** Star rating (1-5) - only set for "unconsidered" problems, so they can
    * be grouped and ordered highest-rated first on the #problems page. */
   rating?: number;
-  /** A guessed edfringe.com show page - only set for "unconsidered"
-   * problems. A guess, not a validated link. */
-  edfringeUrl?: string;
+  /** A guessed link to the show's page on its source site - only set for
+   * "unconsidered" problems. A guess, not a validated link. */
+  sourceUrl?: string;
 }
 
 export function warn(
@@ -75,6 +75,6 @@ export function unconsidered(
     link,
     editLink,
     rating,
-    edfringeUrl: guessedShowUrl,
+    sourceUrl: guessedShowUrl,
   };
 }

@@ -35,11 +35,11 @@ export interface ParsedShows {
   lineCount: number;
 }
 
-// Every show has RAW_FIELDS now (synced from my_fringe_favourites.csv by
-// scripts/sync-csv.ts, or hand-written for a show that isn't in the CSV,
-// e.g. a free-fringe listing scraped by fetch-free-fringe.ts) - don't
-// hand-edit them for a CSV-sourced show, sync-csv.ts overwrites them wholesale
-// on every run.
+// Every show has RAW_FIELDS now, filled in either by a sync script (e.g.
+// scripts/sync-csv.ts, which reads an edfringe.com CSV export) or by hand
+// for a show with no such script (e.g. a free-fringe listing scraped by
+// fetch-free-fringe.ts) - don't hand-edit fields owned by a sync script,
+// since it overwrites them wholesale on every run.
 const RAW_FIELDS = ["title", "venue", "duration", "startTime", "url"];
 const NOTE_FIELDS = [
   "rating",
@@ -186,12 +186,11 @@ function parseNotes(entry: Record<string, unknown>): ShowNotes {
 }
 
 /** Parse shows.yaml: the single source of show data for the app - raw
- * fields (title/venue/etc., synced from the CSV export or hand-written for
- * a non-CSV show) plus hand-written notes - rating/dates/booking/times/
- * availability - for any show. A bad entry is skipped and reported rather
- * than aborting the whole file, and a "# PROBLEM: ..." comment already
- * above an entry (see scripts/scrape-shared.ts) is surfaced as a warning
- * too. */
+ * fields (title/venue/etc., filled in by a sync script or hand-written)
+ * plus hand-written notes - rating/dates/booking/times/availability - for
+ * any show. A bad entry is skipped and reported rather than aborting the
+ * whole file, and a "# PROBLEM: ..." comment already above an entry (see
+ * scripts/scrape-shared.ts) is surfaced as a warning too. */
 export function parseShows(text: string, problems: Problem[]): ParsedShows {
   const lineCount = text.split(/\r\n|\r|\n/).length;
 
@@ -243,10 +242,10 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
       }
       notesById.set(id, parseNotes(entry));
 
-      // A "# PROBLEM: ..." comment (written by fetch-dates.ts/
-      // fetch-free-fringe.ts/sync-csv.ts when a show can't be fully
-      // scraped/synced) is otherwise only visible by opening shows.yaml -
-      // surface it here too, so it shows up on the #problems page.
+      // A "# PROBLEM: ..." comment (written by a sync script when a show
+      // can't be fully scraped/synced) is otherwise only visible by
+      // opening shows.yaml - surface it here too, so it shows up on the
+      // #problems page.
       const problemComment = entryMetadata.get(id)?.problemComment;
       if (problemComment !== undefined) {
         problems.push(
