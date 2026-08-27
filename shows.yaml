@@ -72,7 +72,7 @@
   title: 1 Dazzling Cabaret
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  noAvailability: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
   startTime: 20:00
   duration: 1:00
   venue: The Live Room at Laughing Horse @ The Three Sisters
@@ -91,7 +91,7 @@
   title: 1 King, 2 Princes and Shakespeare's Lie
   rating: 1
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
-  noAvailability: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 28, 29]
+  noAvailability: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
   startTime: 18:15
   duration: 0:50
   venue: Annexe at theSpace @ Symposium Hall
@@ -233,6 +233,16 @@ alone:
   venue: The Box at Assembly George Square
   url: https://www.edfringe.com/tickets/whats-on/alone
 
+amnesia:
+  title: Amnesia
+  rating: 1
+  startTime: 16:25
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [11, 19, 22, 27, 28]
+  duration: 1:00
+  venue: Bunker Two at Pleasance Courtyard
+  url: https://www.edfringe.com/tickets/whats-on/amnesia
+
 amy-tears-dry-on-their-own:
   title: Amy – Tears Dry on Their Own
   rating: 0
@@ -320,10 +330,10 @@ avenue-q:
 
 badgers:
   title: Badgers
-  rating: 0
+  rating: 1
   dates: [14, 15, 23, 25, 26, 27, 28, 29, 30]
   times: {14: "10:15", 15: "12:45", 23: "18:00", 25: "20:30", 26: "10:15", 27: "12:45", 28: "15:30", 29: "18:00", 30: "10:15"}
-  noAvailability: [14, 15, 23, 26, 27, 28, 29, 30]
+  noAvailability: [14, 15, 23, 26, 27]
   duration: 1:10
   venue: Traverse 2 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/badgers
@@ -453,6 +463,15 @@ charlie-caper-magical:
   duration: 1:00
   venue: Liquid Room Warehouse at PBH's Free Fringe @ Liquid Room
   url: https://www.edfringe.com/tickets/whats-on/charlie-caper-magical
+
+chip-and-gus-a-comedy-with-balls:
+  title: "Chip and Gus: A Comedy with Balls"
+  rating: 1
+  startTime: 18:20
+  dates: [13, 14, 15, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29]
+  duration: 1:05
+  venue: Venue 45 at theSpace @ Venue 45
+  url: https://www.edfringe.com/tickets/whats-on/chip-and-gus-a-comedy-with-balls
 
 # PROBLEM: some dates have more than two performances
 coma:
@@ -598,7 +617,7 @@ giraffe:
   title: Giraffe
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [12, 14, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28]
+  noAvailability: [12, 14, 16, 17, 18, 19, 22, 23, 24, 25, 27, 28, 29, 30]
   startTime: 13:45
   duration: 1:00
   venue: Cellar at Pleasance Courtyard
@@ -939,7 +958,7 @@ scottish-comedy-legends-jack-docherty:
 
 see-you-tomorrow:
   title: See You Tomorrow
-  rating: 1
+  booked: 27
   dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 20, 21, 22, 24, 25, 26, 27, 28, 29]
   times: {7: "17:15", 8: "17:15", 9: "17:15", 10: "17:15", 11: "17:15", 12: "17:15", 13: "17:15", 14: "17:15", 15: "17:15", 17: "11:25", 20: "11:25", 21: "11:25", 22: "11:25", 24: "11:25", 25: "11:25", 26: "11:25", 27: "11:25", 28: "11:25", 29: "11:25"}
   noAvailability: [15, 17, 22]
@@ -1070,6 +1089,16 @@ the-crimes-of-pete:
   venue: Beside at Pleasance Courtyard
   url: https://www.edfringe.com/tickets/whats-on/the-crimes-of-pete
 
+the-distance:
+  title: The Distance
+  rating: 1
+  startTime: 18:00
+  dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
+  noAvailability: [7, 15, 17, 20, 21, 23, 24, 26, 27, 28]
+  duration: 1:05
+  venue: Main Hall at Summerhall
+  url: https://www.edfringe.com/tickets/whats-on/the-distance
+
 the-event:
   title: The Event
   rating: 0
@@ -1083,7 +1112,7 @@ the-jolly-fisherman:
   title: The Jolly Fisherman
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 8, 9, 10, 11, 12, 14, 15, 16, 19, 21, 22, 26, 27, 28, 29, 30, 31]
+  noAvailability: [7, 8, 9, 10, 11, 12, 14, 15, 16, 19, 21, 22, 26, 28, 29, 30, 31]
   times: {5: "12:45", 6: "12:45", 7: "12:45", 8: "12:45", 9: "12:45", 10: "12:45", 11: "12:45", 12: "12:45", 13: "12:45", 14: "12:45", 15: "12:45", 16: "12:45", 18: "12:45", 19: "12:45", 20: "12:45", 21: "12:45", 22: "12:45", 23: "12:45-14:15", 24: "12:45", 25: "12:45", 26: "12:45", 27: "12:45", 28: "12:45", 29: "12:45", 30: "12:45", 31: "12:45"}
   duration: 1:00
   venue: Buttercup at Underbelly, George Square
@@ -1223,7 +1252,7 @@ trans-people-are-awful:
   title: Trans People Are Awful
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 27, 28, 29, 30, 31]
+  noAvailability: [7, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
   times: {5: "15:20", 6: "15:20", 7: "15:20", 8: "15:20", 9: "15:20", 10: "15:20", 11: "15:20", 12: "15:20", 13: "15:20", 14: "15:20", 15: "15:20", 16: "15:20", 18: "15:20", 19: "15:20", 20: "15:20", 21: "15:20", 22: "15:20", 23: "15:20", 25: "15:20-23:00", 26: "15:20-23:00", 27: "15:20", 28: "15:20", 29: "15:20", 30: "15:20", 31: "15:20"}
   duration: 1:00
   venue: Bunker One at Pleasance Courtyard
