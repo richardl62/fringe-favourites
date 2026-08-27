@@ -1,7 +1,6 @@
 // Non-fatal issues found while loading show data, surfaced on the #problems page
 // rather than aborting the whole load - the source files are hand-edited and
 // occasional mistakes are expected.
-import { edfringeShowUrl } from "./edfringe-url.ts";
 
 export type ProblemSeverity =
   | "error"
@@ -27,7 +26,7 @@ export interface Problem {
    * be grouped and ordered highest-rated first on the #problems page. */
   rating?: number;
   /** A guessed edfringe.com show page - only set for "unconsidered"
-   * problems (see edfringe-url.ts). A guess, not a validated link. */
+   * problems. A guess, not a validated link. */
   edfringeUrl?: string;
 }
 
@@ -68,6 +67,7 @@ export function unconsidered(
   rating: number,
   link?: ProblemShowLink,
   editLink?: string,
+  guessedShowUrl?: string,
 ): Problem {
   return {
     severity: "unconsidered",
@@ -75,6 +75,6 @@ export function unconsidered(
     link,
     editLink,
     rating,
-    edfringeUrl: link ? edfringeShowUrl(link.title) : undefined,
+    edfringeUrl: guessedShowUrl,
   };
 }

@@ -10,13 +10,20 @@ import { error, unconsidered, type Problem } from "./problems";
 import { scotsmanReviewsYamlEditLink } from "./vscode-link";
 import { describeYamlError } from "./yaml-errors";
 
-const KNOWN_FIELDS = ["title", "rating", "considered", "reviewUrl"];
+const KNOWN_FIELDS = [
+  "title",
+  "rating",
+  "considered",
+  "reviewUrl",
+  "guessedShowUrl",
+];
 
 interface ParsedReview {
   title: string;
   rating: number;
   considered: boolean;
   reviewUrl: string;
+  guessedShowUrl?: string;
 }
 
 function parseReview(entry: Record<string, unknown>): ParsedReview {
@@ -36,11 +43,18 @@ function parseReview(entry: Record<string, unknown>): ParsedReview {
   if (typeof entry.reviewUrl !== "string" || !entry.reviewUrl.trim()) {
     throw new Error('missing or invalid "reviewUrl"');
   }
+  if (
+    entry.guessedShowUrl !== undefined &&
+    (typeof entry.guessedShowUrl !== "string" || !entry.guessedShowUrl.trim())
+  ) {
+    throw new Error('invalid "guessedShowUrl"');
+  }
   return {
     title: entry.title.trim(),
     rating: entry.rating,
     considered: entry.considered === "yes",
     reviewUrl: entry.reviewUrl.trim(),
+    guessedShowUrl: entry.guessedShowUrl?.trim(),
   };
 }
 
@@ -60,12 +74,11 @@ function findEntryLines(text: string): number[] {
   });
 }
 
-/** Parses scotsman-fringe-reviews.yaml (see
- * scripts/fetch-scotsman-reviews.ts) and reports every show marked
+/** Parses scotsman-fringe-reviews.yaml and reports every show marked
  * "considered: no" as an "unconsidered" problem, so it surfaces on the
  * #problems page as something to look at. A parse error, or a single bad
  * entry, is reported the same way shows.yaml's own errors are, rather than
- * aborting the whole page - this file is hand-edited too, so mistakes are
+ * aborting the whole page - this file is hand-edited, so mistakes are
  * expected. */
 export function scotsmanReviewProblems(text: string): Problem[] {
   const problems: Problem[] = [];
@@ -104,6 +117,7 @@ export function scotsmanReviewProblems(text: string): Problem[] {
             review.rating,
             { title: review.title, url: review.reviewUrl },
             editLink,
+            review.guessedShowUrl,
           ),
         );
       }

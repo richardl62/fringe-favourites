@@ -27,7 +27,6 @@
     "fetch-dates:quick": "node scripts/fetch-dates.ts --quick",
     "fetch-free-fringe": "node scripts/fetch-free-fringe.ts",
     "fetch-free-fringe:quick": "node scripts/fetch-free-fringe.ts --quick",
-    "fetch-scotsman-reviews": "node scripts/fetch-scotsman-reviews.ts",
     "sync-csv": "node scripts/sync-csv.ts",
     "tidy-shows": "node scripts/tidy-shows.ts",
     "update-shows:quick": "npm run sync-csv && npm run fetch-dates:quick && npm run fetch-free-fringe:quick && npm run tidy-shows",

@@ -14,6 +14,7 @@ describe("scotsmanReviewProblems", () => {
   rating: 5
   considered: no
   reviewUrl: https://example.com/a-show
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/a-show
 `);
 
     expect(problems).toEqual([
@@ -26,6 +27,17 @@ describe("scotsmanReviewProblems", () => {
         edfringeUrl: "https://www.edfringe.com/tickets/whats-on/a-show",
       },
     ]);
+  });
+
+  it("leaves edfringeUrl undefined when guessedShowUrl isn't set", () => {
+    const problems = scotsmanReviewProblems(`
+- title: A Show
+  rating: 5
+  considered: no
+  reviewUrl: https://example.com/a-show
+`);
+
+    expect(problems[0]).toMatchObject({ edfringeUrl: undefined });
   });
 
   it("doesn't report a 'considered: yes' show", () => {
