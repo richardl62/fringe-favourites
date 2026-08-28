@@ -2,270 +2,338 @@
 # scraped from The Scotsman's "Edinburgh Fringe Theatre 2026" review roundup article:
 # https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/best-edinburgh-fringe-theatre-2026-four-five-star-shows-reviews-8839869
 #
-# considered: "yes"/"no" - hand-edited, defaults to "no" for a new
-#             show, but starts "yes" if the show's title is already in
-#             shows.yaml (i.e. already a favourite). Otherwise left
-#             untouched by later runs of this script.
+# considered: "yes"/"no" - hand-edited; "no" for a show not yet added
+#             to shows.yaml as a favourite.
 #
-# Run with: npm run fetch-scotsman-reviews
+# guessedShowUrl: a guessed edfringe.com show page for the title, added
+#                  once by hand - not a validated link.
+#
+# The scraper that used to maintain this file (scripts/fetch-scotsman-reviews.ts)
+# was retired after thescotsman.com changed its review-roundup page structure.
+# This file is now maintained by hand - add new entries manually.
 
 - title: 3 Times I Killed
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-jerk-off-get-a-grip-3-times-i-killed-citizen-otherplace-launa-8848819
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/3-times-i-killed
 - title: 44 Minutes
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-44-minutes-stay-weiner-beacon-the-hunger-artist-the-witches-of-macbeth-8924519
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/44-minutes
 - title: A Gay Masseur’s Guide to Happy Endings
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-giraffe-turn-your-fcking-phones-off-a-gay-masseurs-guide-to-happy-endings-the-toe-poke-8886153
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/a-gay-masseur-s-guide-to-happy-endings
 - title: ALONE
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-alone-blackbox-hadid-basic-bald-btch-live-from-the-afterlife-8920885
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/alone
 - title: Amnesia
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-amnesia-to-do-lists-sitting-in-silence-tap-out-or-ill-hit-you-again-lululand-an-evening-with-gerald-lloyd-davies-8925001
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/amnesia
 - title: Apples in Winter
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-bob-ross-effect-apples-in-winter-turn-the-cloth-call-me-elizabeth-rip-her-to-shreds-an-echo-in-the-void-8919323
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/apples-in-winter
 - title: As Far As We Know
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-as-far-as-we-know-nesting-surreally-good-playback-you-come-from-a-long-line-of-shallow-people-thermodrama-8921021
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/as-far-as-we-know
 - title: Baby Everything
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-king-of-all-birds-baby-everything-puttana-the-second-best-school-shooting-ae-the-painted-revolutionary-8917948
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/baby-everything
 - title: Badgers
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-supposing-for-dolores-badgers-8847434
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/badgers
 - title: Big Stuff
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-big-stuff-gameplay-long-way-home-saving-britney-in-the-cold-light-operation-blank-8919289
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/big-stuff
 - title: Bigfoot Ripped My Dog In Half I Saw It
   rating: 5
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-bigfoot-ripped-my-dog-in-half-i-saw-it-the-jolly-fisherman-song-unburied-8921940
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/bigfoot-ripped-my-dog-in-half-i-saw-it
 - title: Blackbox
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-alone-blackbox-hadid-basic-bald-btch-live-from-the-afterlife-8920885
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/blackbox
 - title: Bull/Fight
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-pigeon-factory-bullfight-roleplay-grandmas-shop-churchills-urinal-8924624
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/bull-fight
 - title: BURN
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-dracula-lucys-dream-burn-emma-and-warren-in-the-garden-of-eden-8848051
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/burn
 - title: Cathy
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-mayflies-after-party-cathy-8885264
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/cathy
 - title: Come Back Home
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-come-back-home-linus-karp-was-hit-with-an-umbrella-transmission-into-the-dark-sarah-mcguinness-grit-glamour-and-gaslight-mister-jackpot-8915508
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/come-back-home
 - title: Day of the Locust
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-good-with-faces-day-of-the-locust-helen-bradley-painter-and-storyteller-8848665
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/day-of-the-locust
 - title: "Dracula: Lucy’s Dream"
   rating: 5
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-dracula-lucys-dream-burn-emma-and-warren-in-the-garden-of-eden-8848051
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/dracula-lucy-s-dream
 - title: For Dolores
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-supposing-for-dolores-badgers-8847434
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/for-dolores
 - title: Gameplay
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-big-stuff-gameplay-long-way-home-saving-britney-in-the-cold-light-operation-blank-8919289
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/gameplay
 - title: Get a Grip
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-jerk-off-get-a-grip-3-times-i-killed-citizen-otherplace-launa-8848819
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/get-a-grip
 - title: Giraffe
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-giraffe-turn-your-fcking-phones-off-a-gay-masseurs-guide-to-happy-endings-the-toe-poke-8886153
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/giraffe
 - title: Good With Faces
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-good-with-faces-day-of-the-locust-helen-bradley-painter-and-storyteller-8848665
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/good-with-faces
 - title: "Helen Bradley: Painter and Storyteller"
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-good-with-faces-day-of-the-locust-helen-bradley-painter-and-storyteller-8848665
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/helen-bradley-painter-and-storyteller
 - title: I Was Never Here
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-librarians-a-very-serious-comedy-i-was-never-here-8921119
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/i-was-never-here
 - title: I'm Mom
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-safety-primal-scream-im-mom-8918945
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/i-m-mom
 - title: In the Black
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-in-the-black-we-had-fun-a-public-display-of-affection-the-last-mad-man-non-human-animal-cvntclave-hamlet-prince-of-sweden-8914845
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/in-the-black
 - title: Jerk Off!
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-jerk-off-get-a-grip-3-times-i-killed-citizen-otherplace-launa-8848819
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/jerk-off
 - title: Jitters
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-pink-rabbit-jitters-no-hard-felix-one-house-on-brick-lane-the-unwilling-accomplice-last-orders-8883000
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/jitters
 - title: JULIUS CAESAR VARIETY SHOW
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-the-last-audition-lears-fool-julius-caesar-variety-show-macbeth-blood-and-bluegrass-mother-maiden-and-crone-8919304
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/julius-caesar-variety-show
 - title: Lifelong
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-lifelong-the-bbcs-first-homosexual-11-12-angry-men-theyre-just-small-town-northern-lads-departure-is-my-homecoming-8847127
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/lifelong
 - title: Linus Karp Was Hit With An Umbrella
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-come-back-home-linus-karp-was-hit-with-an-umbrella-transmission-into-the-dark-sarah-mcguinness-grit-glamour-and-gaslight-mister-jackpot-8915508
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/linus-karp-was-hit-with-an-umbrella
 - title: Lions
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-lions-right-before-i-go-me-and-the-dog-big-dog-metamorphisis-rank-8847450
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/lions
 - title: Mayflies
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-mayflies-after-party-cathy-8885264
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/mayflies
 - title: Mother, Maiden and Crone
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-the-last-audition-lears-fool-julius-caesar-variety-show-macbeth-blood-and-bluegrass-mother-maiden-and-crone-8919304
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/mother-maiden-and-crone
 - title: Motorway
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-distance-motorway-slay-bi-curious-george-snail-trail-dinosaurs-8920993
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/motorway
 - title: Nesting
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-as-far-as-we-know-nesting-surreally-good-playback-you-come-from-a-long-line-of-shallow-people-thermodrama-8921021
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/nesting
 - title: No Hard Felix
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-pink-rabbit-jitters-no-hard-felix-one-house-on-brick-lane-the-unwilling-accomplice-last-orders-8883000
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/no-hard-felix
 - title: Parasocial Activity
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-parasocial-activity-we-will-hear-the-angels-temi-wilkey-lover-girl-more-8848644
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/parasocial-activity
 - title: Pink Rabbit
   rating: 5
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-pink-rabbit-jitters-no-hard-felix-one-house-on-brick-lane-the-unwilling-accomplice-last-orders-8883000
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/pink-rabbit
 - title: Play Dead
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-play-dead-see-you-tomorrow-wench-good-girl-ludwig-unfinished-business-space-cadet-chestnuts-8921132
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/play-dead
 - title: Right Before I Go
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-lions-right-before-i-go-me-and-the-dog-big-dog-metamorphisis-rank-8847450
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/right-before-i-go
 - title: ROLEPLAY
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-pigeon-factory-bullfight-roleplay-grandmas-shop-churchills-urinal-8924624
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/roleplay
 - title: Safety
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-safety-primal-scream-im-mom-8918945
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/safety
 - title: See You Tomorrow
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-play-dead-see-you-tomorrow-wench-good-girl-ludwig-unfinished-business-space-cadet-chestnuts-8921132
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/see-you-tomorrow
 - title: Stay
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-44-minutes-stay-weiner-beacon-the-hunger-artist-the-witches-of-macbeth-8924519
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/stay
 - title: Supposing
   rating: 5
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-supposing-for-dolores-badgers-8847434
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/supposing
 - title: Surreally Good
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-as-far-as-we-know-nesting-surreally-good-playback-you-come-from-a-long-line-of-shallow-people-thermodrama-8921021
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/surreally-good
 - title: The BBC’s First Homosexual
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-lifelong-the-bbcs-first-homosexual-11-12-angry-men-theyre-just-small-town-northern-lads-departure-is-my-homecoming-8847127
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-bbc-s-first-homosexual
 - title: The Bob Ross Effect
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-bob-ross-effect-apples-in-winter-turn-the-cloth-call-me-elizabeth-rip-her-to-shreds-an-echo-in-the-void-8919323
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-bob-ross-effect
 - title: The Bridge
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-the-bridge-the-last-days-of-trump-how-to-write-a-novel-or-not-off-script-the-love-talker-the-man-who-said-too-much-8847194
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-bridge
 - title: The Distance
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-distance-motorway-slay-bi-curious-george-snail-trail-dinosaurs-8920993
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-distance
 - title: The Jolly Fisherman
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-bigfoot-ripped-my-dog-in-half-i-saw-it-the-jolly-fisherman-song-unburied-8921940
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-jolly-fisherman
 - title: The King of All Birds
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-king-of-all-birds-baby-everything-puttana-the-second-best-school-shooting-ae-the-painted-revolutionary-8917948
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-king-of-all-birds
 - title: The Last Audition
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-the-last-audition-lears-fool-julius-caesar-variety-show-macbeth-blood-and-bluegrass-mother-maiden-and-crone-8919304
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-last-audition
 - title: The Last Days of Trump (A Liberal Fantasy)
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/edinburgh-fringe-theatre-reviews-the-bridge-the-last-days-of-trump-how-to-write-a-novel-or-not-off-script-the-love-talker-the-man-who-said-too-much-8847194
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-last-days-of-trump-a-liberal-fantasy
 - title: The Late Utopians
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-late-utopians-you-and-me-and-whoever-comes-next-charles-dickens-the-hanged-mans-bride-the-wetness-disciples-of-anatomy-how-to-poop-in-an-outhouse-at-58degc-8919228
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-late-utopians
 - title: "The Librarians: A Very Serious Comedy!"
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-librarians-a-very-serious-comedy-i-was-never-here-8921119
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-librarians-a-very-serious-comedy
 - title: The Pigeon Factory
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-pigeon-factory-bullfight-roleplay-grandmas-shop-churchills-urinal-8924624
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-pigeon-factory
 - title: The Singer
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-and-eif-theatre-reviews-the-singer-seagull-8848542
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/the-singer
 - title: To Do Lists
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-amnesia-to-do-lists-sitting-in-silence-tap-out-or-ill-hit-you-again-lululand-an-evening-with-gerald-lloyd-davies-8925001
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/to-do-lists
 - title: Toast
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-toast-democrazy-m-woman-of-fashion-8847248
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/toast
 - title: "Transmission: Into the Dark"
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-come-back-home-linus-karp-was-hit-with-an-umbrella-transmission-into-the-dark-sarah-mcguinness-grit-glamour-and-gaslight-mister-jackpot-8915508
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/transmission-into-the-dark
 - title: Turn Your F*cking Phones Off
   rating: 4
   considered: no
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-giraffe-turn-your-fcking-phones-off-a-gay-masseurs-guide-to-happy-endings-the-toe-poke-8886153
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/turn-your-f-cking-phones-off
 - title: You and Me (and Whoever Comes Next)
   rating: 4
   considered: yes
   reviewUrl: https://www.scotsman.com/arts-and-culture/edinburgh-festivals/theatre-and-stage/fringe-theatre-reviews-the-late-utopians-you-and-me-and-whoever-comes-next-charles-dickens-the-hanged-mans-bride-the-wetness-disciples-of-anatomy-how-to-poop-in-an-outhouse-at-58degc-8919228
+  guessedShowUrl: https://www.edfringe.com/tickets/whats-on/you-and-me-and-whoever-comes-next
