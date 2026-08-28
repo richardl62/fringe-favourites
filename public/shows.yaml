@@ -74,7 +74,7 @@
   title: 1 Dazzling Cabaret
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+  noAvailability: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
   startTime: 20:00
   duration: 1:00
   venue: The Live Room at Laughing Horse @ The Three Sisters
@@ -123,7 +123,7 @@
   title: 44 Minutes
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  noAvailability: [9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25]
+  noAvailability: [9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27]
   startTime: 21:05
   duration: 1:00
   venue: Front Room at Assembly @ St Andrew Square
@@ -142,7 +142,7 @@ a-forgotten-woman-mrs-oscar-wilde:
   title: "A Forgotten Woman: Mrs Oscar Wilde"
   rating: 1
   dates: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
-  noAvailability: [7, 9, 11, 13, 15, 17, 19, 21, 25, 29]
+  noAvailability: [7, 9, 11, 13, 15, 17, 19, 21, 25, 27, 29]
   startTime: 17:05
   duration: 1:00
   venue: Annexe at theSpace @ Symposium Hall
@@ -239,8 +239,8 @@ amnesia:
   title: Amnesia
   rating: 1
   startTime: 16:25
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [11, 19, 22, 27, 28]
+  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [11, 19, 22, 28, 29, 30]
   duration: 1:00
   venue: Bunker Two at Pleasance Courtyard
   url: https://www.edfringe.com/tickets/whats-on/amnesia
@@ -324,7 +324,7 @@ atomic-tales:
 avenue-q:
   title: Avenue Q
   rating: 1
-  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  dates: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30]
   startTime: 20:50
   duration: 2:05
   venue: Lower Hall at Braw Venues @ Grand Lodge
@@ -333,9 +333,9 @@ avenue-q:
 badgers:
   title: Badgers
   rating: 1
-  dates: [14, 15, 23, 25, 26, 27, 28, 29, 30]
-  times: {14: "10:15", 15: "12:45", 23: "18:00", 25: "20:30", 26: "10:15", 27: "12:45", 28: "15:30", 29: "18:00", 30: "10:15"}
-  noAvailability: [14, 15, 23, 26, 27]
+  dates: [14, 15, 23, 25, 26, 28, 29, 30]
+  times: {14: "10:15", 15: "12:45", 23: "18:00", 25: "20:30", 26: "10:15", 28: "15:30", 29: "18:00", 30: "10:15"}
+  noAvailability: [14, 15, 23, 26]
   duration: 1:10
   venue: Traverse 2 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/badgers
@@ -401,7 +401,7 @@ buggers:
   booked: 26
   bookedTime: 13:20
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  noAvailability: [14, 15, 16, 18, 22, 25, 27, 28, 29]
+  noAvailability: [14, 15, 16, 18, 22, 25, 28]
   times: {5: "13:20", 6: "13:20", 7: "13:20", 8: "13:20", 9: "13:20", 10: "13:20", 11: "13:20", 12: "13:20", 13: "13:20", 14: "13:20", 15: "13:20", 16: "13:20", 18: "13:20", 19: "13:20", 20: "13:20", 21: "13:20", 22: "13:20", 23: "13:20", 25: "13:20", 26: "13:20-14:40", 27: "13:20", 28: "13:20", 29: "13:20", 30: "13:20"}
   duration: 1:00
   venue: Upstairs at Pleasance Courtyard
@@ -441,7 +441,7 @@ casual-receptionist-of-the-quarter:
   title: Casual Receptionist of the Quarter
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [18, 19, 20, 21, 22, 23, 24, 25, 26]
+  noAvailability: [18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
   startTime: 17:20
   duration: 1:00
   venue: Bothie at Gilded Balloon Patter House
@@ -450,9 +450,9 @@ casual-receptionist-of-the-quarter:
 cathy:
   title: Cathy
   booked: 19
-  dates: [14, 15, 21, 22, 26, 27, 28, 29, 30]
-  times: {14: "18:30", 15: "11:30", 21: "18:30", 22: "11:30", 26: "11:30", 27: "14:30", 28: "18:30", 29: "11:30", 30: "14:30"}
-  noAvailability: [14, 15, 21, 22, 26, 27, 28, 29, 30]
+  dates: [14, 15, 21, 22, 26, 28, 29, 30]
+  times: {14: "18:30", 15: "11:30", 21: "18:30", 22: "11:30", 26: "11:30", 28: "18:30", 29: "11:30", 30: "14:30"}
+  noAvailability: [14, 15, 21, 22, 26, 28, 29, 30]
   duration: 1:10
   venue: Traverse 1 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/cathy
@@ -474,16 +474,6 @@ chip-and-gus-a-comedy-with-balls:
   duration: 1:05
   venue: Venue 45 at theSpace @ Venue 45
   url: https://www.edfringe.com/tickets/whats-on/chip-and-gus-a-comedy-with-balls
-
-# PROBLEM: some dates have more than two performances
-coma:
-  title: COMA
-  rating: 0
-  dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  times: {7: "many", 8: "many", 9: "many", 10: "many", 11: "many", 12: "many", 13: "many", 14: "many", 15: "many", 16: "many", 17: "many", 18: "many", 19: "many", 20: "many", 21: "many", 22: "many", 23: "many", 24: "many", 25: "many", 26: "many", 27: "many", 28: "many", 29: "many", 30: "many", 31: "many", 5: "many", 6: "many"}
-  duration: 0:30
-  venue: Darkfield COMA at Assembly George Square
-  url: https://www.edfringe.com/tickets/whats-on/coma
 
 dancing-shoes-wip:
   title: Dancing Shoes (WIP)
@@ -580,8 +570,8 @@ elf-lyons-is-the-woman-on-the-edge:
   title: Elf Lyons is The Woman on the Edge
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [11, 12, 14, 15, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
-  times: {24: "21:30-23:15", 31: "17:00-21:30", 5: "21:30", 6: "21:30", 7: "21:30", 8: "21:30", 9: "21:30", 10: "21:30", 11: "21:30", 12: "21:30", 13: "21:30", 14: "21:30", 15: "21:30", 16: "21:30", 18: "21:30", 19: "21:30", 20: "21:30", 21: "21:30", 22: "21:30", 23: "21:30", 25: "21:30", 26: "21:30", 27: "21:30", 28: "21:30", 29: "21:30", 30: "21:30"}
+  noAvailability: [11, 12, 14, 15, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  times: {31: "17:00-21:30", 24: "21:30-23:15", 5: "21:30", 6: "21:30", 7: "21:30", 8: "21:30", 9: "21:30", 10: "21:30", 11: "21:30", 12: "21:30", 13: "21:30", 14: "21:30", 15: "21:30", 16: "21:30", 18: "21:30", 19: "21:30", 20: "21:30", 21: "21:30", 22: "21:30", 23: "21:30", 25: "21:30", 26: "21:30", 27: "21:30", 28: "21:30", 29: "21:30", 30: "21:30"}
   duration: 1:00
   venue: Beyond at Pleasance Courtyard
   url: https://www.edfringe.com/tickets/whats-on/elf-lyons-is-the-woman-on-the-edge
@@ -619,7 +609,7 @@ giraffe:
   title: Giraffe
   rating: 0
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [12, 14, 16, 17, 18, 19, 22, 23, 24, 25, 27, 28, 29, 30]
+  noAvailability: [12, 14, 16, 17, 18, 19, 22, 23, 24, 25, 27, 28, 29, 30, 31]
   startTime: 13:45
   duration: 1:00
   venue: Cellar at Pleasance Courtyard
@@ -707,7 +697,7 @@ lara-ricote-inkling:
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
   times: {5: "17:40", 6: "17:40", 7: "17:40", 8: "17:40", 9: "17:40", 10: "17:40", 11: "17:40", 12: "17:40", 13: "17:40", 14: "17:40", 15: "17:40", 18: "13:25-17:40", 19: "17:40", 20: "17:40", 21: "17:40", 22: "17:40", 23: "13:25-17:40", 24: "17:40", 25: "17:40", 26: "17:40", 27: "17:40", 28: "17:40", 29: "17:40", 30: "17:40"}
-  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 19, 21, 22, 24, 25, 26, 27, 28, 29]
+  noAvailability: [8, 9, 10, 11, 12, 13, 14, 15, 19, 21, 22, 24, 25, 26, 28, 29, 30]
   duration: 1:00
   venue: Monkey Barrel 3 at Monkey Barrel Comedy
   url: https://www.edfringe.com/tickets/whats-on/lara-ricote-inkling
@@ -762,7 +752,7 @@ madeleine-brettingham-legend:
   title: "Madeleine Brettingham: Legend"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 8, 9, 10, 11, 13, 15, 16, 18, 20, 21, 22, 24, 25, 28, 29]
+  noAvailability: [7, 8, 9, 10, 11, 13, 15, 16, 18, 20, 21, 22, 24, 25, 29]
   times: {5: "20:20", 6: "20:20", 7: "20:20", 8: "20:20", 9: "20:20", 10: "20:20", 11: "20:20", 12: "20:20", 13: "20:20", 14: "20:20", 15: "20:20", 16: "20:20", 18: "20:20", 19: "20:20", 20: "20:20", 21: "20:20", 22: "20:20", 23: "20:20", 24: "20:20", 25: "20:20", 26: "20:20", 27: "20:20-21:45", 28: "20:20", 29: "20:20", 30: "20:20", 31: "20:20"}
   duration: 1:00
   venue: Various spaces at Gilded Balloon Teviot
@@ -773,7 +763,7 @@ man-sings-the-same-song-over-and-over-again-for-an-hour:
   rating: 1
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
   times: {6: "19:45", 7: "19:45", 8: "19:45", 9: "19:45", 10: "19:45", 11: "19:45", 12: "19:45", 13: "19:45", 14: "19:45", 15: "19:45", 16: "19:45", 18: "19:45", 19: "19:45", 20: "19:45", 21: "15:00-19:45", 22: "15:00-19:45", 23: "19:45", 25: "19:45", 26: "19:45", 27: "19:45", 28: "15:00-19:45", 29: "15:00-19:45", 30: "19:45", 31: "19:45"}
-  noAvailability: [8, 11, 12, 13, 14, 16, 18, 20, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [8, 11, 12, 13, 14, 16, 18, 20, 22, 23, 25, 26, 28, 29, 30, 31]
   duration: 1:00
   venue: Various spaces at Summerhall
   url: https://www.edfringe.com/tickets/whats-on/man-sings-the-same-song-over-and-over-again-for-an-hour
@@ -782,7 +772,7 @@ mark-thomas-40-in-stand-up-years:
   title: "Mark Thomas: 40 in Stand-Up Years"
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26]
+  noAvailability: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27]
   startTime: 18:05
   duration: 1:00
   venue: Stand 1 at The Stand Comedy Club
@@ -827,9 +817,9 @@ mohan-a-partition-story:
 mrs-stern-wanders-the-prussian-state-library:
   title: Mrs Stern Wanders the Prussian State Library
   booked: 27
-  dates: [14, 18, 27, 28, 29, 30]
-  times: {14: "15:15", 18: "10:15", 27: "18:00", 28: "20:30", 29: "10:15", 30: "12:45"}
-  noAvailability: [14, 18, 27, 28, 29, 30]
+  dates: [14, 18, 28, 29, 30]
+  times: {14: "15:15", 18: "10:15", 28: "20:30", 29: "10:15", 30: "12:45"}
+  noAvailability: [14, 18, 28, 29, 30]
   duration: 1:20
   venue: Traverse 2 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/mrs-stern-wanders-the-prussian-state-library
@@ -886,7 +876,7 @@ pink-rabbit:
   title: Pink Rabbit
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-  noAvailability: [9, 10, 11, 13, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30]
+  noAvailability: [9, 10, 11, 13, 15, 16, 17, 19, 20, 21, 23, 24, 25, 26, 28, 29, 30]
   times: {5: "16:15", 6: "16:15", 7: "16:15", 8: "16:15", 9: "16:15", 10: "16:15", 11: "16:15", 12: "16:15", 13: "16:15", 14: "16:15", 15: "16:15", 16: "16:15", 17: "16:15", 19: "16:15", 20: "16:15", 21: "16:15", 22: "16:15", 23: "16:15", 24: "16:15", 25: "16:15", 26: "16:15", 27: "16:15", 28: "16:15-19:15", 29: "16:15", 30: "16:15"}
   duration: 1:00
   venue: Daisy at Underbelly, Bristo Square
@@ -1036,9 +1026,9 @@ sunshine-on-leith:
 supposing:
   title: "Supposing:"
   booked: 20
-  dates: [14, 22, 27, 28, 29, 30]
-  times: {14: "18:00", 22: "10:30", 27: "20:30", 28: "10:30", 29: "12:45", 30: "20:30"}
-  noAvailability: [14, 22, 27, 28, 29, 30]
+  dates: [14, 22, 28, 29, 30]
+  times: {14: "18:00", 22: "10:30", 28: "10:30", 29: "12:45", 30: "20:30"}
+  noAvailability: [14, 22, 28, 29, 30]
   duration: 1:20
   venue: Traverse 2 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/supposing
@@ -1096,7 +1086,7 @@ the-distance:
   rating: 1
   startTime: 18:00
   dates: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 15, 17, 20, 21, 23, 24, 26, 27, 28]
+  noAvailability: [7, 15, 17, 20, 21, 23, 24, 26, 28]
   duration: 1:05
   venue: Main Hall at Summerhall
   url: https://www.edfringe.com/tickets/whats-on/the-distance
@@ -1110,11 +1100,21 @@ the-event:
   venue: Above at Pleasance Courtyard
   url: https://www.edfringe.com/tickets/whats-on/the-event
 
+the-improv-magic-show:
+  title: The Improv Magic Show
+  rating: 1
+  startTime: 16:00
+  dates: [24, 25, 26, 27, 28, 29]
+  noAvailability: [26]
+  duration: 1:00
+  venue: Olive Studio at Greenside @ George Street
+  url: https://www.edfringe.com/tickets/whats-on/the-improv-magic-show
+
 the-jolly-fisherman:
   title: The Jolly Fisherman
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 8, 9, 10, 11, 12, 14, 15, 16, 19, 21, 22, 26, 28, 29, 30, 31]
+  noAvailability: [7, 8, 9, 10, 11, 12, 14, 15, 16, 19, 21, 22, 26, 27, 28, 29, 30, 31]
   times: {5: "12:45", 6: "12:45", 7: "12:45", 8: "12:45", 9: "12:45", 10: "12:45", 11: "12:45", 12: "12:45", 13: "12:45", 14: "12:45", 15: "12:45", 16: "12:45", 18: "12:45", 19: "12:45", 20: "12:45", 21: "12:45", 22: "12:45", 23: "12:45-14:15", 24: "12:45", 25: "12:45", 26: "12:45", 27: "12:45", 28: "12:45", 29: "12:45", 30: "12:45", 31: "12:45"}
   duration: 1:00
   venue: Buttercup at Underbelly, George Square
@@ -1153,7 +1153,7 @@ the-palestinian-circus-step-and-a-half:
   title: "The Palestinian Circus: Step and a Half"
   rating: 1
   dates: [8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29]
-  noAvailability: [10, 15, 16, 23]
+  noAvailability: [10, 15, 16, 23, 29]
   startTime: 14:05
   duration: 1:00
   venue: The Lafayette at Underbelly’s Circus Hub on the Meadows
@@ -1181,9 +1181,9 @@ the-problem:
 the-singer:
   title: The Singer
   rating: 1
-  dates: [14, 18, 27, 28, 29, 30]
-  times: {14: "21:15", 18: "21:15", 27: "21:00", 28: "21:15", 29: "21:15", 30: "21:00"}
-  noAvailability: [14, 18, 27, 28, 29]
+  dates: [14, 18, 28, 29, 30]
+  times: {14: "21:15", 18: "21:15", 28: "21:15", 29: "21:15", 30: "21:00"}
+  noAvailability: [14, 18, 28, 29, 30]
   duration: 1:20
   venue: Traverse 1 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/the-singer
@@ -1254,7 +1254,7 @@ trans-people-are-awful:
   title: Trans People Are Awful
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
-  noAvailability: [7, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31]
+  noAvailability: [7, 9, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29, 31]
   times: {5: "15:20", 6: "15:20", 7: "15:20", 8: "15:20", 9: "15:20", 10: "15:20", 11: "15:20", 12: "15:20", 13: "15:20", 14: "15:20", 15: "15:20", 16: "15:20", 18: "15:20", 19: "15:20", 20: "15:20", 21: "15:20", 22: "15:20", 23: "15:20", 25: "15:20-23:00", 26: "15:20-23:00", 27: "15:20", 28: "15:20", 29: "15:20", 30: "15:20", 31: "15:20"}
   duration: 1:00
   venue: Bunker One at Pleasance Courtyard
@@ -1292,7 +1292,7 @@ water-colour:
   booked: 16
   dates: [6, 14, 20, 23, 27, 28, 29, 30]
   times: {6: "20:30", 14: "12:45", 20: "12:45", 23: "20:30", 27: "15:15", 28: "18:00", 29: "20:30", 30: "15:15"}
-  noAvailability: [14, 20, 27, 28, 30]
+  noAvailability: [14, 20]
   duration: 1:15
   venue: Traverse 2 at Traverse Theatre
   url: https://www.edfringe.com/tickets/whats-on/water-colour
@@ -1351,7 +1351,6 @@ youth-in-flames-winner-scotsman-fringe-first-award:
   rating: 1
   dates: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
   times: {5: "11:30", 6: "11:30", 7: "11:30", 8: "11:30", 9: "11:30", 10: "11:30", 11: "11:30", 12: "11:30-14:10", 13: "11:30", 14: "11:30", 15: "11:30", 16: "11:30", 17: "11:30", 18: "11:30-14:10", 20: "11:30", 21: "11:30", 22: "11:30", 23: "11:30", 24: "11:30", 25: "11:30-14:10", 26: "11:30", 27: "11:30", 28: "11:30", 29: "11:30", 30: "11:30", 31: "11:30"}
-  noAvailability: [27]
   duration: 1:05
   venue: Bunker One at Pleasance Courtyard
   url: https://www.edfringe.com/tickets/whats-on/youth-in-flames-winner-scotsman-fringe-first-award
