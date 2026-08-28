@@ -58,7 +58,7 @@ export async function loadFavourites(): Promise<LoadResult> {
     );
   }
 
-  const { rawShows, notesById, entryLines, lineCount } = parseShows(
+  const { rawShows, notesById, entryLines, lineCount, startDate } = parseShows(
     showsText,
     problems,
   );
@@ -69,6 +69,7 @@ export async function loadFavourites(): Promise<LoadResult> {
     entryLines,
     lineCount,
     problems,
+    startDate,
   );
 
   return { shows, problems };

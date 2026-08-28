@@ -1,9 +1,13 @@
 // Tidies public/shows.yaml in place, preserving everything else in the file
 // (comments, other fields, formatting):
-//  - sorts entries alphabetically by id
+//  - sorts entries alphabetically by id ("startDate" always stays first,
+//    since it isn't a show)
 //  - adds `rating: "?"` to any entry that doesn't have a "rating" field yet,
 //    unless it's booked - a booked show doesn't need one (see the app's
 //    own "don't report booked shows as unrated" behaviour)
+//  - drops any recorded date before "startDate" (if set) from an entry's
+//    "dates"/"times"/"noAvailability" - a booked date is always kept, even
+//    if it's in the past - see scrape-shared.ts's readStartDate/keepDate
 //  - moves "title" to be the first field in any entry that has one -
 //    sync-csv.ts appends it after existing fields for an entry that
 //    already had notes, so this is what actually keeps it first
@@ -16,20 +20,93 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { isScalar, parseDocument, YAMLMap, type Document } from "yaml";
+import { isScalar, parseDocument, YAMLMap, YAMLSeq, type Document } from "yaml";
+import { START_DATE_FIELD } from "../src/data/types.ts";
 import { describeYamlError } from "../src/data/yaml-errors.ts";
+import { keepDate, readStartDate } from "./scrape-shared.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
 
-function addMissingRatings(doc: Document, root: YAMLMap): void {
+export function addMissingRatings(doc: Document, root: YAMLMap): void {
   for (const item of root.items) {
     const id = String(item.key);
+    if (id === START_DATE_FIELD) {
+      continue; // not a show
+    }
     if (!(item.value instanceof YAMLMap)) {
       throw new Error(`shows.yaml entry "${id}" isn't a mapping`);
     }
     if (!item.value.has("rating") && !item.value.has("booked")) {
       item.value.items.unshift(doc.createPair("rating", "?"));
+    }
+  }
+}
+
+/** Plain JS values of a YAMLSeq's items - YAMLMap#get only unwraps a
+ * direct scalar value, so a nested collection (a "dates"/"noAvailability"
+ * seq) needs unwrapping by hand. */
+function seqValues(seq: YAMLSeq): unknown[] {
+  return seq.items.map((item): unknown => (isScalar(item) ? item.value : item));
+}
+
+/** Drops any recorded date before "startDate" from an entry's
+ * "dates"/"times"/"noAvailability" - a show's booked date is always kept,
+ * even if it's in the past, since it's a record of what was actually
+ * booked rather than just upcoming-schedule info. A no-op for every entry
+ * when shows.yaml has no "startDate" set. */
+export function pruneDatesBeforeStartDate(
+  doc: Document,
+  root: YAMLMap,
+  startDate: number | undefined,
+): void {
+  if (startDate === undefined) {
+    return;
+  }
+  for (const item of root.items) {
+    if (!(item.value instanceof YAMLMap)) {
+      continue;
+    }
+    const entry = item.value;
+    const bookedRaw: unknown = entry.get("booked");
+    const bookedDate = typeof bookedRaw === "number" ? bookedRaw : undefined;
+    const keep = (day: number) => keepDate(day, startDate, bookedDate);
+
+    const dates: unknown = entry.get("dates");
+    if (dates instanceof YAMLSeq) {
+      const values = seqValues(dates);
+      const filtered = values.filter((d) => typeof d === "number" && keep(d));
+      if (filtered.length !== values.length) {
+        const node = doc.createNode(filtered);
+        node.flow = true;
+        entry.set("dates", node);
+      }
+    }
+
+    const noAvailability: unknown = entry.get("noAvailability");
+    if (noAvailability instanceof YAMLSeq) {
+      const values = seqValues(noAvailability);
+      const filtered = values.filter((d) => typeof d === "number" && keep(d));
+      if (filtered.length === 0) {
+        entry.delete("noAvailability");
+      } else if (filtered.length !== values.length) {
+        const node = doc.createNode(filtered);
+        node.flow = true;
+        entry.set("noAvailability", node);
+      }
+    }
+
+    const times: unknown = entry.get("times");
+    if (times instanceof YAMLMap) {
+      const staleKeys = times.items
+        .map((pair) => Number(pair.key))
+        .filter((day) => !keep(day));
+      for (const day of staleKeys) {
+        times.delete(day);
+      }
+      if (times.items.length === 0) {
+        entry.delete("times");
+      }
     }
   }
 }
@@ -94,8 +171,16 @@ function removeRedundantTitleComment(root: YAMLMap): void {
   }
 }
 
-function sortEntries(root: YAMLMap): void {
-  root.items.sort((a, b) => String(a.key).localeCompare(String(b.key)));
+/** Sorts entries alphabetically by id, except "startDate" (not a show id)
+ * always stays first, wherever it sorts alphabetically. */
+export function sortEntries(root: YAMLMap): void {
+  root.items.sort((a, b) => {
+    const aKey = String(a.key);
+    const bKey = String(b.key);
+    if (aKey === START_DATE_FIELD) return -1;
+    if (bKey === START_DATE_FIELD) return 1;
+    return aKey.localeCompare(bKey);
+  });
 
   // Every entry gets exactly one blank line before it, except the first -
   // which shouldn't have one, since a blank line already follows the file's
@@ -125,7 +210,10 @@ function main(): void {
     throw new Error("shows.yaml doesn't have a top-level mapping");
   }
 
+  const startDate = readStartDate(root);
+
   addMissingRatings(doc, root);
+  pruneDatesBeforeStartDate(doc, root, startDate);
   moveTitleFirst(root);
   moveFieldsLast(root);
   removeRedundantTitleComment(root);
@@ -143,4 +231,10 @@ function main(): void {
   console.log(`shows.yaml ${changed ? "updated" : "unchanged"}.`);
 }
 
-main();
+// Only run main() when this file is executed directly (`node
+// scripts/tidy-shows.ts`), not when tidy-shows.test.ts imports its exported
+// pure functions - otherwise importing it for testing would read/write the
+// real shows.yaml as a side effect.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

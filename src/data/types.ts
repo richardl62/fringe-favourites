@@ -1,6 +1,11 @@
 export const unknownDate = "?";
 export type DatesT = number[] | typeof unknownDate;
 
+/** shows.yaml's top-level "startDate" field name - a day-of-month number
+ * before which a show's per-date info (dates/times/noAvailability) need
+ * not be recorded, since it's already in the past. Not a show id. */
+export const START_DATE_FIELD = "startDate";
+
 /** A date's performance time(s): a single known time, exactly two known
  * times (the date has two performances, shown as separate entries on the
  * page), or "many" for three or more performances, whose times are left

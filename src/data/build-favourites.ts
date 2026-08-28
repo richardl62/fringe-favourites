@@ -18,6 +18,7 @@ export function buildFavourites(
   entryLines: Map<string, number>,
   lineCount: number,
   problems: Problem[],
+  startDate?: number,
 ): Show[] {
   const consumedIds = new Set<string>();
   const shows: Show[] = [];
@@ -45,8 +46,9 @@ export function buildFavourites(
       notes,
       editLink,
       problems,
+      startDate,
     );
-    const times = resolveTimes(raw, notes, editLink, dates, problems);
+    const times = resolveTimes(raw, notes, editLink, dates, problems, startDate);
     const noAvailability = resolveNoAvailability(
       raw,
       notes,
@@ -90,11 +92,23 @@ function resolveDatesAndBooking(
   notes: ShowNotes | undefined,
   editLink: string | undefined,
   problems: Problem[],
+  startDate: number | undefined,
 ): { dates: DatesT; booked: boolean } {
   const link = { title: raw.title, url: raw.url };
 
   if (notes?.booked !== undefined) {
-    if (notes.dates !== undefined && !notes.dates.includes(notes.booked)) {
+    // A booked date before shows.yaml's own "startDate" is expected to be
+    // missing from "dates": a sync script always keeps an already-recorded
+    // booked date there (see scrape-shared.ts's readStartDate/keepDate),
+    // but can't add one back once the date's performance has dropped out
+    // of what it scrapes at all, which is normal once it's well in the past.
+    const bookedIsPastStartDate =
+      startDate !== undefined && notes.booked < startDate;
+    if (
+      notes.dates !== undefined &&
+      !notes.dates.includes(notes.booked) &&
+      !bookedIsPastStartDate
+    ) {
       problems.push(
         warn(
           `is "booked" for a date not in its "dates" list in shows.yaml`,
@@ -205,6 +219,7 @@ function resolveTimes(
   editLink: string | undefined,
   dates: DatesT,
   problems: Problem[],
+  startDate: number | undefined,
 ): TimesT {
   const link = { title: raw.title, url: raw.url };
 
@@ -254,7 +269,12 @@ function resolveTimes(
     problems.push(multiplePerformances(manyDates, link, editLink));
   }
 
-  const missingOverrides = knownDates.filter((d) => !overrideDates.includes(d));
+  // A date before shows.yaml's own "startDate" is expected to have no
+  // recorded time either, for the same reason it's expected to be missing
+  // from "dates" - see resolveDatesAndBooking's bookedIsPastStartDate.
+  const missingOverrides = knownDates.filter(
+    (d) => !overrideDates.includes(d) && (startDate === undefined || d >= startDate),
+  );
   if (missingOverrides.length > 0) {
     problems.push(
       warn(

@@ -1,10 +1,12 @@
 // Shared helpers for scripts/fetch-dates.ts, scripts/fetch-free-fringe.ts,
-// and scripts/sync-csv.ts: polite-scraping basics, id-scanning, and editing
-// a shows.yaml entry (including its "# PROBLEM: ..." comment) while
-// preserving everything else in the file.
+// scripts/sync-csv.ts, and scripts/tidy-shows.ts: polite-scraping basics,
+// id-scanning, editing a shows.yaml entry (including its "# PROBLEM: ..."
+// comment), and reading shows.yaml's "startDate" - all while preserving
+// everything else in the file.
 
 import { isScalar, YAMLMap, type Document, type Pair } from "yaml";
 import { PROBLEM_PREFIX } from "../src/data/problem-comment.ts";
+import { START_DATE_FIELD } from "../src/data/types.ts";
 
 export const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36";
@@ -41,6 +43,36 @@ export function formatDuration(minutes: number): string {
  * scraped at all. */
 export function hasExistingDates(doc: Document, id: string): boolean {
   return doc.getIn([id, "dates"]) !== undefined;
+}
+
+/** Reads shows.yaml's optional top-level "startDate" - a day-of-month
+ * number before which a show's per-date info (dates/times/noAvailability)
+ * need not be recorded, since it's already in the past. Returns undefined
+ * when shows.yaml has no "startDate" set, in which case every date is
+ * recorded as before. */
+export function readStartDate(root: YAMLMap): number | undefined {
+  const value: unknown = root.get(START_DATE_FIELD);
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== "number") {
+    throw new Error(
+      `shows.yaml's "${START_DATE_FIELD}" should be a day-of-month number, got "${JSON.stringify(value)}"`,
+    );
+  }
+  return value;
+}
+
+/** Whether a date is worth recording in shows.yaml: on/after "startDate",
+ * or the show's own booked date - kept regardless of "startDate", since
+ * it's a record of what was actually booked rather than just
+ * upcoming-schedule info. */
+export function keepDate(
+  day: number,
+  startDate: number | undefined,
+  bookedDate: number | undefined,
+): boolean {
+  return startDate === undefined || day >= startDate || day === bookedDate;
 }
 
 export function findOrCreateEntry(

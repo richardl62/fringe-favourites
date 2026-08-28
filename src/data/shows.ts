@@ -8,7 +8,7 @@ import {
 } from "yaml";
 import { error, warn, type Problem } from "./problems";
 import { extractProblemComment } from "./problem-comment";
-import type { PerformanceTime, RawShow } from "./types";
+import { START_DATE_FIELD, type PerformanceTime, type RawShow } from "./types";
 import { showsYamlEditLink } from "./vscode-link";
 import { describeYamlError } from "./yaml-errors";
 
@@ -33,6 +33,9 @@ export interface ParsedShows {
   /** Total line count of shows.yaml, for linking to the end of the file when
    * a show has no entry there yet. */
   lineCount: number;
+  /** shows.yaml's optional top-level "startDate" - see types.ts's
+   * START_DATE_FIELD. Undefined when shows.yaml has no "startDate" set. */
+  startDate?: number;
 }
 
 // Every show has RAW_FIELDS now, filled in either by a sync script (e.g.
@@ -226,8 +229,23 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
 
   const rawShows: RawShow[] = [];
   const notesById = new Map<string, ShowNotes>();
+  let startDate: number | undefined;
 
   for (const [id, value] of Object.entries(doc as Record<string, unknown>)) {
+    if (id === START_DATE_FIELD) {
+      if (typeof value !== "number") {
+        problems.push(
+          error(
+            `shows.yaml: "${START_DATE_FIELD}" should be a day-of-month number, got "${String(value)}"`,
+            undefined,
+            showsYamlEditLink(entryLines.get(id) ?? lineCount),
+          ),
+        );
+      } else {
+        startDate = value;
+      }
+      continue;
+    }
     try {
       if (typeof value !== "object" || value === null) {
         throw new Error("expected a mapping of fields");
@@ -267,7 +285,7 @@ export function parseShows(text: string, problems: Problem[]): ParsedShows {
     }
   }
 
-  return { rawShows, notesById, entryLines, lineCount };
+  return { rawShows, notesById, entryLines, lineCount, startDate };
 }
 
 interface EntryMetadata {

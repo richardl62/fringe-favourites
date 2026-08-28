@@ -16,9 +16,20 @@ function rawShow(overrides: Partial<RawShow> = {}): RawShow {
   };
 }
 
-function build(rawShows: RawShow[], notesById: Map<string, ShowNotes>) {
+function build(
+  rawShows: RawShow[],
+  notesById: Map<string, ShowNotes>,
+  startDate?: number,
+) {
   const problems: Problem[] = [];
-  const shows = buildFavourites(rawShows, notesById, new Map(), 0, problems);
+  const shows = buildFavourites(
+    rawShows,
+    notesById,
+    new Map(),
+    0,
+    problems,
+    startDate,
+  );
   return { shows, problems };
 }
 
@@ -89,6 +100,33 @@ describe("buildFavourites", () => {
 
     expect(shows[0].dates).toEqual([12]);
     expect(shows[0].booked).toBe(true);
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes('is "booked" for a date not in its "dates" list'),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not warn when booked for a date before startDate, even if it's not in the dates list", () => {
+    const notes: ShowNotes = { rating: 1, dates: [28, 29], booked: 12 };
+    const { shows, problems } = build(
+      [rawShow()],
+      new Map([["a-show", notes]]),
+      28,
+    );
+
+    expect(shows[0].dates).toEqual([12]);
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes('is "booked" for a date not in its "dates" list'),
+      ),
+    ).toBe(false);
+  });
+
+  it("still warns when booked for a date on/after startDate that's not in the dates list", () => {
+    const notes: ShowNotes = { rating: 1, dates: [28, 29], booked: 30 };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]), 28);
+
     expect(
       hasProblem(problems, (p) =>
         p.message.includes('is "booked" for a date not in its "dates" list'),
@@ -226,6 +264,34 @@ describe("buildFavourites", () => {
     expect(
       hasProblem(problems, (p) =>
         p.message.includes("no specific time recorded for date(s) 11, 12"),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not warn about a missing time override for a date before startDate", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      booked: 19,
+      times: { 28: { kind: "single", time: "18:30" } },
+    };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]), 28);
+
+    expect(
+      hasProblem(problems, (p) => p.message.includes("no specific time recorded")),
+    ).toBe(false);
+  });
+
+  it("still warns about a missing time override for a date on/after startDate", () => {
+    const notes: ShowNotes = {
+      rating: 1,
+      dates: [30],
+      times: { 28: { kind: "single", time: "18:30" } },
+    };
+    const { problems } = build([rawShow()], new Map([["a-show", notes]]), 28);
+
+    expect(
+      hasProblem(problems, (p) =>
+        p.message.includes("no specific time recorded for date(s) 30"),
       ),
     ).toBe(true);
   });

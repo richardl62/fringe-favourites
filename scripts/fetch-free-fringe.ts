@@ -22,6 +22,10 @@
 // untouched and a "# PROBLEM: ..." comment is added above it - grep for
 // "PROBLEM" to find them all. The comment is cleared automatically once a
 // later run scrapes the show cleanly.
+//
+// A date before shows.yaml's own "startDate" (if set) is left out of what's
+// written, except a show's own booked date, which is always kept - see
+// scrape-shared.ts's readStartDate/keepDate.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -30,6 +34,8 @@ import {
   findOrCreateEntry,
   formatDuration,
   hasExistingDates,
+  keepDate,
+  readStartDate,
   REQUEST_DELAY_MS,
   sleep,
   updateProblemComment,
@@ -179,6 +185,7 @@ function applyShow(
   entry: YAMLMap,
   url: string,
   scraped: ScrapedShow,
+  startDate: number | undefined,
 ): void {
   entry.set("title", scraped.title);
   entry.set("venue", scraped.venue);
@@ -186,7 +193,11 @@ function applyShow(
   entry.set("startTime", scraped.startTime);
   entry.set("url", url);
 
-  const datesNode = doc.createNode(scraped.dates);
+  const bookedRaw: unknown = entry.get("booked");
+  const bookedDate = typeof bookedRaw === "number" ? bookedRaw : undefined;
+  const dates = scraped.dates.filter((d) => keepDate(d, startDate, bookedDate));
+
+  const datesNode = doc.createNode(dates);
   datesNode.flow = true;
   entry.set("dates", datesNode);
 }
@@ -202,6 +213,8 @@ async function main(): Promise<void> {
   if (!(root instanceof YAMLMap)) {
     throw new Error("shows.yaml doesn't have a top-level mapping");
   }
+
+  const startDate = readStartDate(root);
 
   const quick = process.argv.includes("--quick");
   let urls = readShowUrls(urlsText);
@@ -233,7 +246,7 @@ async function main(): Promise<void> {
     const { pair, entry } = findOrCreateEntry(doc, root, id);
     try {
       const scraped = await fetchShow(url);
-      applyShow(doc, entry, url, scraped);
+      applyShow(doc, entry, url, scraped, startDate);
       updateProblemComment(pair, []);
       console.log(`✓ ${id}`);
     } catch (err) {

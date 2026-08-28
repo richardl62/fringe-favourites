@@ -278,6 +278,45 @@ a-show: [this is not a mapping
     ).toBe(true);
   });
 
+  it("doesn't treat startDate as a show entry, and returns its value", () => {
+    const { rawShows, notesById, problems, startDate } = parse(`
+startDate: 28
+
+a-show:
+  rating: 1
+`);
+
+    expect(problems).toHaveLength(0);
+    expect(rawShows).toHaveLength(0);
+    expect(notesById.has("startDate")).toBe(false);
+    expect(notesById.get("a-show")).toEqual({ rating: 1 });
+    expect(startDate).toBe(28);
+  });
+
+  it("returns startDate undefined when shows.yaml has none", () => {
+    const { startDate } = parse(`
+a-show:
+  rating: 1
+`);
+
+    expect(startDate).toBeUndefined();
+  });
+
+  it("reports a non-numeric startDate as an error", () => {
+    const { problems } = parse(`
+startDate: today
+`);
+
+    expect(
+      hasProblem(
+        problems,
+        (p) =>
+          p.severity === "error" &&
+          p.message.includes('"startDate" should be a day-of-month number'),
+      ),
+    ).toBe(true);
+  });
+
   it("records the line each entry starts on", () => {
     const { entryLines } = parse(`
 first-show:

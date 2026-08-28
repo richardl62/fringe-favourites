@@ -3,6 +3,10 @@
 // "dates"/"times"/"noAvailability" fields, in place, preserving everything
 // else in the file (comments, other fields, formatting).
 //
+// A date before shows.yaml's own "startDate" (if set) is left out of what's
+// written, except a show's own booked date, which is always kept - see
+// scrape-shared.ts's readStartDate/keepDate.
+//
 // Run with: npm run fetch-dates
 //
 // Pass --quick (npm run fetch-dates -- --quick) to only scrape shows that
@@ -30,11 +34,14 @@ import {
   findOrCreateEntry,
   hasExistingDates,
   idsFromText,
+  keepDate,
+  readStartDate,
   REQUEST_DELAY_MS,
   sleep,
   updateProblemComment,
   USER_AGENT,
 } from "./scrape-shared.ts";
+import { START_DATE_FIELD } from "../src/data/types.ts";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SHOWS_YAML_PATH = `${REPO_ROOT}public/shows.yaml`;
@@ -59,6 +66,9 @@ function discoverShowIds(
 
   for (const item of root.items) {
     const id = String(item.key);
+    if (id === START_DATE_FIELD) {
+      continue; // not a show - shows.yaml's own "record from this date on" field
+    }
     const url = doc.getIn([id, "url"]);
     if (url === undefined) {
       ids.add(id); // no url field means it's a CSV show per shows.yaml's own format
@@ -325,11 +335,20 @@ function applyOutcome(
   root: YAMLMap,
   id: string,
   outcome: ScrapeOutcome,
+  startDate: number | undefined,
 ): void {
   const { pair, entry } = findOrCreateEntry(doc, root, id);
 
   if (outcome.schedule !== null) {
-    const { dates, times, noAvailability } = outcome.schedule;
+    const bookedRaw: unknown = entry.get("booked");
+    const bookedDate = typeof bookedRaw === "number" ? bookedRaw : undefined;
+    const keep = (day: number) => keepDate(day, startDate, bookedDate);
+
+    const dates = outcome.schedule.dates.filter(keep);
+    const times = outcome.schedule.times
+      ? new Map([...outcome.schedule.times].filter(([day]) => keep(day)))
+      : null;
+    const noAvailability = outcome.schedule.noAvailability.filter(keep);
 
     const datesNode = doc.createNode(dates);
     datesNode.flow = true;
@@ -374,6 +393,8 @@ async function main(): Promise<void> {
     throw new Error("shows.yaml doesn't have a top-level mapping");
   }
 
+  const startDate = readStartDate(root);
+
   const quick = process.argv.includes("--quick");
   let ids = [...discoverShowIds(csvText, doc, root)].sort();
   if (quick) {
@@ -387,7 +408,7 @@ async function main(): Promise<void> {
   let problemCount = 0;
   for (const id of ids) {
     const outcome = await scrapeShow(id);
-    applyOutcome(doc, root, id, outcome);
+    applyOutcome(doc, root, id, outcome, startDate);
     if (outcome.problems.length > 0) {
       problemCount++;
       console.error(`✗ ${id}: ${outcome.problems.join("; ")}`);
